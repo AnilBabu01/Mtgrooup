@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import Logo from "../../images/logo.jpg";
 import lock from "../../images/lock.png";
 import man from "../../images/man.png";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate } from "react-router-dom";
 import "./Login.css";
 const Login = () => {
+  const naviaget = useNavigate();
   const [credentials, setCredentials] = useState({
     number: "",
     password: "",
@@ -17,7 +18,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    naviaget("/home")
     const { number, password } = credentials;
     console.log("registe data", number, password);
   };
