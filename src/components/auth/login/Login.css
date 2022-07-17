@@ -1,0 +1,70 @@
+.main-auth{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-div img{
+    height: 250px;
+    width: 450px;
+}
+
+.input-div{
+    background-color: #f1f1f1;
+    margin-bottom: 20px;
+    display: flex;
+    padding: 10px;
+    border-radius: 5px;
+}
+.input-div img{
+    width: 25px;
+}
+.input-div input{
+    border: none;
+    background-color: #f1f1f1;
+    border-left: 1px solid gray;
+    margin-left: 20px;
+    font-size: 17px;
+}
+.input-div input:focus{
+    outline: none;
+}
+.form-div{
+    margin-top: 20px;
+}
+
+.btn-div button{
+    width: 100%;
+    background: #e0620d;
+    box-shadow: -1px 5px 15px 0 #e0620d;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    border-radius: 5px;
+    border: none;
+    font-weight: 600;
+    font-size: 17px;
+}
+
+.reg-div{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.reg-div a{
+    text-decoration: none;
+}
+
+.forget-pass{
+    color:#e0620d ;
+}
+
+
+@media screen and (max-width: 780px) {
+   
+.logo-div img{
+    height: 250px;
+    width: 350px;
+}
+  }
