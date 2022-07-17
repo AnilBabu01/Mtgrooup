@@ -1,0 +1,45 @@
+.for-input-div1 {
+  position: relative;
+}
+
+.for-input-div1 input {
+  width: 99.3%;
+  border: none;
+  border: 1px solid gray;
+  height: 2;
+  padding: px;
+  height: 35px;
+  border-radius: 25px;
+  padding-left: 10px;
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+
+.for-input-div1 button {
+  background: #e0620d;
+  position: absolute;
+  left: 91%;
+  bottom: 28px;
+  border: none;
+  width: 90px;
+  height: 25px;
+  color: white;
+  border-radius: 10px;
+}
+
+
+@media screen and (max-width: 780px) {
+ 
+.for-input-div1 button {
+  left: 70%;
+  bottom: 28px;
+  width: 90px;
+  height: 25px;
+}
+
+
+.for-input-div1 input {
+  width: 95%;
+ 
+}
+    }

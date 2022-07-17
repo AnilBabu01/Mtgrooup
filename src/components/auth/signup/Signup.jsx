@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Logo from "../../images/logo.jpg";
 import jewellery from "../../images/jewellery.png";
 import { Link } from "react-router-dom";
+import Close from '../login/forgetpassword/Close';
 import "../login/Login.css";
 import "./Signup.css";
 const Signup = () => {
@@ -44,6 +45,7 @@ const Signup = () => {
   };
   return (
     <>
+     <Close title={"Register"}/>
       <div className="main-auth">
         <div>
           <div className="logo-div1">

@@ -1,0 +1,19 @@
+.close-div {
+  background: #e0620d;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+.title-div {
+  margin: 44%;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+@media screen and (max-width: 780px) {
+  .title-div {
+    margin: 27%;
+  }
+}
