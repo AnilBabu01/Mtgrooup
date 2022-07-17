@@ -1,10 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import Logo from "../../images/logo.jpg";
 import lock from "../../images/lock.png";
 import man from "../../images/man.png";
 import { Link } from "react-router-dom";
 import "./Login.css";
 const Login = () => {
+  const [credentials, setCredentials] = useState({
+    number: "",
+    password: "",
+  });
+
+  const { number, password } = credentials;
+  const onChange = (e) => {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const { number, password } = credentials;
+    console.log("registe data", number, password);
+  };
   return (
     <>
       <div className="main-auth">
@@ -13,21 +29,33 @@ const Login = () => {
             <img src={Logo} alt="logo" />
           </div>
           <div className="form-div">
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="input-div">
                 <img src={man} alt="logo" />
-                <input type="text" placeholder="Phone Number" />
+                <input
+                  onChange={onChange}
+                  name="number"
+                  value={number}
+                  type="text"
+                  placeholder="Phone Number"
+                />
               </div>
               <div className="input-div">
                 <img src={lock} alt="logo" />
-                <input type="text" placeholder="Login Password" />
+                <input
+                  onChange={onChange}
+                  name="password"
+                  value={password}
+                  type="text"
+                  placeholder="Login Password"
+                />
               </div>
               <div className="btn-div">
                 <button>Login</button>
               </div>
             </form>
             <div className="reg-div">
-              <Link to="/">Register</Link>
+              <Link to="/signup">Register</Link>
               <Link className="forget-pass" to="/">
                 Forget Password
               </Link>
