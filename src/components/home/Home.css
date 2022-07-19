@@ -1,0 +1,73 @@
+.recharg-div-home{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+}
+.recharg-div-home-content{
+    background-color: #e0620d;
+    display: flex;
+    width: 97%;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    padding: 20px;
+    color: white;
+}
+
+.text-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.text-div p{
+    margin-top: 0px;
+    margin-bottom: 6px;
+}
+.withdrawoptins{
+    background-color: #fff;
+    box-shadow: 0 0.053333rem 0.533333rem 0.053333rem #dfdfdf;
+    display: flex;
+    width: 97%;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.oprions-icon-div{
+    display: flex;
+    justify-content: space-around;
+    width: 97%;
+}
+.icon-divv p{
+    margin-top: 0px;
+    margin-bottom: 20px;
+    color: #e0620d;
+}
+
+.long{
+    margin-top: 20px;
+    font-size: 20px;
+}
+.icon-divv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.icon-divv .icons{
+    color: #e0620d!important;
+}
+
+
+.plan-div{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap!important;
+    margin-bottom: 55px;
+   
+}

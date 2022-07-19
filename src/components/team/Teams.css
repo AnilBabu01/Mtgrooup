@@ -1,0 +1,66 @@
+.team-type-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.team-type-div-text p {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.team-type-div-text {
+  border: 1px solid gray;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table td {
+  border: 1px solid gray;
+  padding-left: 20px;
+  padding: 10px;
+  padding-bottom: 25px;
+}
+.table td  p{
+    margin-top: 0px;
+    margin-bottom: 0px;
+     font-size: 22px;
+}
+.chenge-color{
+    color: #e0620d;
+    font-size: 27px!important;
+}
+
+.share-div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.share-people{
+    display: flex;
+    align-items: center;
+}
+
+.share-people p{
+    margin-left: 10px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+@media screen and (max-width: 780px) {
+    .table td  p{
+        margin-top: 0px;
+        margin-bottom: 0px;
+        font-size: 14px;
+    }
+
+    .chenge-color{
+        
+        font-size: 20px!important;
+    }
+}

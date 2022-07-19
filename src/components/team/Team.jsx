@@ -1,14 +1,56 @@
-import React from 'react'
-import BottomNavBar from '../bottomnavbar/BottomNavbar'
+import React from "react";
+import BottomNavBar from "../bottomnavbar/BottomNavbar";
+import CloseIcon from "@material-ui/icons/Close";
+import PeopleIcon from "@material-ui/icons/People";
+import { useNavigate } from "react-router-dom";
+import "./Teams.css";
+import TeamTap from "./TeamTap";
 const Team = () => {
+  const navigate = useNavigate();
   return (
-    <>Team
-    
-    
-    <BottomNavBar name="team"/>
-    
-    </>
-  )
-}
+    <>
+      <div className="close-div">
+        <CloseIcon onClick={() => navigate("/home")} />
+        <div className="title-div">
+          <p style={{ fontSize: "22px" }}>My team</p>
+        </div>
+      </div>
 
-export default Team
+      <div className="team-type-div">
+        <table className="table">
+          <tr>
+            <td>
+              {" "}
+              <p>Team assests</p>
+              <p className="chenge-color">₹0</p>
+            </td>
+            <td>
+              {" "}
+              <p>Team recharge(₹)</p>
+              <p className="chenge-color">₹0</p>
+            </td>
+            <td>
+              {" "}
+              <p>Team Number</p>
+              <p className="chenge-color">1</p>
+            </td>
+          </tr>
+        </table>
+      </div>
+     <div className="share-div">
+      <div className="share-people">
+        <PeopleIcon/>
+       <p>Share with Friends</p> 
+      </div>
+      <div>
+        <img src="https://res.cloudinary.com/fiewin/image/upload/images/arrowRight.png" alt="rightgo"/>
+      </div>
+     </div>
+
+     <TeamTap/>
+      <BottomNavBar name="team" />
+    </>
+  );
+};
+
+export default Team;
