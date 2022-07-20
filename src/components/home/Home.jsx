@@ -3,16 +3,17 @@ import BottomNavBar from "../bottomnavbar/BottomNavbar";
 import TelegramIcon from "@material-ui/icons/Telegram";
 import AllInboxIcon from "@material-ui/icons/AllInbox";
 import PeopleIcon from "@material-ui/icons/People";
-import SystemUpdateAltIcon from "@material-ui/icons/SystemUpdateAlt";
 import BusinessIcon from "@material-ui/icons/Business";
 import InputIcon from "@material-ui/icons/Input";
 import jew1 from "../images/jew1.jfif";
 import jew3 from "../images/jew3.jfif";
 import jew4 from "../images/jew4.jfif";
 import jew6 from "../images/jew6.jfif";
+import { useNavigate } from "react-router-dom";
 import "./Home.css";
 import Common from "./Common";
 const Home = () => {
+  const navigate = useNavigate();
   return (
     <>
       <div className="recharg-div-home">
@@ -42,22 +43,18 @@ const Home = () => {
               <TelegramIcon className="icons" />
               <p>Group</p>
             </div>
-            <div className="icon-divv">
+            <div onClick={()=>navigate("/withdraw")} className="icon-divv">
               <AllInboxIcon className="icons" />
               <p>Withdraw</p>
             </div>
           </div>
 
-          <div className="oprions-icon-div">
-            <div style={{ marginLeft: "15px" }} className="icon-divv">
+          <div className="oprions-icon-div1">
+            <div onClick={()=>navigate("/invite")} style={{ marginLeft: "15px" }} className="icon-divv">
               <PeopleIcon className="icons" />
               <p>Invite</p>
             </div>
-            <div style={{ marginLeft: "15px" }} className="icon-divv">
-              <SystemUpdateAltIcon className="icons" />
-              <p>Download</p>
-            </div>
-
+           
             <div style={{ marginRight: "8px" }} className="icon-divv">
               <BusinessIcon className="icons" />
               <p>Compnay</p>

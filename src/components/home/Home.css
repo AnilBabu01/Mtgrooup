@@ -42,6 +42,12 @@
     justify-content: space-around;
     width: 97%;
 }
+
+.oprions-icon-div1{
+    display: flex;
+    justify-content: space-around;
+    width: 97%;
+}
 .icon-divv p{
     margin-top: 0px;
     margin-bottom: 20px;

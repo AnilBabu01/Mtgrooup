@@ -1,0 +1,115 @@
+.main-mine{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.mine-options{
+   display: block;
+   background-color: #b2b2e6;
+   color: white;
+   margin-bottom: 20px;
+   
+}
+.mine-options-go{
+    display: block;
+    background-color: #1c1c87;
+    color: white;
+    margin-bottom: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+ }
+
+.mine-menu{
+  
+    display: flex;
+}
+.btn-div1{
+    background: #2323a9;
+    width: 200px;
+    height: 40px;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.btn-div1 p{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.btn-divv{
+    background: #2323a9;
+    width: 720px;
+    height: 40px;
+    margin: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.icon-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.icon-div p{
+    margin-left: 20px;
+}
+
+
+@media screen and (max-width: 780px) {
+
+
+    .mine-menu{
+  
+        display: block;
+    }
+
+    .mine-options{
+        display: flex;
+        background-color: #1c1c87;
+        color: white;
+        margin-bottom: 20px;
+        
+     }
+
+     .btn-div1{
+        background: #2323a9;
+        width: 120px;
+        height: 40px;
+        margin: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .btn-divv{
+        background: #2323a9;
+        width: 300px;
+        height: 40px;
+        margin: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 28px;
+        padding: 10px;
+        margin: 20px;
+    }
+
+    .mine-options-go{
+        display: block;
+        background-color: #1c1c87;
+        color: white;
+        margin-bottom: 40px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+     }
+}

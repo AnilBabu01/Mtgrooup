@@ -15,8 +15,8 @@ const BottomNavBar = (props) => {
       case "team":
         navigate("/team");
         break;
-      case "write":
-        navigate("/write");
+      case "mine":
+        navigate("/mine");
         break;
 
       default:
@@ -91,9 +91,9 @@ const BottomNavBar = (props) => {
                     className="imgsize"
                     src={write}
                     alt="rechar"
-                    onClick={() => setActiveTabs("write")}
+                    onClick={() => setActiveTabs("mine")}
                   />
-                  <p className="activetext">Write</p>
+                  <p className="activetext">Mine</p>
                 </div>
               </>
             ) : (
@@ -103,9 +103,9 @@ const BottomNavBar = (props) => {
                     className="imgsize"
                     src={write}
                     alt="rechar"
-                    onClick={() => setActiveTabs("write")}
+                    onClick={() => setActiveTabs("mine")}
                   />
-                  <p className="notactivetext">Write</p>
+                  <p className="notactivetext">Mine</p>
                 </div>
               </>
             )}

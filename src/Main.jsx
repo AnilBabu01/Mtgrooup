@@ -5,7 +5,9 @@ import Login from "./components/auth/login/Login";
 import Signup from './components/auth/signup/Signup';
 import Home from "./components/home/Home";
 import Team from "./components/team/Team";
-import Write from "./components/write/Write";
+import Mine from "./components/mine/Mine";
+import Invite from "./components/home/invite/Invite";
+import Withdraw from "./components/home/withdraw/Withdraw";
 const Main = () => {
   return (
     <>
@@ -16,7 +18,9 @@ const Main = () => {
           <Route path="/forget-password" element={<Forgetpassword/>} />
           <Route path="/home" element={<Home/>} />
           <Route path="/team" element={<Team/>} />
-          <Route path="/write" element={<Write/>} />
+          <Route path="/mine" element={<Mine/>} />
+          <Route path="/invite" element={<Invite/>} />
+          <Route path="/withdraw" element={<Withdraw/>} />
         </Routes>
       </BrowserRouter>
     </>
