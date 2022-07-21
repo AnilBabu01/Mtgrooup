@@ -56,7 +56,7 @@ const Login = () => {
               </div>
             </form>
             <div className="reg-div1">
-              <Link className="forget-pass" to="/signup">
+              <Link className="forget-pass" to="/forget-password">
               Forget Password
               </Link>
             </div>

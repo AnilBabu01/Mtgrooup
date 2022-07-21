@@ -30,7 +30,7 @@
     display: flex;
 }
 .btn-div1{
-    background: #e0620d;
+    background: hsl(24, 89%, 46%);
     width: 220px;
     height: 40px;
     margin: 10px;
