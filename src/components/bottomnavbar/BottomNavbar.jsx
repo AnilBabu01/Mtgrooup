@@ -18,6 +18,9 @@ const BottomNavBar = (props) => {
       case "mine":
         navigate("/mine");
         break;
+      case "invite":
+        navigate("/invite");
+        break;
 
       default:
         navigate("/home");

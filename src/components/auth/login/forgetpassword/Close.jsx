@@ -7,7 +7,7 @@ const Close = ({title}) => {
   return (
     <>
       <div className="close-div">
-        <CloseIcon onClick={() => navigate("/")} />
+        <CloseIcon style={{color:"white"}} onClick={() => navigate("/")} />
         <div className="title-div">
           <p>{title}</p>
         </div>

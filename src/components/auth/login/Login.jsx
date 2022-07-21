@@ -55,13 +55,17 @@ const Login = () => {
                 <button>Login</button>
               </div>
             </form>
-            <div className="reg-div">
-              <Link to="/signup">Register</Link>
-              <Link className="forget-pass" to="/forget-password">
-                Forget Password
+            <div className="reg-div1">
+              <Link className="forget-pass" to="/signup">
+              Forget Password
               </Link>
             </div>
-          </div>
+            <div className="reg-div1">
+              <Link className="forget-pass" to="/signup">
+                Already have an account, log in
+              </Link>
+            </div>
+            </div>
         </div>
       </div>
     </>

@@ -1,0 +1,156 @@
+.recharg-div-home1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
+
+.withdrawoptins1 {
+  background-color: #fff;
+  box-shadow: 0 0.053333rem 0.533333rem 0.053333rem #dfdfdf;
+  display: flex;
+  width: 97%;
+  justify-content: right;
+  padding-left: 20px;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.tax-div {
+  border: 1px solid #e0620d;
+  width: 20%;
+  border-radius: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  color: #e0620d;
+  height: 45px;
+}
+.tax-div p {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.am-div {
+  display: flex;
+  align-items: center;
+}
+
+.am-div p {
+  color: #e0620d;
+  font-size: 45px;
+  margin-top: 10px;
+  margin-bottom: 0px;
+  margin-left: 20px;
+}
+.am-div h2 {
+  margin-left: 50px;
+  margin-top: 10px;
+  font-size: 45px;
+}
+
+.bal-div {
+  display: flex;
+}
+
+.bal-div p {
+  font-size: 25px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.with-p {
+  margin-left: 150px;
+  color: #e0620d;
+}
+.bank-del p {
+  margin-top: 11px;
+  margin-bottom: 11px;
+}
+.bank-del {
+  border-bottom: 1px solid gray;
+  display: flex;
+  justify-content: space-between;
+}
+.bank-del input {
+  border: none;
+}
+.bank-del input:focus {
+  outline: none;
+}
+
+.withdraw-div p {
+  color: green;
+  font-weight: 500;
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+.with-div button {
+  border: none;
+  background: #e0620d;
+  box-shadow: -1px 5px 15px 0 #e0620d;
+  width: 97%;
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 5px;
+  border-radius: 5px;
+  height: 40px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.with-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 780px) {
+  .tax-div {
+    width: 25%;
+    border-radius: 28px;
+    font-size: 16px;
+    height: 30px;
+  }
+
+  .am-div p {
+    font-size: 25px;
+    margin-top: 6px;
+    margin-bottom: 0px;
+    margin-left: 10px;
+  }
+  .am-div h2 {
+    margin-left: 20px !important;
+    margin-top: 6px;
+    font-size: 25px;
+  }
+  .bal-div p {
+    font-size: 16px;
+    margin-top: 20px;
+  }
+  .with-p {
+    margin-left: 20px;
+    color: #e0620d;
+  }
+
+  .bank-del input {
+    border: none;
+    padding-right: 10;
+    padding-left: px;
+    padding-right: 0px;
+    width: 80px;
+  }
+  .withdraw-div {
+    margin-bottom: 20px;
+  }
+
+  .with-div {
+    margin-top: 30px;
+  }
+}

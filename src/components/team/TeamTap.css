@@ -31,7 +31,7 @@
     transform: translateX(-50%);
     width: calc(100% + 2px);
     height: 5px;
-    bottom: 0px;
+    bottom: -2px;
     border-bottom: 2px solid #e0620d;
   }
   

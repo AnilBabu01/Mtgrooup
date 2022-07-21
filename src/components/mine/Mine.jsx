@@ -10,6 +10,7 @@ const Mine = () => {
   const navigate = useNavigate();
   return (
     <>
+      
       <div className="main-mine">
         <div className="mine-options">
           <div className="mine-menu">
@@ -45,7 +46,7 @@ const Mine = () => {
       </div>
       <div className="main-mine">
         <div className="mine-options-go">
-        <div className="btn-divv">
+        <div onClick={()=>navigate("/home")} className="btn-divv">
           <div className="icon-div">
             <NoteIcon/>
             <p> My Product</p>
@@ -55,7 +56,7 @@ const Mine = () => {
           <img src="https://res.cloudinary.com/fiewin/image/upload/images/arrowRight.png" alt="rightgo"/>
           </div>
         </div>
-        <div className="btn-divv">
+        <div onClick={()=>navigate("/team")} className="btn-divv">
           <div className="icon-div">
             <PermIdentityIcon/>
             <p> My Team</p>
@@ -65,7 +66,7 @@ const Mine = () => {
           <img src="https://res.cloudinary.com/fiewin/image/upload/images/arrowRight.png" alt="rightgo"/>
           </div>
         </div>
-        <div className="btn-divv">
+        <div onClick={()=>navigate("/forget-password")} className="btn-divv">
           <div className="icon-div">
             <LockOpenIcon />
             <p>Reset Password</p>

@@ -10,9 +10,9 @@ const Team = () => {
   return (
     <>
       <div className="close-div">
-        <CloseIcon onClick={() => navigate("/home")} />
+        <CloseIcon style={{color:'white'}} onClick={() => navigate("/home")} />
         <div className="title-div">
-          <p style={{ fontSize: "22px" }}>My team</p>
+          <p style={{ fontSize: "22px" }} >My team</p>
         </div>
       </div>
 
@@ -37,6 +37,10 @@ const Team = () => {
           </tr>
         </table>
       </div>
+
+
+
+      
      <div className="share-div">
       <div className="share-people">
         <PeopleIcon/>

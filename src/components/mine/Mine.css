@@ -2,21 +2,27 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    
 }
 .mine-options{
    display: block;
-   background-color: #b2b2e6;
+   background-color: #fff;
+   box-shadow: 0 0.053333rem 0.533333rem 0.053333rem #dfdfdf;
    color: white;
-   margin-bottom: 20px;
+   margin-bottom: 10px;
+   margin-top: 20px;
+   border-radius: 10px;
    
 }
 .mine-options-go{
     display: block;
-    background-color: #1c1c87;
+    background-color: #fff;
+    box-shadow: 0 0.053333rem 0.533333rem 0.053333rem #dfdfdf;
     color: white;
     margin-bottom: 40px;
     padding-top: 10px;
     padding-bottom: 10px;
+    border-radius: 10px;
  }
 
 .mine-menu{
@@ -24,10 +30,10 @@
     display: flex;
 }
 .btn-div1{
-    background: #2323a9;
-    width: 200px;
+    background: #e0620d;
+    width: 220px;
     height: 40px;
-    margin: 20px;
+    margin: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -41,7 +47,7 @@
     margin-bottom: 0px;
 }
 .btn-divv{
-    background: #2323a9;
+    background: #e0620d;
     width: 720px;
     height: 40px;
     margin: 20px;
@@ -72,17 +78,16 @@
 
     .mine-options{
         display: flex;
-        background-color: #1c1c87;
+        
         color: white;
         margin-bottom: 20px;
         
      }
 
      .btn-div1{
-        background: #2323a9;
-        width: 120px;
+        width: 140px;
         height: 40px;
-        margin: 20px;
+        margin: 10px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -92,7 +97,7 @@
     }
 
     .btn-divv{
-        background: #2323a9;
+    
         width: 300px;
         height: 40px;
         margin: 20px;
@@ -106,7 +111,7 @@
 
     .mine-options-go{
         display: block;
-        background-color: #1c1c87;
+     
         color: white;
         margin-bottom: 40px;
         padding-top: 10px;

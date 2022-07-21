@@ -2,6 +2,7 @@ import React from "react";
 import CloseIcon from "@material-ui/icons/Close";
 import { useNavigate } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
+import BottomNavbar from '../../bottomnavbar/BottomNavbar';
 import "./Invite.css";
 
 const Invite = () => {
@@ -9,7 +10,7 @@ const Invite = () => {
   return (
     <>
       <div className="close-div1">
-        <CloseIcon onClick={() => navigate("/mine")} />
+        <CloseIcon style={{color:"white"}} onClick={() => navigate("/mine")} />
         <div className="title-div1">
           <p>Promotion</p>
         </div>
@@ -60,6 +61,8 @@ const Invite = () => {
           <button className="total-mmain-div-btn1">Copy Link</button>
         </div>
       </div>
+
+      <BottomNavbar name="invite"/>
     </>
   );
 };

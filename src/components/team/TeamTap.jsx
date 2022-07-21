@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-
+import First from "./first/First";
+import Second from "./second/Second";
 import "./TeamTap.css";
+import Third from "./third/Third";
 
 const TeamTap = () => {
   const [toggleState, setToggleState] = useState(1);
@@ -35,18 +37,18 @@ const TeamTap = () => {
         <div
           className={toggleState === 1 ? "content  active-content" : "content"}
         >
-          fffffff
+          <First />
         </div>
 
         <div
           className={toggleState === 2 ? "content  active-content" : "content"}
         >
-          gdhhsgdhghdghgh
+          <Second />
         </div>
         <div
           className={toggleState === 3 ? "content  active-content" : "content"}
         >
-          anil
+          <Third />
         </div>
       </div>
     </div>

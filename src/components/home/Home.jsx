@@ -50,19 +50,19 @@ const Home = () => {
           </div>
 
           <div className="oprions-icon-div1">
-            <div onClick={()=>navigate("/invite")} style={{ marginLeft: "15px" }} className="icon-divv">
+            <div onClick={()=>navigate("/invite")}  className="icon-divv">
               <PeopleIcon className="icons" />
               <p>Invite</p>
             </div>
            
-            <div style={{ marginRight: "8px" }} className="icon-divv">
+            <div  className="icon-divv">
               <BusinessIcon className="icons" />
               <p>Compnay</p>
             </div>
           </div>
         </div>
       </div>
-           <div className="icon-divv long">
+           <div className="icon-divv1 long">
                 <p>Long Tearm Plan</p>
            </div>
         <div className="plan-div">
@@ -84,9 +84,30 @@ const Home = () => {
           <div>
           <Common img={jew6} rupee={"0"}/>
           </div>
-          
-          
-        </div>
+       </div>
+       <div className="icon-divv long">
+                <p>Short Tearm Plan</p>
+           </div>
+        <div style={{marginBottom:"55px"}}   className="plan-div">
+          <div>
+          <Common img={jew1} rupee={"0"}/>
+          </div>
+          <div>
+          <Common img={jew1} rupee={"0"}/>
+          </div>
+          <div>
+          <Common img={jew3} rupee={"0"}/>
+          </div>
+          <div>
+          <Common img={jew4} rupee={"0"}/>
+          </div>
+          <div>
+          <Common img={jew6} rupee={"0"}/>
+          </div>
+          <div>
+          <Common img={jew6} rupee={"0"}/>
+          </div>
+       </div>
       <BottomNavBar name="home" />
     </>
   );
