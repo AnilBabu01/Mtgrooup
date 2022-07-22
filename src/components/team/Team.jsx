@@ -10,7 +10,7 @@ const Team = () => {
   return (
     <>
       <div className="close-div">
-        <CloseIcon style={{color:'white'}} onClick={() => navigate("/home")} />
+        <CloseIcon style={{color:'white'}} onClick={() => navigate("/mine")} />
         <div className="title-div">
           <p style={{ fontSize: "22px" }} >My team</p>
         </div>

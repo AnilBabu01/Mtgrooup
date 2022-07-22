@@ -15,8 +15,14 @@ const BottomNavBar = (props) => {
       case "team":
         navigate("/team");
         break;
+        case "mybank":
+          navigate("/mybank");
+          break;
       case "mine":
         navigate("/mine");
+        break;
+      case "mine-reset-password":
+        navigate("/mine-reset-password");
         break;
       case "invite":
         navigate("/invite");

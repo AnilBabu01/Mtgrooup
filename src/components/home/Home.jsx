@@ -35,11 +35,11 @@ const Home = () => {
       <div className="recharg-div-home">
         <div className="withdrawoptins">
           <div className="oprions-icon-div">
-            <div className="icon-divv">
+            <div  onClick={()=>navigate("/recharge")} className="icon-divv">
               <InputIcon className="icons" />
               <p>Recharge</p>
             </div>
-            <div className="icon-divv">
+            <div onClick={()=>navigate("/invite")} className="icon-divv">
               <TelegramIcon className="icons" />
               <p>Group</p>
             </div>

@@ -8,6 +8,10 @@ import Team from "./components/team/Team";
 import Mine from "./components/mine/Mine";
 import Invite from "./components/home/invite/Invite";
 import Withdraw from "./components/home/withdraw/Withdraw";
+import Mybank from "./components/mine/mybank/Mybank";
+import Transaction from "./components/mine/transaction/Transaction";
+import Mineresetpassword from "./components/mine/repassword/Mineresetpassword";
+import Recharge from "./components/home/recharge/Recharge";
 const Main = () => {
   return (
     <>
@@ -21,6 +25,10 @@ const Main = () => {
           <Route path="/mine" element={<Mine/>} />
           <Route path="/invite" element={<Invite/>} />
           <Route path="/withdraw" element={<Withdraw/>} />
+          <Route path="/mybank" element={<Mybank/>} />
+          <Route path="/transaction" element={<Transaction/>} />
+          <Route path="/mine-reset-password" element={<Mineresetpassword/>} />
+          <Route path="/recharge" element={<Recharge/>} />
         </Routes>
       </BrowserRouter>
     </>

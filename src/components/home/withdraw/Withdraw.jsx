@@ -1,10 +1,56 @@
 import React, { useState } from "react";
 import CloseIcon from "@material-ui/icons/Close";
 import { useNavigate } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
 import "./Withdraw.css";
+import Updatebankdel from "./Updatebankdel";
+
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+
+    "&:focus": {
+      outline: "none",
+    },
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: "none",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    "&:focus": {
+      outline: "none",
+    },
+    width:"600px",
+    borderRadius:"15px"
+  },
+}));
+
 const Withdraw = () => {
+  const classes = useStyles();
   const navigate = useNavigate();
-  const [num, setnum] = useState("75057##88");
+  const [num, setnum] = useState("");
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  if (num === "") {
+    setTimeout(() => {
+      handleOpen();
+    }, 2000);
+  }
+
   return (
     <>
       <div className="close-div">
@@ -15,6 +61,24 @@ const Withdraw = () => {
         <div className="title-div">
           <p>Withdraw</p>
         </div>
+      </div>
+
+      <div>
+        <Modal
+          className={classes.modal}
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={open}>
+            <div className={classes.paper}>
+               <Updatebankdel setOpen={setOpen}/>
+            </div>
+          </Fade>
+        </Modal>
       </div>
 
       <div className="recharg-div-home1">
@@ -76,11 +140,10 @@ const Withdraw = () => {
           </div>
         </div>
       </div>
-      
+
       <div className="with-div">
         <button>Please pay 20% withdraw tax first</button>
       </div>
-
     </>
   );
 };

@@ -1,0 +1,75 @@
+.close-div7 {
+  background: #e0620d;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+}
+.title-div7 {
+  margin: 44%;
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+}
+.main-rech {
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 0.053333rem 0.533333rem 0.053333rem #dfdfdf;
+}
+.rupe-div {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  margin-bottom: 10px;
+}
+.rupe-div button {
+  background: #e0620d;
+  color: white;
+  width: 300px;
+  height: 35px;
+  font-size: 20px;
+}
+.red-p {
+  color: green;
+}
+
+.confirm-btn-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../../images/w.jfif");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  height: 100%;
+}
+
+.confirm-btn-div button {
+  width: 80%;
+  margin-top: 50px;
+  margin-bottom: 242px;
+  height: 35px;
+  background: #e0620d;
+  color: white;
+  font-size: 25px;
+}
+
+@media screen and (max-width: 780px) {
+  .title-div6 {
+    margin: 10%;
+    font-size: 16px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+  .rupe-div button {
+   
+    margin: 3px;
+}
+
+.title-div7 {
+  margin: 33%;
+ 
+}
+}

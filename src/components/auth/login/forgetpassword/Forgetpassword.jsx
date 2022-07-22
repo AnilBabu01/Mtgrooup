@@ -1,15 +1,21 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
 import Close from "./Close";
 import "./Forgetpassword.css";
+import axios from "axios";
+import Alert from "@mui/material/Alert";
 import Getotp from "./Getotp";
 const Forgetpassword = () => {
+  const navigate =useNavigate();
   const [credentials, setCredentials] = useState({
     number: "",
     otp: "",
     password: "",
   });
-
+  const [successful, setsuccessful] = useState(false);
+  const [invalidotp, setinvalidotp] = useState(false);
+  const success = "success";
+  const warning = "warning";
   const { number, password, otp } = credentials;
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -17,16 +23,47 @@ const Forgetpassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const response = await axios.post(
+      "https://tanishq.luckywin999.in/api/changeForgetPassword",
+      {
+        mobile_no: number,
+        otp : otp,
+        password : password
+      }
+    );
+    if (response.data.status === true) {
+      setsuccessful(true);
+      setTimeout(() => {
+        setsuccessful(false);
+        navigate("/login");
+      }, 2000);
+    }
+    if (response.data.status === false) {
+      setinvalidotp(true);
+      setTimeout(() => {
+        setinvalidotp(false);
+      }, 2000);
+    }
 
-    const { number, password, otp } = credentials;
+    console.log("registe data", number, response);
+  
     console.log("registe data", number, password, otp);
   };
   return (
     <>
-      <Close  title={"Find Password"}/>
+      <Close  title={"Reset Password"}/>
       <div className="pad-div">
         <div className="forget-div">
           <div>
+          {successful || invalidotp ? (
+        <Alert variant="filled" severity={successful ? success : warning}>
+          {successful
+            ? "Password Changed Successfully"
+            : "Enter valid otp"}
+        </Alert>
+      ) : (
+        ""
+      )}
             <Getotp />
             <form onSubmit={handleSubmit}>
               <div className="for-input-div">
@@ -49,7 +86,7 @@ const Forgetpassword = () => {
               </div>
               <div className="for-input-div">
                 <input
-                  type="text"
+                  type="password"
                   onChange={onChange}
                   value={password}
                   name="password"
@@ -57,7 +94,7 @@ const Forgetpassword = () => {
                 />
               </div>
               <div className="for-input-div">
-                <button>Confirm</button>
+                <button>Reset</button>
               </div>
             </form>
           </div>

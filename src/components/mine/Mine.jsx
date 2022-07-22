@@ -4,6 +4,9 @@ import NoteIcon from '@material-ui/icons/Note';
 import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import CallIcon from '@material-ui/icons/Call';
+import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
+import TransformIcon from '@material-ui/icons/Transform';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import { useNavigate } from "react-router-dom";
 import "./Mine.css";
 const Mine = () => {
@@ -46,6 +49,25 @@ const Mine = () => {
       </div>
       <div className="main-mine">
         <div className="mine-options-go">
+        <div onClick={()=>navigate("/mybank")} className="btn-divv">
+          <div className="icon-div">
+            <AccountBalanceIcon />
+            <p> My Bank</p>
+           
+          </div>
+          <div>
+            <ArrowForwardIosIcon />
+          </div>
+        </div>
+        <div onClick={()=>navigate("/transaction")} className="btn-divv">
+          <div className="icon-div">
+            <TransformIcon />
+            <p>Transaction</p>
+           </div>
+          <div>
+          <ArrowForwardIosIcon />
+          </div>
+        </div>
         <div onClick={()=>navigate("/home")} className="btn-divv">
           <div className="icon-div">
             <NoteIcon/>
@@ -53,7 +75,7 @@ const Mine = () => {
            
           </div>
           <div>
-          <img src="https://res.cloudinary.com/fiewin/image/upload/images/arrowRight.png" alt="rightgo"/>
+          <ArrowForwardIosIcon />
           </div>
         </div>
         <div onClick={()=>navigate("/team")} className="btn-divv">
@@ -63,17 +85,17 @@ const Mine = () => {
            
           </div>
           <div>
-          <img src="https://res.cloudinary.com/fiewin/image/upload/images/arrowRight.png" alt="rightgo"/>
+          <ArrowForwardIosIcon />
           </div>
         </div>
-        <div onClick={()=>navigate("/forget-password")} className="btn-divv">
+        <div onClick={()=>navigate("/mine-reset-password")} className="btn-divv">
           <div className="icon-div">
             <LockOpenIcon />
             <p>Reset Password</p>
            
           </div>
           <div>
-          <img src="https://res.cloudinary.com/fiewin/image/upload/images/arrowRight.png" alt="rightgo"/>
+          <ArrowForwardIosIcon />
           </div>
         </div>
         <div onClick={()=>navigate("/invite")} className="btn-divv">
@@ -83,7 +105,7 @@ const Mine = () => {
          
           </div>
           <div>
-          <img src="https://res.cloudinary.com/fiewin/image/upload/images/arrowRight.png" alt="rightgo"/>
+          <ArrowForwardIosIcon />
           </div>
         </div>
         </div>
