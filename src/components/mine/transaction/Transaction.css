@@ -23,6 +23,8 @@
   height: 34px;
   border: 1px solid #e0620d;
   border-radius: 18px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .search-div input:focus {
   outline: none;
@@ -41,6 +43,8 @@
 
   .search-div input {
     width: 25%;
+    padding-left: 10px;
+  padding-right: 10px;
    
   }
 }

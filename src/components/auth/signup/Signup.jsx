@@ -35,7 +35,7 @@ const Signup = () => {
     e.preventDefault();
 
     const response = await axios.post(
-      "https://tanishq.luckywin999.in/api/register",
+      "https://www.admin.mtgrooups.in/api/register",
       {
         mobile_no: number,
         password: password,

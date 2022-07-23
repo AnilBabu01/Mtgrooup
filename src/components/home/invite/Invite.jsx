@@ -2,15 +2,27 @@ import React from "react";
 import CloseIcon from "@material-ui/icons/Close";
 import { useNavigate } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
-import BottomNavbar from '../../bottomnavbar/BottomNavbar';
+import BottomNavbar from "../../bottomnavbar/BottomNavbar";
 import "./Invite.css";
 
 const Invite = () => {
   const navigate = useNavigate();
+  const copylink = () => {
+    var text = document.getElementById("code");
+    text.select();
+    navigator.clipboard.writeText(text.value);
+    var text1 = document.getElementById("link");
+    text1.select();
+    navigator.clipboard.writeText(text1.value);
+  };
+
   return (
     <>
       <div className="close-div1">
-        <CloseIcon style={{color:"white"}} onClick={() => navigate("/mine")} />
+        <CloseIcon
+          style={{ color: "white" }}
+          onClick={() => navigate("/mine")}
+        />
         <div className="title-div1">
           <p>Promotion</p>
         </div>
@@ -39,7 +51,7 @@ const Invite = () => {
               <TextField
                 className="text-input-mui"
                 required
-                id="standard-required"
+                id="code"
                 variant="outlined"
                 label="My Propotion Code"
                 defaultValue="EJRUFV12"
@@ -49,7 +61,7 @@ const Invite = () => {
               <TextField
                 className="text-input-mui"
                 required
-                id="standard-required"
+                id="link"
                 variant="outlined"
                 label="My Promotion Link"
                 defaultValue="https://www.google.com/"
@@ -57,12 +69,12 @@ const Invite = () => {
             </div>
           </form>
         </div>
-        <div className="total-mmain-div1">
+        <div onClick={copylink} className="total-mmain-div1">
           <button className="total-mmain-div-btn1">Copy Link</button>
         </div>
       </div>
 
-      <BottomNavbar name="invite"/>
+      <BottomNavbar name="invite" />
     </>
   );
 };

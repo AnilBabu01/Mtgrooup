@@ -4,8 +4,8 @@ import logo from "../images/logo.jpg";
 const Commoncard = () => {
   return (
     <>
-      <div className="recharg-div-home2">
-        <div className="recharg-div-home-content2">
+      <div className="recharg-div-home3">
+        <div className="recharg-div-home-content3">
           <div className="com-div-img">
             <img src={logo} alt="logo" />
             <div className="name-div">

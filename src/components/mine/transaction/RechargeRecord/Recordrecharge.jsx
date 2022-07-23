@@ -1,5 +1,5 @@
 import React from "react";
-import "./Record.css";
+import "../Record.css";
 const Record = () => {
   return (
     <>

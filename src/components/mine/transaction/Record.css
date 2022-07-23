@@ -47,12 +47,10 @@
 }
 
 @media screen and (max-width: 780px) {
-    .rec-main-content {
-      
-        width:80%;
-       
-      }
-
+  .rec-main-content {
+    width: 90%;
+    margin-left: 13px;
+   }  
       .success-div {
         background: #e0620d;
        

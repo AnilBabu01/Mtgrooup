@@ -24,7 +24,7 @@ const Forgetpassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await axios.post(
-      "https://tanishq.luckywin999.in/api/changeForgetPassword",
+      "https://www.admin.mtgrooups.in/api/changeForgetPassword",
       {
         mobile_no: number,
         otp : otp,

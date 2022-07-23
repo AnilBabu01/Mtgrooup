@@ -24,7 +24,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await axios.post(
-      "https://tanishq.luckywin999.in/api/login",
+      "https://www.admin.mtgrooups.in/api/login",
       {
         mobile_no: number,
         password: password,
@@ -37,7 +37,7 @@ const Login = () => {
       setTimeout(() => {
         setsuccessful(false)
         navigate("/home")
-      }, 2000);
+      }, 1000);
     }
     if (response.data.status === false) {
       setuserallready(true)
@@ -45,7 +45,7 @@ const Login = () => {
       setTimeout(() => {
         setuserallready(false)
        
-      }, 2000);
+      }, 1000);
     }
   
       localStorage.setItem("tokenauth",response.data.token)

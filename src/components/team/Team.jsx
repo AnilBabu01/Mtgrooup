@@ -2,13 +2,13 @@ import React from "react";
 import BottomNavBar from "../bottomnavbar/BottomNavbar";
 import CloseIcon from "@material-ui/icons/Close";
 import PeopleIcon from "@material-ui/icons/People";
-import { useNavigate } from "react-router-dom";
 import "./Teams.css";
 import TeamTap from "./TeamTap";
+import { useNavigate } from "react-router-dom";
 const Team = () => {
   const navigate = useNavigate();
-  return (
-    <>
+      return(
+         <>
       <div className="close-div">
         <CloseIcon style={{color:'white'}} onClick={() => navigate("/mine")} />
         <div className="title-div">
@@ -37,11 +37,7 @@ const Team = () => {
           </tr>
         </table>
       </div>
-
-
-
-      
-     <div className="share-div">
+       <div onClick={() => navigate("/invite")}  className="share-div">
       <div className="share-people">
         <PeopleIcon/>
        <p>Share with Friends</p> 

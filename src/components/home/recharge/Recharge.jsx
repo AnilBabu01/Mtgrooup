@@ -8,10 +8,14 @@ const Recharge = () => {
   const [amout, setamout] = useState("");
   const [showadminbankdel, setshowadminbankdel] = useState(false);
 
+   const onchnge=(e)=>{
+    setamout(e.target.value)
+   }
   const submitamount = () => {
     setshowadminbankdel(true)
 
   };
+  
   return (
     <>
       <div className="close-div7">
@@ -29,8 +33,9 @@ const Recharge = () => {
           <div className="main-rech">
             <div>
               <p>Enter amount:</p>
+              <input className="am-input" type="text" value={amout} onChange={onchnge} name="amout"/>
               <h2>
-                <span className="red-p">₹</span>Amount
+                <span className="red-p">₹</span><span className="left-amount">Amount</span>
               </h2>
               <p className="red-p">
                 1: Fill in The callback UTR correctly , and the account will be
@@ -44,15 +49,15 @@ const Recharge = () => {
             </div>
             <div className="rupe-div">
               <button onClick={() => setamout("1000")}>1000</button>
-              <button onClick={() => setamout("1000")}>3000</button>
-              <button onClick={() => setamout("1000")}>65000</button>
-              <button onClick={() => setamout("1000")}>15000</button>
+              <button onClick={() => setamout("3000")}>3000</button>
+              <button onClick={() => setamout("65000")}>65000</button>
+              <button onClick={() => setamout("15000")}>15000</button>
             </div>
             <div className="rupe-div">
-              <button onClick={() => setamout("1000")}>50000</button>
-              <button onClick={() => setamout("1000")}>100000</button>
-              <button onClick={() => setamout("1000")}>300000</button>
-              <button onClick={() => setamout("1000")}>50000</button>
+              <button onClick={() => setamout("50000")}>50000</button>
+              <button onClick={() => setamout("100000")}>100000</button>
+              <button onClick={() => setamout("300000")}>300000</button>
+              <button onClick={() => setamout("50000")}>50000</button>
             </div>
           </div>
 

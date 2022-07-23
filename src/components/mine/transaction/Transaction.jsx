@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import CloseIcon from "@material-ui/icons/Close";
 import "./Transaction.css";
@@ -16,11 +16,8 @@ const Transaction = () => {
           <p>Account record</p>
         </div>
       </div>
-      <div className="search-div">
-        <input type="text" /> To <input type="text" />{" "}
-        <button className="search-btn">Search</button>
-      </div>
-      <Transactiontap/>
+
+      <Transactiontap />
     </>
   );
 };

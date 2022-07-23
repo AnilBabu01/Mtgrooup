@@ -19,7 +19,7 @@ const Getotp = () => {
     e.preventDefault();
 
     const response = await axios.post(
-      "https://tanishq.luckywin999.in/api/sendForgetPasswordOtp",
+      "https://www.admin.mtgrooups.in/api/sendForgetPasswordOtp",
       {
         mobile_no: number,
       }

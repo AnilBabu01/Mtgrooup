@@ -91,7 +91,7 @@ const Mybank = () => {
               />
             </div>
             <div className="for-input-div">
-              <button>Change</button>
+              <button>Update</button>
             </div>
           </form>
         </div>

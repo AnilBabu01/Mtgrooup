@@ -4,7 +4,7 @@ import Commoncard from '../Commoncard'
 const Third = () => {
   return (
     <>
-    third
+    
        <Commoncard/>
        <Commoncard/>
        <Commoncard/>
