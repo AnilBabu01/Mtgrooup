@@ -12,10 +12,12 @@ import Mybank from "./components/mine/mybank/Mybank";
 import Transaction from "./components/mine/transaction/Transaction";
 import Mineresetpassword from "./components/mine/repassword/Mineresetpassword";
 import Recharge from "./components/home/recharge/Recharge";
+import Userinfocontext from "./components/context/Userinfo";
 const Main = () => {
   return (
     <>
       <BrowserRouter>
+      <Userinfocontext>
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/signup" element={<Signup/>} />
@@ -30,6 +32,7 @@ const Main = () => {
           <Route path="/mine-reset-password" element={<Mineresetpassword/>} />
           <Route path="/recharge" element={<Recharge/>} />
         </Routes>
+        </Userinfocontext>
       </BrowserRouter>
     </>
   );

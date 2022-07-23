@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import BottomNavBar from "../bottomnavbar/BottomNavbar";
 import TelegramIcon from "@material-ui/icons/Telegram";
 import AllInboxIcon from "@material-ui/icons/AllInbox";
@@ -10,30 +10,20 @@ import jew3 from "../images/jew3.jfif";
 import jew4 from "../images/jew4.jfif";
 import jew6 from "../images/jew6.jfif";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { userinfocontext } from "../context/Userinfo";
 import "./Home.css";
 import Common from "./Common";
 const Home = () => {
   const navigate = useNavigate();
-  const [plans, setplans] = useState("");
+  const context = useContext(userinfocontext);
 
-  axios.defaults.headers.get["Authorization"] = `Bearer ${localStorage.getItem(
-    "tokenauth"
-  )}`;
-
-  const getuserinfo = async () => {
-    const response = await axios.get(
-      "https://www.admin.mtgrooups.in/api/plans"
-    );
-
-    setplans(response.data);
-  };
+  const { plans, getplans } = context;
 
   useEffect(() => {
-    getuserinfo();
+    getplans();
   }, []);
 
-  console.log("plans", plans.data);
+  console.log("plans", plans);
 
   return (
     <>
