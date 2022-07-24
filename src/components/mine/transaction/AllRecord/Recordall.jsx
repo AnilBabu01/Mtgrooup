@@ -3,7 +3,7 @@ import axios from "axios";
 import "../Record.css";
 import Record from "../Record";
 
-const Recordall = () => {
+const Recordall = ({ searchdata }) => {
   const [allrecord, setallrecord] = useState("");
   axios.defaults.headers.get["Authorization"] = `Bearer ${localStorage.getItem(
     "tokenauth"
@@ -14,7 +14,7 @@ const Recordall = () => {
       "https://www.admin.mtgrooups.in/api/transaction-history"
     );
 
-    if (response.data.status === true ) {
+    if (response.data.status === true) {
       setallrecord(response.data.data);
     }
 
@@ -27,22 +27,41 @@ const Recordall = () => {
 
   return (
     <>
-      {allrecord &&
-        allrecord.map((item) => {
-          return (
-            <Record
-              type={item.type}
-              amount={item.amount}
-              status={item.status}
-              date={item.created_at}
-            />
-          );
-        })}
-      {!allrecord && (
+      {!searchdata && (
         <>
-          <div className="not-found-div">
-            <h2>Record Not Found</h2>
-          </div>
+          {allrecord &&
+            allrecord.map((item) => {
+              return (
+                <Record
+                  type={item.type}
+                  amount={item.amount}
+                  status={item.status}
+                  date={item.created_at}
+                />
+              );
+            })}
+          {!allrecord && (
+            <>
+              <div className="not-found-div">
+                <h2>Record Not Found</h2>
+              </div>
+            </>
+          )}
+        </>
+      )}
+
+      {searchdata && (
+        <>
+          {searchdata.map((item) => {
+            return (
+              <Record
+                type={item.type}
+                amount={item.amount}
+                status={item.status}
+                date={item.created_at}
+              />
+            );
+          })}
         </>
       )}
     </>

@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../Record.css";
 import Record from "../Record";
-const Recordrecharge = () => {
+const Recordrecharge = ({ searchdata}) => {
   const [recharge, setrecharge] = useState("");
   axios.defaults.headers.get["Authorization"] = `Bearer ${localStorage.getItem(
     "tokenauth"
   )}`;
 
+  console.log("search data", searchdata);
   const getrecharge = async () => {
     const response = await axios.get(
       "https://www.admin.mtgrooups.in/api/transaction-history?status=1"
@@ -23,28 +24,45 @@ const Recordrecharge = () => {
   useEffect(() => {
     getrecharge();
   }, []);
+ 
 
   return (
     <>
-      {recharge &&
-        recharge.map((item) => {
-          return (
-            <Record
-              type={item.type}
-              amount={item.amount}
-              status={item.status}
-              date={item.created_at}
-            />
-          );
-        })}
-
-      {!recharge && (
+      {!searchdata && (
         <>
-          <div className="not-found-div">
-            <h2>Record Not Found</h2>
-          </div>
+          {recharge &&
+            recharge.map((item) => {
+              return (
+                <Record
+                  type={item.type}
+                  amount={item.amount}
+                  status={item.status}
+                  date={item.created_at}
+                />
+              );
+            })}
+
+          {!recharge && (
+            <>
+              <div className="not-found-div">
+                <h2>Record Not Found</h2>
+              </div>
+            </>
+          )}
         </>
       )}
+      {searchdata&&<>
+       {searchdata.map((item) => {
+              return (
+                <Record
+                  type={item.type}
+                  amount={item.amount}
+                  status={item.status}
+                  date={item.created_at}
+                />
+              );
+            })}
+        </>}
     </>
   );
 };

@@ -3,7 +3,7 @@ import axios from "axios";
 import Record from "../Record";
 import "../Record.css";
 
-const Recordwithdraw = () => {
+const Recordwithdraw = ({ searchdata }) => {
   const [withdraw, setwithdraw] = useState("");
   axios.defaults.headers.get["Authorization"] = `Bearer ${localStorage.getItem(
     "tokenauth"
@@ -14,7 +14,7 @@ const Recordwithdraw = () => {
       "https://www.admin.mtgrooups.in/api/transaction-history?status=0"
     );
 
-    if (response.data.status === true ) {
+    if (response.data.status === true) {
       setwithdraw(response.data.data);
     }
 
@@ -27,22 +27,41 @@ const Recordwithdraw = () => {
 
   return (
     <>
-      {withdraw &&
-        withdraw.map((item) => {
-          return (
-            <Record
-              type={item.type}
-              amount={item.amount}
-              status={item.status}
-              date={item.created_at}
-            />
-          );
-        })}
-      {!withdraw && (
+      {!searchdata && (
         <>
-          <div className="not-found-div">
-            <h2>Record Not Found</h2>
-          </div>
+          {withdraw &&
+            withdraw.map((item) => {
+              return (
+                <Record
+                  type={item.type}
+                  amount={item.amount}
+                  status={item.status}
+                  date={item.created_at}
+                />
+              );
+            })}
+          {!withdraw && (
+            <>
+              <div className="not-found-div">
+                <h2>Record Not Found</h2>
+              </div>
+            </>
+          )}
+        </>
+      )}
+
+      {searchdata && (
+        <>
+          {searchdata.map((item) => {
+            return (
+              <Record
+                type={item.type}
+                amount={item.amount}
+                status={item.status}
+                date={item.created_at}
+              />
+            );
+          })}
         </>
       )}
     </>

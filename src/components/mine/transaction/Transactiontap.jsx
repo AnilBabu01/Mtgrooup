@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState, useEffect } from "react";
 import Recordrecharge from "./RechargeRecord/Recordrecharge";
 import Recordwithdraw from "./WithdraRecord/Recordwithdraw";
 import Recordall from "./AllRecord/Recordall";
@@ -7,6 +7,11 @@ import "./TransacTap.css";
 const Transactiontap = () => {
   const [toggleState, setToggleState] = useState(1);
   const [statusvalue, setstatusvalue] = useState(1);
+
+  const [allsearch, setallsearch] = useState("");
+  const [rechargesearch, setrechargesearch] = useState("");
+  const [withdrawaearch, setwithdrawaearch] = useState("");
+  const [showsearch, setshowsearch] = useState(false);
   const [search, setsearch] = useState({
     start: "",
     end: "",
@@ -30,16 +35,34 @@ const Transactiontap = () => {
     setToggleState(index);
   };
 
-  
-  
+  useEffect(() => {}, [showsearch, statusvalue]);
+
   const searchbtn = async () => {
-    console.log("dates", start, "to", end,"status",statusvalue);
+    console.log("dates", start, "to", end, "status", statusvalue);
 
     const response = await axios.get(
       `https://www.admin.mtgrooups.in/api/transaction-history?status=${statusvalue}&&from=${start}&to=${end}`
     );
 
     if (response.data.status === true) {
+      if (statusvalue == 1) {
+        setrechargesearch(response.data.data);
+        setshowsearch(!showsearch);
+        setwithdrawaearch("");
+        setallsearch("");
+      }
+      if (statusvalue === 0) {
+        setwithdrawaearch(response.data.data);
+        setshowsearch(!showsearch);
+        setrechargesearch("");
+        setallsearch("");
+      }
+      if (statusvalue === 3) {
+        setallsearch(response.data.data);
+        setshowsearch(!showsearch);
+        setwithdrawaearch("");
+        setrechargesearch("");
+      }
     }
 
     console.log("recharge data", response.data.data);
@@ -81,7 +104,10 @@ const Transactiontap = () => {
               toggleState === 1 ? "content  active-content" : "content"
             }
           >
-            <Recordrecharge />
+            <Recordrecharge
+              searchdata={rechargesearch}
+              showsearch={showsearch}
+            />
           </div>
 
           <div
@@ -89,14 +115,14 @@ const Transactiontap = () => {
               toggleState === 2 ? "content  active-content" : "content"
             }
           >
-            <Recordwithdraw />
+            <Recordwithdraw searchdata={withdrawaearch} />
           </div>
           <div
             className={
               toggleState === 3 ? "content  active-content" : "content"
             }
           >
-            <Recordall />
+            <Recordall searchdata={allsearch} />
           </div>
         </div>
       </div>
