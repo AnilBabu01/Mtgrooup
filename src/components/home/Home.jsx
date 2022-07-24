@@ -108,7 +108,9 @@ const Home = () => {
             );
           })}
       </div>
-      {!longterm && <h2>No Plans Available</h2>}
+      {!longterm && <div className="not-found-div">
+            <h2>Plans Not Found</h2>
+          </div>}
       <div className="icon-divv long">
         <p>Short Tearm Plan</p>
       </div>
@@ -130,7 +132,9 @@ const Home = () => {
               </>
             );
           })}
-        {!shortteram && <h2>No Plans Available</h2>}
+        {!shortteram && <div className="not-found-div">
+            <h2>Plans Not Found</h2>
+          </div>}
       </div>
       <BottomNavBar name="home" />
     </>
