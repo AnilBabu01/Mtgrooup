@@ -1,35 +1,108 @@
 import React, { useState } from "react";
-
-const Updatebankdel = ({setOpen}) => {
+import axios from "axios";
+import Alert from "@mui/material/Alert";
+const Updatebankdel = ({ setOpen }) => {
   const [credentials, setCredentials] = useState({
     number: "",
     bankno: "",
-    fullname: "",
+    bankname: "",
     ifsc: "",
     withdrawpassword: "",
+    name: "",
   });
-
-  const { number, bankno, fullname, ifsc, withdrawpassword } = credentials;
+  const [successful, setsuccessful] = useState(false);
+  const [userallready, setuserallready] = useState(false);
+  const [exist, setexist] = useState(false);
+  const success = "success";
+  const warning = "warning";
+  const { number, bankno, bankname, ifsc, withdrawpassword, name } =
+    credentials;
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
+  axios.defaults.headers.post["Authorization"] = `Bearer ${localStorage.getItem(
+    "tokenauth"
+  )}`;
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setOpen(false)
+    const response = await axios.post(
+      "https://www.admin.mtgrooups.in/api/addBank",
+      {
+        withdrawl_password: withdrawpassword,
+        phone_no: number,
+        ifsc_code: ifsc,
+        name: name,
+        account_no: bankno,
+        bank_name: bankname,
+      }
+    );
+    if (response.data.status === true) {
+      setsuccessful(true);
+      setTimeout(() => {
+        setsuccessful(false);
+        setOpen(false);
+      }, 2000);
+    }
+    if (
+      response.data.status === false &&
+      response.data.msg === "Enter Valid Withdrawl Password!!"
+    ) {
+      setuserallready(true);
+      setTimeout(() => {
+        setuserallready(false);
+      }, 2000);
+    }
+    if (
+      response.data.status === false &&
+      response.data.msg === "You can Add Only one withdraw Account!!"
+    ) {
+      setexist(true);
+      setTimeout(() => {
+        setexist(false);
+      }, 2000);
+    }
+
     console.log(
-      "change password data",
+      "add bank data",
       number,
       bankno,
-      fullname,
+      bankname,
       ifsc,
-      withdrawpassword
+      withdrawpassword,
+      name,
+      response
     );
   };
 
   return (
     <>
+      {successful || userallready ? (
+        <Alert variant="filled" severity={successful ? success : warning}>
+          {successful
+            ? "Bank details has been Updated"
+            : "Enter valif withdraw password "}
+        </Alert>
+      ) : (
+        ""
+      )}
+      {exist ? (
+        <Alert variant="filled" severity={warning}>
+          You can Add Only one withdraw Account
+        </Alert>
+      ) : (
+        ""
+      )}
       <form onSubmit={handleSubmit}>
+        <div className="for-input-div">
+          <input
+            type="text"
+            onChange={onChange}
+            value={name}
+            name="name"
+            placeholder="Name"
+          />
+        </div>
         <div className="for-input-div">
           <input
             type="text"
@@ -45,16 +118,16 @@ const Updatebankdel = ({setOpen}) => {
             onChange={onChange}
             value={bankno}
             name="bankno"
-            placeholder="Bank Account"
+            placeholder="Account No"
           />
         </div>
         <div className="for-input-div">
           <input
             type="text"
             onChange={onChange}
-            value={fullname}
-            name="fullname"
-            placeholder="Full Name"
+            value={bankname}
+            name="bankname"
+            placeholder="Bank Name"
           />
         </div>
         <div className="for-input-div">

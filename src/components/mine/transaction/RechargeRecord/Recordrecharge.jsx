@@ -1,29 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "../Record.css";
-const Record = () => {
-  return (
-    <>
-      <div className="rec-mainn">
-        <div className="rec-main-content">
-          <div>
-            <p className="date-p">20-07-2022 10:01:12</p>
-            <p className="red-pp">
-              Recharge <span className="date-p1"> -202.5</span>
-            </p>
-          </div>
-          <div className="success-div">Success</div>
-        </div>
-      </div>
-    </>
-  );
-};
+import Record from "../Record";
 const Recordrecharge = () => {
+  const [recharge, setrecharge] = useState("");
+  axios.defaults.headers.get["Authorization"] = `Bearer ${localStorage.getItem(
+    "tokenauth"
+  )}`;
+
+  const getrecharge = async () => {
+    const response = await axios.get(
+      "https://www.admin.mtgrooups.in/api/transaction-history?status=1"
+    );
+
+    if (response.data.status === true) {
+      setrecharge(response.data.data);
+    }
+
+    console.log("recharge data", response.data.data);
+  };
+
+  useEffect(() => {
+    getrecharge();
+  }, []);
+
   return (
     <>
-      <Record />
-      <Record />
-      <Record />
-      <Record />
+      {recharge &&
+        recharge.map((item) => {
+          return (
+            <Record
+              type={item.type}
+              amount={item.amount}
+              status={item.status}
+              date={item.created_at}
+            />
+          );
+        })}
+
+      {!recharge && (
+        <>
+          <div className="not-found-div">
+            <h2>Record Not Found</h2>
+          </div>
+        </>
+      )}
     </>
   );
 };

@@ -36,18 +36,30 @@
 .am-div {
   display: flex;
   align-items: center;
+  margin-top: 15px;
+}
+
+.am-div input{
+  margin-left: 10px;
+    height: 30px;
+    border: 1px solid #e0620d;
+    border-radius: 5px;
+}
+.am-div input:focus{
+  outline: none;
 }
 
 .am-div p {
   color: #e0620d;
   font-size: 45px;
-  margin-top: 10px;
+  margin-top: 0px;
   margin-bottom: 0px;
   margin-left: 20px;
 }
 .am-div h2 {
   margin-left: 50px;
-  margin-top: 10px;
+  margin-top: 0px;
+  margin-bottom: 0px;
   font-size: 45px;
 }
 
@@ -121,13 +133,13 @@
 
   .am-div p {
     font-size: 25px;
-    margin-top: 6px;
+    margin-top: 0px;
     margin-bottom: 0px;
     margin-left: 10px;
   }
   .am-div h2 {
     margin-left: 20px !important;
-    margin-top: 6px;
+    margin-top: 0px;
     font-size: 25px;
   }
   .bal-div p {

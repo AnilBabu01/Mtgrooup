@@ -45,7 +45,14 @@
 .red-pp {
   color: red;
 }
-
+.not-found-div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.not-found-div h2{
+  color: gray;
+}
 @media screen and (max-width: 780px) {
   .rec-main-content {
     width: 90%;

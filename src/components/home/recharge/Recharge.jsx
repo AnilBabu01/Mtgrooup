@@ -1,21 +1,36 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CloseIcon from "@material-ui/icons/Close";
+import axios from "axios";
 import "./Recharge.css";
 import Adminbankdel from "./Adminbankdel";
 const Recharge = () => {
   const navigate = useNavigate();
   const [amout, setamout] = useState("");
   const [showadminbankdel, setshowadminbankdel] = useState(false);
+  const [transactionid, settransactionid] = useState("");
+  axios.defaults.headers.post["Authorization"] = `Bearer ${localStorage.getItem(
+    "tokenauth"
+  )}`;
 
-   const onchnge=(e)=>{
-    setamout(e.target.value)
-   }
-  const submitamount = () => {
-    setshowadminbankdel(true)
-
+  const onchnge = (e) => {
+    setamout(e.target.value);
   };
-  
+  const submitamount = async () => {
+    const response = await axios.post(
+      "https://www.admin.mtgrooups.in/api/addAmount",
+      {
+        amount: amout,
+      }
+    );
+    if (response.data.status === true) {
+      setshowadminbankdel(true);
+      settransactionid(response.data.transaction_id);
+    }
+
+    console.log("add amount", response.data.status);
+  };
+
   return (
     <>
       <div className="close-div7">
@@ -27,15 +42,22 @@ const Recharge = () => {
           <p>Recharge</p>
         </div>
       </div>
-      {showadminbankdel && <Adminbankdel amout={amout} />}
+      {showadminbankdel && <Adminbankdel transactionid={transactionid} />}
       {!showadminbankdel && (
         <>
           <div className="main-rech">
             <div>
               <p>Enter amount:</p>
-              <input className="am-input" type="text" value={amout} onChange={onchnge} name="amout"/>
+              <input
+                className="am-input"
+                type="text"
+                value={amout}
+                onChange={onchnge}
+                name="amout"
+              />
               <h2>
-                <span className="red-p">₹</span><span className="left-amount">Amount</span>
+                <span className="red-p">₹</span>
+                <span className="left-amount">Amount</span>
               </h2>
               <p className="red-p">
                 1: Fill in The callback UTR correctly , and the account will be

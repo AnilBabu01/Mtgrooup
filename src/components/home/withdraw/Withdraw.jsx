@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import CloseIcon from "@material-ui/icons/Close";
 import { useNavigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
-import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
-import "./Withdraw.css";
 import Updatebankdel from "./Updatebankdel";
-
+import Alert from "@mui/material/Alert";
+import axios from "axios";
+import { userinfocontext } from "../../context/Userinfo";
+import "./Withdraw.css";
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: "flex",
@@ -26,17 +27,26 @@ const useStyles = makeStyles((theme) => ({
     "&:focus": {
       outline: "none",
     },
-    width:"600px",
-    borderRadius:"15px"
+    width: "600px",
+    borderRadius: "15px",
   },
 }));
 
 const Withdraw = () => {
   const classes = useStyles();
+  const context = useContext(userinfocontext);
   const navigate = useNavigate();
-  const [num, setnum] = useState("");
   const [open, setOpen] = React.useState(false);
-
+  const [openupdate, setopenupdate] = useState(true);
+  const [userbank, setuserbank] = useState("");
+  const [withdrawid, setwithdrawid] = useState("");
+  const [amount, setamount] = useState("");
+  const [totalamout, settotalamout] = useState(amount);
+  const [successful, setsuccessful] = useState(false);
+  const [userallready, setuserallready] = useState(false);
+  const success = "success";
+  const warning = "warning";
+  const { user, getuserinfo } = context;
   const handleOpen = () => {
     setOpen(true);
   };
@@ -45,12 +55,61 @@ const Withdraw = () => {
     setOpen(false);
   };
 
-  if (num === "") {
+  axios.defaults.headers.get["Authorization"] = `Bearer ${localStorage.getItem(
+    "tokenauth"
+  )}`;
+
+  axios.defaults.headers.post["Authorization"] = `Bearer ${localStorage.getItem(
+    "tokenauth"
+  )}`;
+
+  const getuserbankinfo = async () => {
+    const response = await axios.get("https://www.admin.mtgrooups.in/api/bank");
+    setuserbank(response.data.data[0]);
+    console.log("response", userbank, response);
+  };
+  useEffect(() => {
+    getuserinfo();
+    getuserbankinfo();
+  }, []);
+
+  setTimeout(() => {}, 3000);
+
+  if (openupdate === false) {
     setTimeout(() => {
       handleOpen();
-    }, 2000);
+    }, 1000);
   }
 
+  const onchange = (e) => {
+    settotalamout(e.target.value);
+  };
+
+  const withdrawfub = async () => {
+    console.log("withdraw");
+    const response = await axios.post(
+      "https://www.admin.mtgrooups.in/api/withdraw",
+      {
+        withdrawl_type_id: userbank ? userbank.id : "",
+        amount: totalamout,
+      }
+    );
+
+    if (response.data.status === true) {
+      setsuccessful(true);
+      setTimeout(() => {
+        setsuccessful(false);
+      }, 2000);
+    }
+    if (response.data.status === false) {
+      setuserallready(true);
+      setTimeout(() => {
+        setuserallready(false);
+      }, 2000);
+    }
+
+    console.log("withdraw", response.data);
+  };
   return (
     <>
       <div className="close-div">
@@ -75,7 +134,7 @@ const Withdraw = () => {
         >
           <Fade in={open}>
             <div className={classes.paper}>
-               <Updatebankdel setOpen={setOpen}/>
+              <Updatebankdel setOpen={setOpen} />
             </div>
           </Fade>
         </Modal>
@@ -83,11 +142,26 @@ const Withdraw = () => {
 
       <div className="recharg-div-home1">
         <div className="withdrawoptins1">
+          {successful || userallready ? (
+            <Alert variant="filled" severity={successful ? success : warning}>
+              {successful
+                ? "Your Withdraw Request Send To Admin"
+                : "Please enter withdrawl_type_id "}
+            </Alert>
+          ) : (
+            ""
+          )}
           <div className="tax-div">
             <p>Tax 10%</p>
           </div>
           <div className="am-div">
             <p>₹ </p>
+            <input
+              type="text"
+              value={totalamout}
+              name="totalamout"
+              onChange={onchange}
+            />
             <h2>Amount</h2>
           </div>
           <div className="bal-div">
@@ -100,24 +174,24 @@ const Withdraw = () => {
       <div className="recharg-div-home1">
         <div className="withdrawoptins1">
           <div className="bank-del">
+            <p>Name:</p>
+            <input type="text" value={userbank ? userbank.name : ""} />
+          </div>
+          <div className="bank-del">
             <p>Phone Number:</p>
-            <input type="text" value={num} />
+            <input type="text" value={userbank ? userbank.phone_no : ""} />
           </div>
           <div className="bank-del">
             <p>Bank account:</p>
-            <input type="text" value={num} />
+            <input type="text" value={userbank ? userbank.account_no : ""} />
           </div>
           <div className="bank-del">
             <p>Full name:</p>
-            <input type="text" value={num} />
+            <input type="text" value={userbank ? userbank.name : ""} />
           </div>
           <div className="bank-del">
             <p>IFSC:</p>
-            <input type="text" value={num} />
-          </div>
-          <div className="bank-del">
-            <p>Withdraw password</p>
-            <input type="password" value="" />
+            <input type="text" value={userbank ? userbank.ifsc_code : ""} />
           </div>
         </div>
       </div>
@@ -142,7 +216,7 @@ const Withdraw = () => {
       </div>
 
       <div className="with-div">
-        <button>Please pay 20% withdraw tax first</button>
+        <button onClick={withdrawfub}>Please pay 20% withdraw tax first</button>
       </div>
     </>
   );

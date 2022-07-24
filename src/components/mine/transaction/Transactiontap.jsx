@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import Recordrecharge from "./RechargeRecord/Recordrecharge";
 import Recordwithdraw from "./WithdraRecord/Recordwithdraw";
 import Recordall from "./AllRecord/Recordall";
+import axios from "axios";
 import "./TransacTap.css";
 const Transactiontap = () => {
   const [toggleState, setToggleState] = useState(1);
+  const [statusvalue, setstatusvalue] = useState(1);
   const [search, setsearch] = useState({
     start: "",
     end: "",
@@ -16,13 +18,31 @@ const Transactiontap = () => {
   };
 
   const toggleTab = (index) => {
+    if (index === 1) {
+      setstatusvalue(1);
+    }
+    if (index === 2) {
+      setstatusvalue(0);
+    }
+    if (index === 3) {
+      setstatusvalue(3);
+    }
     setToggleState(index);
   };
 
-  const searchbtn = () => {
-    console.log("dates", start, "to", end);
+  
+  
+  const searchbtn = async () => {
+    console.log("dates", start, "to", end,"status",statusvalue);
 
-    
+    const response = await axios.get(
+      `https://www.admin.mtgrooups.in/api/transaction-history?status=${statusvalue}&&from=${start}&to=${end}`
+    );
+
+    if (response.data.status === true) {
+    }
+
+    console.log("recharge data", response.data.data);
   };
   return (
     <>
