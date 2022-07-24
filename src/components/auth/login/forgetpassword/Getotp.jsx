@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Alert from "@mui/material/Alert";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import "./Getotp.css";
 const Getotp = () => {
   const [credentials, setCredentials] = useState({
@@ -8,6 +9,7 @@ const Getotp = () => {
   });
   const [successful, setsuccessful] = useState(false);
   const [invalidno, setinvalidno] = useState(false)
+  const [showprocess, setshowprocess] = useState(false);
   const success = "success";
   const warning = "warning";
   const { number } = credentials;
@@ -17,7 +19,7 @@ const Getotp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setshowprocess(true)
     const response = await axios.post(
       "https://www.admin.mtgrooups.in/api/sendForgetPasswordOtp",
       {
@@ -28,12 +30,14 @@ const Getotp = () => {
       setsuccessful(true);
       setTimeout(() => {
         setsuccessful(false);
+        setshowprocess(false)
       }, 2000);
     }
     if (response.data.status === false) {
       setinvalidno(true);
       setTimeout(() => {
         setinvalidno(false);
+        setshowprocess(false)
       }, 2000);
     }
 
@@ -59,7 +63,15 @@ const Getotp = () => {
             type="text"
             placeholder="Phone number"
           />
-          <button>Otp</button>
+          <button>
+          {showprocess ? (
+                    <CircularProgress
+                      style={{ width: "18px", height: "18px" }}
+                    />
+                  ) : (
+                    "Otp"
+                  )}
+            </button>
         </div>
       </form>
     </>

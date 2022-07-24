@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link ,useNavigate} from "react-router-dom";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import Close from "./Close";
 import "./Forgetpassword.css";
 import axios from "axios";
@@ -14,6 +15,7 @@ const Forgetpassword = () => {
   });
   const [successful, setsuccessful] = useState(false);
   const [invalidotp, setinvalidotp] = useState(false);
+  const [showprocess, setshowprocess] = useState(false);
   const success = "success";
   const warning = "warning";
   const { number, password, otp } = credentials;
@@ -23,6 +25,7 @@ const Forgetpassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setshowprocess(true)
     const response = await axios.post(
       "https://www.admin.mtgrooups.in/api/changeForgetPassword",
       {
@@ -35,13 +38,16 @@ const Forgetpassword = () => {
       setsuccessful(true);
       setTimeout(() => {
         setsuccessful(false);
+
         navigate("/login");
+        setshowprocess(false)
       }, 2000);
     }
     if (response.data.status === false) {
       setinvalidotp(true);
       setTimeout(() => {
         setinvalidotp(false);
+        setshowprocess(false)
       }, 2000);
     }
 
@@ -94,7 +100,15 @@ const Forgetpassword = () => {
                 />
               </div>
               <div className="for-input-div">
-                <button>Reset</button>
+                <button>
+                {showprocess ? (
+                    <CircularProgress
+                      style={{ width: "21px", height: "21px" }}
+                    />
+                  ) : (
+                    "Reset"
+                  )}
+                  </button>
               </div>
             </form>
           </div>

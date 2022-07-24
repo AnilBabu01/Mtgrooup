@@ -39,7 +39,6 @@ const Withdraw = () => {
   const [open, setOpen] = React.useState(false);
   const [openupdate, setopenupdate] = useState(true);
   const [userbank, setuserbank] = useState("");
-  const [withdrawid, setwithdrawid] = useState("");
   const [amount, setamount] = useState("");
   const [totalamout, settotalamout] = useState(amount);
   const [successful, setsuccessful] = useState(false);
@@ -65,12 +64,17 @@ const Withdraw = () => {
 
   const getuserbankinfo = async () => {
     const response = await axios.get("https://www.admin.mtgrooups.in/api/bank");
+
     setuserbank(response.data.data[0]);
-    console.log("response", userbank, response);
+  };
+  const bankstatus = async () => {
+    const res = await axios.get("https://www.admin.mtgrooups.in/api/user");
+    setopenupdate(res.data.data.isBank);
   };
   useEffect(() => {
     getuserinfo();
     getuserbankinfo();
+    bankstatus();
   }, []);
 
   setTimeout(() => {}, 3000);

@@ -1,25 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import BottomNavBar from "../bottomnavbar/BottomNavbar";
 import TelegramIcon from "@material-ui/icons/Telegram";
 import AllInboxIcon from "@material-ui/icons/AllInbox";
 import PeopleIcon from "@material-ui/icons/People";
 import BusinessIcon from "@material-ui/icons/Business";
 import InputIcon from "@material-ui/icons/Input";
+import { userinfocontext } from "../context/Userinfo";
 import axios from "axios";
-import jew1 from "../images/jew1.jfif";
-import jew3 from "../images/jew3.jfif";
-import jew4 from "../images/jew4.jfif";
-import jew6 from "../images/jew6.jfif";
 import { useNavigate } from "react-router-dom";
-
-import "./Home.css";
 import Common from "./Common";
+import "./Home.css";
 const Home = () => {
   const navigate = useNavigate();
-
+  const context = useContext(userinfocontext);
+  const { user, getuserinfo } = context;
   const [longterm, setlongterm] = useState("");
   const [shortteram, setshortteram] = useState("");
-
+  const [pending, setpending] = useState("");
+  const [recharge, setrecharge] = useState("");
+  const blance = pending - recharge;
   axios.defaults.headers.get["Authorization"] = `Bearer ${localStorage.getItem(
     "tokenauth"
   )}`;
@@ -29,11 +28,14 @@ const Home = () => {
     );
     setlongterm(response.data.data.longTerm);
     setshortteram(response.data.data.shortTerm);
+    setpending(response.data.pending);
+    setrecharge(response.data.recharge);
     console.log("pplans", response);
   };
 
   useEffect(() => {
     getplans();
+    getuserinfo();
   }, []);
 
   return (
@@ -41,15 +43,15 @@ const Home = () => {
       <div className="recharg-div-home">
         <div className="recharg-div-home-content">
           <div className="text-div">
-            <p>0.00</p>
+            <p>{user&&user.data.amount ? user.data.amount : "0.00"}</p>
             <p>Balance</p>
           </div>
           <div className="text-div">
-            <p>0.00</p>
+            <p>{recharge ? recharge : "0.00"}</p>
             <p>Recharge</p>
           </div>
           <div className="text-div">
-            <p>0.00</p>
+            <p>{pending ? pending : "0.00"}</p>
             <p>Pending</p>
           </div>
         </div>
@@ -92,35 +94,43 @@ const Home = () => {
           longterm.map((item) => {
             return (
               <>
-                <div >
-                  <Common key={item.id} img={item.image} rupee={item.input_cost} dailyincome={item.daily_income}
-                  
-                  revenuecycle={item.revenue_cycle} totalrevenue={item.total_revenue}
+                <div>
+                  <Common
+                    key={item.id}
+                    img={item.image}
+                    rupee={item.input_cost}
+                    dailyincome={item.daily_income}
+                    revenuecycle={item.revenue_cycle}
+                    totalrevenue={item.total_revenue}
                   />
                 </div>
               </>
             );
           })}
       </div>
-
+      {!longterm && <h2>No Plans Available</h2>}
       <div className="icon-divv long">
         <p>Short Tearm Plan</p>
       </div>
       <div style={{ marginBottom: "55px" }} className="plan-div">
-      {shortteram &&
+        {shortteram &&
           shortteram.map((item) => {
             return (
               <>
-                <div >
-                  <Common key={item.id} img={item.image} rupee={item.input_cost} dailyincome={item.daily_income}
-                  
-                  revenuecycle={item.revenue_cycle} totalrevenue={item.total_revenue}
+                <div>
+                  <Common
+                    key={item.id}
+                    img={item.image}
+                    rupee={item.input_cost}
+                    dailyincome={item.daily_income}
+                    revenuecycle={item.revenue_cycle}
+                    totalrevenue={item.total_revenue}
                   />
                 </div>
               </>
             );
           })}
-          {!shortteram&&<h2>Now No plans Availble</h2>}
+        {!shortteram && <h2>No Plans Available</h2>}
       </div>
       <BottomNavBar name="home" />
     </>

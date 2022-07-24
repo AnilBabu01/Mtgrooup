@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Logo from "../../images/logo.jpg";
 import jewellery from "../../images/jewellery.png";
-import { Link ,useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Close from "../login/forgetpassword/Close";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import axios from "axios";
 import Alert from "@mui/material/Alert";
 import "../login/Login.css";
@@ -18,6 +19,7 @@ const Signup = () => {
   });
   const [successful, setsuccessful] = useState(false);
   const [userallready, setuserallready] = useState(false);
+  const [showprocess, setshowprocess] = useState(false);
   const success = "success";
   const warning = "warning";
   const {
@@ -33,7 +35,7 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setshowprocess(true);
     const response = await axios.post(
       "https://www.admin.mtgrooups.in/api/register",
       {
@@ -43,21 +45,22 @@ const Signup = () => {
         withdrawl_password: withdrawpassword,
         refer_code: invitationcode,
       }
-    )
+    );
     if (response.data.status === true) {
-      setsuccessful(true)
-     
+      setsuccessful(true);
+
       setTimeout(() => {
-        setsuccessful(false)
-        navigate("/login")
+        setsuccessful(false);
+        setshowprocess(false);
+        navigate("/login");
       }, 2000);
     }
     if (response.data.status === false) {
-      setuserallready(true)
+      setuserallready(true);
 
       setTimeout(() => {
-        setuserallready(false)
-       
+        setuserallready(false);
+        setshowprocess(false);
       }, 2000);
     }
     console.log("registe data", number, response);
@@ -65,21 +68,21 @@ const Signup = () => {
   return (
     <>
       <Close title={"Register"} />
-      
+
       <div className="main-auth">
         <div>
           <div className="logo-div1">
             <img src={Logo} alt="logo" />
           </div>
           {successful || userallready ? (
-        <Alert variant="filled" severity={successful ? success : warning}>
-          {successful
-            ? "register successfully"
-            : "Email or Mobile Number already exist "}
-        </Alert>
-      ) : (
-        ""
-      )}
+            <Alert variant="filled" severity={successful ? success : warning}>
+              {successful
+                ? "register successfully"
+                : "Email or Mobile Number already exist "}
+            </Alert>
+          ) : (
+            ""
+          )}
           <div className="form-div">
             <form onSubmit={handleSubmit}>
               <div className="input-div1">
@@ -133,7 +136,15 @@ const Signup = () => {
                 />
               </div>
               <div className="btn-div">
-                <button>Register</button>
+                <button>
+                  {showprocess ? (
+                    <CircularProgress
+                      style={{ width: "21px", height: "21px" }}
+                    />
+                  ) : (
+                    "Register"
+                  )}
+                </button>
               </div>
             </form>
             <div className="reg-div1">

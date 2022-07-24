@@ -13,7 +13,8 @@ const Mineresetpassword = () => {
     confirmbnewpassword: "",
   });
   const [successful, setsuccessful] = useState(false);
-  const [invalidotp, setinvalidotp] = useState(false);
+  const [invalidodlpassword, setinvalidodlpassword] = useState(false);
+  const [notbothsame, setnotbothsame] = useState(false);
   const success = "success";
   const warning = "warning";
   const { oldpassword, newpassword, confirmbnewpassword } = credentials;
@@ -21,14 +22,51 @@ const Mineresetpassword = () => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
+  axios.defaults.headers.post["Authorization"] = `Bearer ${localStorage.getItem(
+    "tokenauth"
+  )}`;
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const response = await axios.post(
+      "https://www.admin.mtgrooups.in/api/resetPassword",
+      {
+        old_password: oldpassword,
+        new_password: newpassword,
+        cnf_password: confirmbnewpassword,
+      }
+    );
+    if (response.data.status === true) {
+      setsuccessful(true);
+
+      setTimeout(() => {
+        setsuccessful(false);
+      }, 2000);
+    }
+    if (
+      response.data.status === false &&
+      response.data.msg === "Enter Valid Old Password"
+    ) {
+      setinvalidodlpassword(true);
+      setTimeout(() => {
+        setinvalidodlpassword(false);
+      }, 2000);
+    }
+    if (
+      response.data.status === false &&
+      response.data.msg === "Enter Both Password Same"
+    ) {
+      setnotbothsame(true);
+      setTimeout(() => {
+        setnotbothsame(false);
+      }, 2000);
+    }
     console.log(
       "change password data",
       oldpassword,
       newpassword,
-      confirmbnewpassword
+      confirmbnewpassword,
+      response
     );
   };
   return (
@@ -42,7 +80,25 @@ const Mineresetpassword = () => {
           <p>Chanege Password</p>
         </div>
       </div>
+
       <div className="pad-div">
+        {successful || invalidodlpassword ? (
+          <Alert variant="filled" severity={successful ? success : warning}>
+            {successful
+              ? "Password Changed Successfully"
+              : "Enter Valid Old Password "}
+          </Alert>
+        ) : (
+          ""
+        )}
+        {notbothsame ? (
+          <Alert variant="filled" severity={warning}>
+            Please enter Both Password Same"
+          </Alert>
+        ) : (
+          ""
+        )}
+
         <div className="forget-div">
           <form onSubmit={handleSubmit}>
             <div className="for-input-div">
