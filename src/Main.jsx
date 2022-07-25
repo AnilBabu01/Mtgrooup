@@ -20,6 +20,7 @@ const Main = () => {
       <Userinfo>
         <Routes>
           <Route path="/signup/:code" element={<Signup/>} />
+          <Route path="/signup" element={<Signup/>} />
           <Route path="/" element={<Login/>} />
           <Route path="/forget-password" element={<Forgetpassword/>} />
           <Route path="/home" element={<Home/>} />
