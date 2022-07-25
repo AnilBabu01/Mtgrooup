@@ -4,12 +4,16 @@ import jewellery from "../../images/jewellery.png";
 import { Link, useNavigate } from "react-router-dom";
 import Close from "../login/forgetpassword/Close";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import {useParams} from "react-router-dom"
 import axios from "axios";
 import Alert from "@mui/material/Alert";
 import "../login/Login.css";
 import "./Signup.css";
 const Signup = () => {
   const navigate = useNavigate();
+  
+  const {code}=useParams();
+
   const [credentials, setCredentials] = useState({
     number: "",
     password: "",
@@ -43,7 +47,7 @@ const Signup = () => {
         password: password,
         cnf_password: confirmpassword,
         withdrawl_password: withdrawpassword,
-        refer_code: invitationcode,
+        refer_code: code,
       }
     );
     if (response.data.status === true) {
@@ -130,7 +134,7 @@ const Signup = () => {
                 <input
                   onChange={onChange}
                   name="invitationcode"
-                  value={invitationcode}
+                  value={code}
                   type="text"
                   placeholder="Invatitation code"
                 />

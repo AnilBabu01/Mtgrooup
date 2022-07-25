@@ -19,8 +19,8 @@ const Main = () => {
       <BrowserRouter>
       <Userinfo>
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/signup" element={<Signup/>} />
+          <Route path="/signup/:code" element={<Signup/>} />
+          <Route path="/" element={<Login/>} />
           <Route path="/forget-password" element={<Forgetpassword/>} />
           <Route path="/home" element={<Home/>} />
           <Route path="/team" element={<Team/>} />

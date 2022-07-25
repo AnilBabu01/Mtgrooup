@@ -10,6 +10,7 @@ const Invite = () => {
   const navigate = useNavigate();
   const context = useContext(userinfocontext);
   const { user, getuserinfo } = context;
+  let codes;
   const token = localStorage.getItem("tokenauth");
   const copylink = () => {
     var text = document.getElementById("code");
@@ -19,7 +20,10 @@ const Invite = () => {
     text1.select();
     navigator.clipboard.writeText(text1.value);
   };
-
+if(user)
+{
+      codes = user.data.refer_code
+}
    useEffect(() => {
     if (!token) {
       navigate("/");
@@ -76,7 +80,8 @@ const Invite = () => {
                 id="link"
                 variant="outlined"
                 label="My Promotion Link"
-                defaultValue="https://www.google.com/"
+                value={`http://localhost:3000/signup/${codes}`}
+               
               />
             </div>
           </form>
