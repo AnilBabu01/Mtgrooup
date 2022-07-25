@@ -38,12 +38,15 @@ const First = () => {
             />
           );
         })}
-
-      {!levelfirst && (
+      {levelfirst && (
         <>
-          <div className="not-found-div">
-            <h2>Record Not Found</h2>
-          </div>
+          {levelfirst.length === 0 && (
+            <>
+              <div className="not-found-div">
+                <h2>Record Not Found</h2>
+              </div>
+            </>
+          )}
         </>
       )}
     </>

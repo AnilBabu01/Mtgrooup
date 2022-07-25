@@ -1,12 +1,16 @@
-import React from "react";
+import React,{useContext,useEffect} from "react";
 import CloseIcon from "@material-ui/icons/Close";
 import { useNavigate } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import BottomNavbar from "../../bottomnavbar/BottomNavbar";
+import { userinfocontext } from "../../context/Userinfo";
 import "./Invite.css";
 
 const Invite = () => {
   const navigate = useNavigate();
+  const context = useContext(userinfocontext);
+  const { user, getuserinfo } = context;
+  const token = localStorage.getItem("tokenauth");
   const copylink = () => {
     var text = document.getElementById("code");
     text.select();
@@ -16,6 +20,13 @@ const Invite = () => {
     navigator.clipboard.writeText(text1.value);
   };
 
+   useEffect(() => {
+    if (!token) {
+      navigate("/");
+    }
+    getuserinfo();
+   }, [])
+   
   return (
     <>
       <div className="close-div1">
@@ -31,14 +42,14 @@ const Invite = () => {
       <div className="invite-main-div">
         <div className="bonus-div">
           <p>
-            Bonus:<span>Rs.0</span>
+            Bonus:<span>Rs.{user?user.promotion.bonus:"0"}</span>
           </p>
         </div>
 
         <div className="total-mmain-div">
           <div className="total-mmain-div-btn">
             <p>Total Peaple</p>
-            <p>0</p>
+            <p>{user?user.promotion.peopleCount:"0"}</p>
           </div>
           <div className="total-mmain-div-btn">
             <p>Contribution</p>
@@ -54,7 +65,8 @@ const Invite = () => {
                 id="code"
                 variant="outlined"
                 label="My Propotion Code"
-                defaultValue="EJRUFV12"
+                value={user?user.data.refer_code:""}
+             
               />
             </div>
             <div className="margin-div">

@@ -21,7 +21,7 @@ const Mybank = () => {
   const [successful, setsuccessful] = useState(false);
   const [userallready, setuserallready] = useState(false);
   const [showprocess, setshowprocess] = useState(false);
-
+  const token = localStorage.getItem("tokenauth");
   const success = "success";
   const warning = "warning";
   const { number, bankno, bankname, ifsc, withdrawpassword, name } =
@@ -45,6 +45,9 @@ const Mybank = () => {
   };
 
   useEffect(() => {
+    if (!token) {
+      navigate("/");
+    }
     bankid();
   }, []);
 

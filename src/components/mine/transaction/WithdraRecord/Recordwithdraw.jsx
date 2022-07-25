@@ -17,14 +17,13 @@ const Recordwithdraw = ({ searchdata }) => {
     if (response.data.status === true) {
       setwithdraw(response.data.data);
     }
-
-    console.log("recharge data", response.data.data);
   };
 
   useEffect(() => {
     getrecharge();
   }, []);
 
+  console.log(withdraw.length);
   return (
     <>
       {!searchdata && (
@@ -40,7 +39,12 @@ const Recordwithdraw = ({ searchdata }) => {
                 />
               );
             })}
-          {!withdraw && (
+        </>
+      )}
+
+      {withdraw && (
+        <>
+          {withdraw.length === 0 && (
             <>
               <div className="not-found-div">
                 <h2>Record Not Found</h2>
@@ -64,6 +68,19 @@ const Recordwithdraw = ({ searchdata }) => {
           })}
         </>
       )}
+      {searchdata && (
+        <>
+          {searchdata.length === 0 && (
+            <>
+              <div className="not-found-div">
+                <h2>Record Not Search</h2>
+              </div>
+            </>
+          )}
+        </>
+      )}
+
+      
     </>
   );
 };

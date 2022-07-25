@@ -32,18 +32,23 @@ const Home = () => {
     setrecharge(response.data.recharge);
     console.log("pplans", response);
   };
-
+  const token = localStorage.getItem("tokenauth");
   useEffect(() => {
+    if (!token) {
+      navigate("/");
+    }
+
     getplans();
     getuserinfo();
   }, []);
+  console.log(token);
 
   return (
     <>
       <div className="recharg-div-home">
         <div className="recharg-div-home-content">
           <div className="text-div">
-            <p>{user&&user.data.amount ? user.data.amount : "0.00"}</p>
+            <p>{user && user.data.amount ? user.data.amount : "0.00"}</p>
             <p>Balance</p>
           </div>
           <div className="text-div">
@@ -107,10 +112,24 @@ const Home = () => {
               </>
             );
           })}
+
+        {longterm && (
+          <>
+            {longterm.length === 0 && (
+              <>
+                <div className="not-found-div">
+                  <h2>Record Not Found</h2>
+                </div>
+              </>
+            )}
+          </>
+        )}
       </div>
-      {!longterm && <div className="not-found-div">
-            <h2>Plans Not Found</h2>
-          </div>}
+      {!longterm && (
+        <div className="not-found-div">
+          <h2>Plans Not Found</h2>
+        </div>
+      )}
       <div className="icon-divv long">
         <p>Short Tearm Plan</p>
       </div>
@@ -132,9 +151,17 @@ const Home = () => {
               </>
             );
           })}
-        {!shortteram && <div className="not-found-div">
-            <h2>Plans Not Found</h2>
-          </div>}
+        {shortteram && (
+          <>
+            {shortteram.length === 0 && (
+              <>
+                <div className="not-found-div">
+                  <h2>Record Not Found</h2>
+                </div>
+              </>
+            )}
+          </>
+        )}
       </div>
       <BottomNavBar name="home" />
     </>

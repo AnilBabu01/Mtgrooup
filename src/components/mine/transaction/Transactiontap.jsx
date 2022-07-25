@@ -25,17 +25,26 @@ const Transactiontap = () => {
   const toggleTab = (index) => {
     if (index === 1) {
       setstatusvalue(1);
+      setallsearch("");
+      setwithdrawaearch("");
+      setrechargesearch("");
     }
     if (index === 2) {
       setstatusvalue(0);
+      setallsearch("");
+      setwithdrawaearch("");
+      setrechargesearch("");
     }
     if (index === 3) {
       setstatusvalue(3);
+      setallsearch("");
+      setwithdrawaearch("");
+      setrechargesearch("");
     }
     setToggleState(index);
   };
 
-  useEffect(() => {}, [showsearch, statusvalue]);
+  useEffect(() => {}, [showsearch, statusvalue, toggleState]);
 
   const searchbtn = async () => {
     console.log("dates", start, "to", end, "status", statusvalue);

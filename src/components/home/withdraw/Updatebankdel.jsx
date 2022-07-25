@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Alert from "@mui/material/Alert";
-const Updatebankdel = ({ setOpen }) => {
+const Updatebankdel = ({setcloseupdate}) => {
   const [credentials, setCredentials] = useState({
     number: "",
     bankno: "",
@@ -38,10 +38,13 @@ const Updatebankdel = ({ setOpen }) => {
       }
     );
     if (response.data.status === true) {
+     
+     
       setsuccessful(true);
       setTimeout(() => {
         setsuccessful(false);
-        setOpen(false);
+        setcloseupdate(true)
+       
       }, 2000);
     }
     if (
@@ -59,6 +62,7 @@ const Updatebankdel = ({ setOpen }) => {
     ) {
       setexist(true);
       setTimeout(() => {
+        setcloseupdate(true)
         setexist(false);
       }, 2000);
     }

@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import BottomNavBar from "../bottomnavbar/BottomNavbar";
 import NoteIcon from "@material-ui/icons/Note";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
@@ -14,35 +14,35 @@ import "./Mine.css";
 const Mine = () => {
   const navigate = useNavigate();
   const [successful, setsuccessful] = useState(false);
-  const [minedata, setminedata] = useState("")
+  const [minedata, setminedata] = useState("");
   const success = "success";
   const warning = "warning";
+  const token = localStorage.getItem("tokenauth");
   const logout = () => {
     setsuccessful(true);
-    localStorage.removeItem('tokenauth');
+    localStorage.removeItem("tokenauth");
     setTimeout(() => {
       setsuccessful(false);
       navigate("/");
     }, 1000);
   };
 
-  
   axios.defaults.headers.get["Authorization"] = `Bearer ${localStorage.getItem(
     "tokenauth"
   )}`;
 
-  const getmineinfo = async()=>{
+  const getmineinfo = async () => {
     const response = await axios.get("https://www.admin.mtgrooups.in/api/mine");
-    setminedata(response.data.data)
-         console.log(response.data.data)
-  }
+    setminedata(response.data.data);
+    console.log(response.data.data);
+  };
 
   useEffect(() => {
     getmineinfo();
-
-
-  }, [])
-  
+    if (!token) {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <>
@@ -64,30 +64,30 @@ const Mine = () => {
         <div className="mine-options">
           <div className="mine-menu">
             <div className="btn-div1">
-              <p>{minedata?minedata.total_revenue:"0"}</p>
+              <p>{minedata ? minedata.total_revenue : "0"}</p>
               <p>Total revenue</p>
             </div>
             <div className="btn-div1">
-              <p>{minedata?minedata.total_recharge:"0"}</p>
+              <p>{minedata ? minedata.total_recharge : "0"}</p>
               <p>Total recharge</p>
             </div>
             <div className="btn-div1">
-              <p>{minedata?minedata.today_earning:"0"}</p>
+              <p>{minedata ? minedata.today_earning : "0"}</p>
               <p>Earning today</p>
             </div>
           </div>
           <div className="mine-menu">
             <div className="btn-div1">
-              <p>{minedata?minedata.total_assets:"0"}</p>
+              <p>{minedata ? minedata.total_assets : "0"}</p>
               <p>Total assets</p>
             </div>
             <div className="btn-div1">
               {" "}
-              <p>{minedata?minedata.total_withdraw:"0"}</p>
+              <p>{minedata ? minedata.total_withdraw : "0"}</p>
               <p>Total withdraw</p>
             </div>
             <div className="btn-div1">
-              <p>{minedata?minedata.commission:"0"}</p>
+              <p>{minedata ? minedata.commission : "0"}</p>
               <p>Commission</p>
             </div>
           </div>

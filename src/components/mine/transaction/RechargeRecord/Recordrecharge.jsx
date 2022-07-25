@@ -25,7 +25,7 @@ const Recordrecharge = ({ searchdata}) => {
     getrecharge();
   }, []);
  
-
+  console.log(setrecharge.length)
   return (
     <>
       {!searchdata && (
@@ -42,7 +42,13 @@ const Recordrecharge = ({ searchdata}) => {
               );
             })}
 
-          {!recharge && (
+        
+        </>
+      )}
+        
+        {recharge && (
+        <>
+          {recharge.length === 0 && (
             <>
               <div className="not-found-div">
                 <h2>Record Not Found</h2>
@@ -51,6 +57,8 @@ const Recordrecharge = ({ searchdata}) => {
           )}
         </>
       )}
+
+      
       {searchdata&&<>
        {searchdata.map((item) => {
               return (
@@ -63,6 +71,20 @@ const Recordrecharge = ({ searchdata}) => {
               );
             })}
         </>}
+
+
+        {searchdata && (
+        <>
+          {searchdata.length === 0 && (
+            <>
+              <div className="not-found-div">
+                <h2>Record Not Search</h2>
+              </div>
+            </>
+          )}
+          
+        </>
+      )}
     </>
   );
 };

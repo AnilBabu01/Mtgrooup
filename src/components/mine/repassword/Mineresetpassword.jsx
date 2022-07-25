@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Alert from "@mui/material/Alert";
@@ -17,6 +17,13 @@ const Mineresetpassword = () => {
   const [notbothsame, setnotbothsame] = useState(false);
   const success = "success";
   const warning = "warning";
+  const token = localStorage.getItem("tokenauth");
+  useEffect(() => {
+    if (!token) {
+      navigate("/");
+    }
+  }, []);
+
   const { oldpassword, newpassword, confirmbnewpassword } = credentials;
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });

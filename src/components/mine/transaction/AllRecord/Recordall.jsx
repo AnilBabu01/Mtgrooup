@@ -40,7 +40,12 @@ const Recordall = ({ searchdata }) => {
                 />
               );
             })}
-          {!allrecord && (
+        </>
+      )}
+
+      {allrecord && (
+        <>
+          {allrecord.length === 0 && (
             <>
               <div className="not-found-div">
                 <h2>Record Not Found</h2>
@@ -62,6 +67,18 @@ const Recordall = ({ searchdata }) => {
               />
             );
           })}
+        </>
+      )}
+
+      {searchdata && (
+        <>
+          {searchdata.length === 0 && (
+            <>
+              <div className="not-found-div">
+                <h2>Record Not Search</h2>
+              </div>
+            </>
+          )}
         </>
       )}
     </>

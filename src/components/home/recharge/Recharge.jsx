@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import CloseIcon from "@material-ui/icons/Close";
 import axios from "axios";
@@ -12,6 +12,12 @@ const Recharge = () => {
   axios.defaults.headers.post["Authorization"] = `Bearer ${localStorage.getItem(
     "tokenauth"
   )}`;
+  const token = localStorage.getItem("tokenauth");
+  useEffect(() => {
+    if (!token) {
+      navigate("/");
+    }
+  }, []);
 
   const onchnge = (e) => {
     setamout(e.target.value);

@@ -43,8 +43,10 @@ const Withdraw = () => {
   const [totalamout, settotalamout] = useState(amount);
   const [successful, setsuccessful] = useState(false);
   const [userallready, setuserallready] = useState(false);
+  const [closeupdate, setcloseupdate] = useState(false);
   const success = "success";
   const warning = "warning";
+  const token = localStorage.getItem("tokenauth");
   const { user, getuserinfo } = context;
   const handleOpen = () => {
     setOpen(true);
@@ -72,12 +74,13 @@ const Withdraw = () => {
     setopenupdate(res.data.data.isBank);
   };
   useEffect(() => {
+    if (!token) {
+      navigate("/");
+    }
     getuserinfo();
     getuserbankinfo();
     bankstatus();
-  }, []);
-
-  setTimeout(() => {}, 3000);
+  }, [closeupdate]);
 
   if (openupdate === false) {
     setTimeout(() => {
@@ -125,24 +128,27 @@ const Withdraw = () => {
           <p>Withdraw</p>
         </div>
       </div>
-
-      <div>
-        <Modal
-          className={classes.modal}
-          open={open}
-          onClose={handleClose}
-          closeAfterTransition
-          BackdropProps={{
-            timeout: 500,
-          }}
-        >
-          <Fade in={open}>
-            <div className={classes.paper}>
-              <Updatebankdel setOpen={setOpen} />
-            </div>
-          </Fade>
-        </Modal>
-      </div>
+      {!closeupdate && (
+        <>
+          <div>
+            <Modal
+              className={classes.modal}
+              open={open}
+              onClose={handleClose}
+              closeAfterTransition
+              BackdropProps={{
+                timeout: 500,
+              }}
+            >
+              <Fade in={open}>
+                <div className={classes.paper}>
+                  <Updatebankdel  setcloseupdate={setcloseupdate} />
+                </div>
+              </Fade>
+            </Modal>
+          </div>
+        </>
+      )}
 
       <div className="recharg-div-home1">
         <div className="withdrawoptins1">

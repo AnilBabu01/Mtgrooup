@@ -52,7 +52,7 @@ const Signup = () => {
       setTimeout(() => {
         setsuccessful(false);
         setshowprocess(false);
-        navigate("/login");
+        navigate("/");
       }, 2000);
     }
     if (response.data.status === false) {
