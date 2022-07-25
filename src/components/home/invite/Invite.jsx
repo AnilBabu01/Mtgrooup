@@ -57,7 +57,7 @@ if(user)
           </div>
           <div className="total-mmain-div-btn">
             <p>Contribution</p>
-            <p>0</p>
+            <p>{user?user.promotion.bonus:"0"}</p>
           </div>
         </div>
         <div className="form-mui">

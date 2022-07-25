@@ -102,6 +102,7 @@ const Home = () => {
                 <div>
                   <Common
                     key={item.id}
+                    id={item.id}
                     img={item.image}
                     rupee={item.input_cost}
                     dailyincome={item.daily_income}
@@ -138,9 +139,9 @@ const Home = () => {
           shortteram.map((item) => {
             return (
               <>
-                <div>
+                <div key={item.id}>
                   <Common
-                    key={item.id}
+                    id={item.id}
                     img={item.image}
                     rupee={item.input_cost}
                     dailyincome={item.daily_income}
