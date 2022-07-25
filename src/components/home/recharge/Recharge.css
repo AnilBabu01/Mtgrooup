@@ -32,7 +32,7 @@
   border-radius: 5px;
 }
 .red-p {
-  color: green;
+  color: #e0620d;
 }
 
 .confirm-btn-div {
@@ -58,11 +58,20 @@
 }
 .am-input{
    border: 1px solid #e0620d;
-    width: 30%;
+    
     height: 34px;
     padding-left: 10px;
     border-radius: 5px;
     font-size: 16px;
+}
+
+.cen-am{
+   display: flex;
+}
+
+.cen-am input {
+  margin-left: 10px;
+  height: 30px;
 }
 @media screen and (max-width: 780px) {
   .title-div6 {
@@ -84,7 +93,7 @@
 
 .am-input{
   
-   width: 97%;
+  
    
   
 }

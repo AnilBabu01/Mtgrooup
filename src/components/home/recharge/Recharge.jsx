@@ -54,6 +54,12 @@ const Recharge = () => {
           <div className="main-rech">
             <div>
               <p>Enter amount:</p>
+               <div className="cen-am">
+              
+              <h2>
+                {" "}
+                <span className="red-p">₹</span>
+              </h2>
               <input
                 className="am-input"
                 type="text"
@@ -61,10 +67,13 @@ const Recharge = () => {
                 onChange={onchnge}
                 name="amout"
               />
+
               <h2>
-                <span className="red-p">₹</span>
                 <span className="left-amount">Amount</span>
               </h2>
+
+               </div>
+             
               <p className="red-p">
                 1: Fill in The callback UTR correctly , and the account will be
                 credited within 1 minute.

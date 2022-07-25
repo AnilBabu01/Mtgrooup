@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Alert from "@mui/material/Alert";
 import CloseIcon from "@material-ui/icons/Close";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import "./Mineresetpassword.css";
 import BottomNavBar from "../../bottomnavbar/BottomNavbar";
 const Mineresetpassword = () => {
@@ -15,6 +16,7 @@ const Mineresetpassword = () => {
   const [successful, setsuccessful] = useState(false);
   const [invalidodlpassword, setinvalidodlpassword] = useState(false);
   const [notbothsame, setnotbothsame] = useState(false);
+  const [showprocess, setshowprocess] = useState(false);
   const success = "success";
   const warning = "warning";
   const token = localStorage.getItem("tokenauth");
@@ -34,7 +36,7 @@ const Mineresetpassword = () => {
   )}`;
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setshowprocess(true)
     const response = await axios.post(
       "https://www.admin.mtgrooups.in/api/resetPassword",
       {
@@ -45,7 +47,7 @@ const Mineresetpassword = () => {
     );
     if (response.data.status === true) {
       setsuccessful(true);
-
+      setshowprocess(false)
       setTimeout(() => {
         setsuccessful(false);
       }, 2000);
@@ -54,6 +56,7 @@ const Mineresetpassword = () => {
       response.data.status === false &&
       response.data.msg === "Enter Valid Old Password"
     ) {
+      setshowprocess(false)
       setinvalidodlpassword(true);
       setTimeout(() => {
         setinvalidodlpassword(false);
@@ -63,6 +66,7 @@ const Mineresetpassword = () => {
       response.data.status === false &&
       response.data.msg === "Enter Both Password Same"
     ) {
+      setshowprocess(false)
       setnotbothsame(true);
       setTimeout(() => {
         setnotbothsame(false);
@@ -136,7 +140,15 @@ const Mineresetpassword = () => {
               />
             </div>
             <div className="for-input-div">
-              <button>Change</button>
+              <button>
+              {showprocess ? (
+                    <CircularProgress
+                      style={{ width: "21px", height: "21px" }}
+                    />
+                  ) : (
+                    "Change"
+                  )}
+                </button>
             </div>
           </form>
         </div>
