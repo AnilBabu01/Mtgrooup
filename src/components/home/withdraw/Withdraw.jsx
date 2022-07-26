@@ -5,7 +5,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Fade from "@material-ui/core/Fade";
 import Updatebankdel from "./Updatebankdel";
-import Alert from "@mui/material/Alert";
 import axios from "axios";
 import { userinfocontext } from "../../context/Userinfo";
 import "./Withdraw.css";
@@ -14,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-
     "&:focus": {
       outline: "none",
     },
@@ -30,6 +28,22 @@ const useStyles = makeStyles((theme) => ({
     width: "600px",
     borderRadius: "15px",
   },
+  paper1: {
+    backgroundColor: theme.palette.background.paper,
+    border: "none",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    "&:focus": {
+      outline: "none",
+    },
+    width: "650px",
+    height: "150px",
+    borderRadius: "15px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: "25px",
+  },
 }));
 
 const Withdraw = () => {
@@ -37,6 +51,7 @@ const Withdraw = () => {
   const context = useContext(userinfocontext);
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
+  const [open1, setOpen1] = React.useState(false);
   const [openupdate, setopenupdate] = useState(true);
   const [userbank, setuserbank] = useState("");
   const [amount, setamount] = useState("");
@@ -54,6 +69,10 @@ const Withdraw = () => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleClose1 = () => {
+    setOpen1(false);
   };
 
   axios.defaults.headers.get["Authorization"] = `Bearer ${localStorage.getItem(
@@ -103,15 +122,22 @@ const Withdraw = () => {
     );
 
     if (response.data.status === true) {
+      setOpen1(true);
       setsuccessful(true);
       setTimeout(() => {
         setsuccessful(false);
+        setOpen1(false);
       }, 2000);
     }
-    if (response.data.status === false) {
+    if (
+      response.data.status === false &&
+      response.data.msg === "Insufficient Balance!!"
+    ) {
+      setOpen1(true);
       setuserallready(true);
       setTimeout(() => {
         setuserallready(false);
+        setOpen1(false);
       }, 2000);
     }
 
@@ -142,25 +168,32 @@ const Withdraw = () => {
             >
               <Fade in={open}>
                 <div className={classes.paper}>
-                  <Updatebankdel  setcloseupdate={setcloseupdate} />
+                  <Updatebankdel setcloseupdate={setcloseupdate} />
                 </div>
               </Fade>
             </Modal>
           </div>
         </>
       )}
-
+      <Modal
+        className={classes.modal}
+        open={open1}
+        onClose={handleClose1}
+        closeAfterTransition
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open1}>
+          <div className={classes.paper1}>
+            {successful
+              ? "Your Withdraw Request Send To Admin"
+              : "Insufficient Balance"}
+          </div>
+        </Fade>
+      </Modal>
       <div className="recharg-div-home1">
         <div className="withdrawoptins1">
-          {successful || userallready ? (
-            <Alert variant="filled" severity={successful ? success : warning}>
-              {successful
-                ? "Your Withdraw Request Send To Admin"
-                : "Please enter withdrawl_type_id "}
-            </Alert>
-          ) : (
-            ""
-          )}
           <div className="tax-div">
             <p>Tax 10%</p>
           </div>
@@ -175,7 +208,7 @@ const Withdraw = () => {
             <h2>Amount</h2>
           </div>
           <div className="bal-div">
-            <p>Balance: ₹ 0.25</p>
+            <p>Balance: ₹ 0.25 </p>
             <p className="with-p">Withdraw All</p>
           </div>
         </div>
@@ -226,7 +259,7 @@ const Withdraw = () => {
       </div>
 
       <div className="with-div">
-        <button onClick={withdrawfub}>Please pay 20% withdraw tax first</button>
+        <button onClick={withdrawfub}>withdraw</button>
       </div>
     </>
   );

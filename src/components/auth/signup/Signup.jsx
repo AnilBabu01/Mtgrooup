@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Logo from "../../images/logo.jpg";
+import Logo from "../../images/logo.jpeg";
 import jewellery from "../../images/jewellery.png";
 import { Link, useNavigate } from "react-router-dom";
 import Close from "../login/forgetpassword/Close";

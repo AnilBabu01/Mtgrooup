@@ -4,6 +4,7 @@ import TelegramIcon from "@material-ui/icons/Telegram";
 import AllInboxIcon from "@material-ui/icons/AllInbox";
 import PeopleIcon from "@material-ui/icons/People";
 import BusinessIcon from "@material-ui/icons/Business";
+import SystemUpdateAltIcon from "@material-ui/icons/SystemUpdateAlt";
 import InputIcon from "@material-ui/icons/Input";
 import { userinfocontext } from "../context/Userinfo";
 import axios from "axios";
@@ -83,7 +84,10 @@ const Home = () => {
               <PeopleIcon className="icons" />
               <p>Invite</p>
             </div>
-
+            <div style={{ marginLeft: "15px" }} className="icon-divv">
+              <SystemUpdateAltIcon className="icons" />
+              <p>Download</p>
+            </div>
             <div className="icon-divv">
               <BusinessIcon className="icons" />
               <p>Compnay</p>

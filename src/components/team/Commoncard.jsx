@@ -1,6 +1,6 @@
 import React from "react";
 import "./Commoncard.css";
-import logo from "../images/logo.jpg";
+import logo from "../images/logo.jpeg";
 const Commoncard = ({
   recharge,
   withdraw,

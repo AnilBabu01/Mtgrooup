@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Logo from "../../images/logo.jpg";
+import Logo from "../../images/logo.jpeg";
 import lock from "../../images/lock.png";
 import man from "../../images/man.png";
 import axios from "axios";
