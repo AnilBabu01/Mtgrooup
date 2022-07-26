@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Record from "../Record";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import "../Record.css";
 
-const Recordwithdraw = ({ searchdata }) => {
+const Recordwithdraw = ({ searchdata, searchloader }) => {
   const [withdraw, setwithdraw] = useState("");
   axios.defaults.headers.get["Authorization"] = `Bearer ${localStorage.getItem(
     "tokenauth"
@@ -26,47 +27,61 @@ const Recordwithdraw = ({ searchdata }) => {
   console.log(withdraw.length);
   return (
     <>
-      {!searchdata && (
+      {searchloader && (
         <>
-          {withdraw &&
-            withdraw.map((item) => {
-              return (
-                <Record
-                  type={item.type}
-                  amount={item.amount}
-                  status={item.status}
-                  date={item.created_at}
-                />
-              );
-            })}
-        </>
-      )}
-
-      {withdraw && (
-        <>
-          {withdraw.length === 0 && (
+          {!searchdata && (
             <>
-              <div className="not-found-div">
-                <h2>Record Not Found</h2>
-              </div>
+              {withdraw &&
+                withdraw.map((item) => {
+                  return (
+                    <Record
+                      type={item.type}
+                      amount={item.amount}
+                      status={item.status}
+                      date={item.created_at}
+                    />
+                  );
+                })}
+            </>
+          )}
+
+          {withdraw && (
+            <>
+              {withdraw.length === 0 && (
+                <>
+                  <div className="not-found-div">
+                    <h2>Record Not Found</h2>
+                  </div>
+                </>
+              )}
+            </>
+          )}
+
+          {searchdata && (
+            <>
+              {searchdata.map((item) => {
+                return (
+                  <Record
+                    type={item.type}
+                    amount={item.amount}
+                    status={item.status}
+                    date={item.created_at}
+                  />
+                );
+              })}
             </>
           )}
         </>
       )}
 
-      {searchdata && (
+      {(!searchdata && !withdraw) || !searchloader ? (
         <>
-          {searchdata.map((item) => {
-            return (
-              <Record
-                type={item.type}
-                amount={item.amount}
-                status={item.status}
-                date={item.created_at}
-              />
-            );
-          })}
+          <div className="loader">
+            <CircularProgress style={{ width: "10%", height: "10%" }} />
+          </div>
         </>
+      ) : (
+        ""
       )}
       {searchdata && (
         <>
@@ -79,8 +94,6 @@ const Recordwithdraw = ({ searchdata }) => {
           )}
         </>
       )}
-
-      
     </>
   );
 };

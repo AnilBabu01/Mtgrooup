@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import home from "../images/home.png";
 import team from "../images/team.png";
 import write from "../images/write.png";
+import SystemUpdateAltIcon from "@material-ui/icons/SystemUpdateAlt";
 import "./BottomNavbar.css";
 const BottomNavBar = (props) => {
   let navigate = useNavigate();
@@ -65,6 +66,33 @@ const BottomNavBar = (props) => {
               </>
             )}
           </div>
+          <div className="bn-tab">
+            {activeTabs === "fiewin" ? (
+              <>
+                <div className="centericon">
+                 
+                  <SystemUpdateAltIcon 
+                  style={{color:"#e0620d"}}
+                  onClick={() => setActiveTabs("home")}
+                  className="imgsize"
+                  />
+                  <p className="activetext">Download</p>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="centericon">
+                <SystemUpdateAltIcon 
+                  style={{color:"#e0620d"}}
+                  onClick={() => setActiveTabs("home")}
+                  className="imgsize"
+                  />
+                  <p className="notactivetext">Download</p>
+                </div>
+              </>
+            )}
+          </div>
+
           <div className="bn-tab">
             {activeTabs === "invite" ? (
               <>

@@ -8,6 +8,7 @@ const Common = ({
   revenuecycle,
   totalrevenue,
   id,
+  title
 }) => {
     
   axios.defaults.headers.post["Authorization"] = `Bearer ${localStorage.getItem(
@@ -16,7 +17,7 @@ const Common = ({
 
   const buy =async(id)=>{
 
-    const response = await axios.post("https://www.admin.mtgrooups.in/api/purchaseProduct",{
+    const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/purchaseProduct`,{
       plan_id:id
     });
 
@@ -48,22 +49,22 @@ const Common = ({
           <img src={img} alt="jew1" />
         </div>
         <div className="plan-text-div">
-          <h2>Commoditly investment No .1</h2>
-          <p className="plan-text-div-inber">Limit 1 time</p>
+          <h2>{title?title:"No title"}</h2>
+         
           <p>
-            Input Costs : <span className="plan-text-div-inber">₹{rupee}</span>
+            Input Costs : <span className="plan-text-div-inber">₹{rupee?rupee:"0"}</span>
           </p>
           <p>
             Daily Icome :{" "}
-            <span className="plan-text-div-inber">₹{dailyincome}</span>
+            <span className="plan-text-div-inber">₹{dailyincome?dailyincome:"0"}</span>
           </p>
           <p>
             Revenue cycle :{" "}
-            <span className="plan-text-div-inber">{revenuecycle} day</span>
+            <span className="plan-text-div-inber">{revenuecycle?revenuecycle:"0"} day</span>
           </p>
           <p>
             Total Revenue :{" "}
-            <span className="plan-text-div-inber">₹{totalrevenue}</span>
+            <span className="plan-text-div-inber">₹{totalrevenue?totalrevenue:"0"}</span>
           </p>
         </div>
       </div>

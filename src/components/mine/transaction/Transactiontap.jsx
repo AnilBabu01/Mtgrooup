@@ -4,10 +4,11 @@ import Recordwithdraw from "./WithdraRecord/Recordwithdraw";
 import Recordall from "./AllRecord/Recordall";
 import axios from "axios";
 import "./TransacTap.css";
+import { FlashAuto } from "@material-ui/icons";
 const Transactiontap = () => {
   const [toggleState, setToggleState] = useState(1);
   const [statusvalue, setstatusvalue] = useState(1);
-
+  const [searchloader, setsearchloader] = useState(true);
   const [allsearch, setallsearch] = useState("");
   const [rechargesearch, setrechargesearch] = useState("");
   const [withdrawaearch, setwithdrawaearch] = useState("");
@@ -47,6 +48,7 @@ const Transactiontap = () => {
   useEffect(() => {}, [showsearch, statusvalue, toggleState]);
 
   const searchbtn = async () => {
+    setsearchloader(false)
     console.log("dates", start, "to", end, "status", statusvalue);
 
     const response = await axios.get(
@@ -54,6 +56,7 @@ const Transactiontap = () => {
     );
 
     if (response.data.status === true) {
+      setsearchloader(true)
       if (statusvalue == 1) {
         setrechargesearch(response.data.data);
         setshowsearch(!showsearch);
@@ -114,6 +117,7 @@ const Transactiontap = () => {
             }
           >
             <Recordrecharge
+               searchloader={searchloader}
               searchdata={rechargesearch}
               showsearch={showsearch}
             />
@@ -124,14 +128,14 @@ const Transactiontap = () => {
               toggleState === 2 ? "content  active-content" : "content"
             }
           >
-            <Recordwithdraw searchdata={withdrawaearch} />
+            <Recordwithdraw searchdata={withdrawaearch} searchloader={searchloader}/>
           </div>
           <div
             className={
               toggleState === 3 ? "content  active-content" : "content"
             }
           >
-            <Recordall searchdata={allsearch} />
+            <Recordall searchdata={allsearch} searchloader={searchloader} />
           </div>
         </div>
       </div>

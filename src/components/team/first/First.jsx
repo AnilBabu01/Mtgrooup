@@ -9,8 +9,8 @@ const First = () => {
 
   const getlevelfirst = async () => {
     const response = await axios.get(
-      "https://www.admin.mtgrooups.in/api/teams/1"
-    );
+      `${process.env.REACT_APP_BASE_URL}/api/teams/1`
+    )
 
     if (response.data.status === true) {
       setlevelfirst(response.data.data);

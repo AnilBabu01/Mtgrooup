@@ -10,14 +10,14 @@ export default function Userinfo(props) {
   )}`;
 
   const getuserinfo = async () => {
-    const response = await axios.get("https://www.admin.mtgrooups.in/api/user");
+    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/user`);
 
     setuser(response.data);
   };
 
   const getplans = async () => {
     const response = await axios.get(
-      "https://www.admin.mtgrooups.in/api/plans"
+      `${process.env.REACT_APP_BASE_URL}/api/plans`
     );
 
     setplans(response.data);

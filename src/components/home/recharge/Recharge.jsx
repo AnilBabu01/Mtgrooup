@@ -24,7 +24,7 @@ const Recharge = () => {
   };
   const submitamount = async () => {
     const response = await axios.post(
-      "https://www.admin.mtgrooups.in/api/addAmount",
+      `${process.env.REACT_APP_BASE_URL}/api/addAmount`,
       {
         amount: amout,
       }
@@ -80,8 +80,8 @@ const Recharge = () => {
               </p>
               <p span className="red-p">
                 2: If you forget ti fill in the UTR , please contact the online
-                customer service in time yo help you solve the problem of the
-                safe arrial of funds
+                customer service in time to help you solve the problem of the
+                safe arrival of funds
               </p>
             </div>
             <div className="rupe-div">

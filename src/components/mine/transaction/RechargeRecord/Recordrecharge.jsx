@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import "../Record.css";
 import Record from "../Record";
-const Recordrecharge = ({ searchdata}) => {
+const Recordrecharge = ({ searchdata, searchloader }) => {
   const [recharge, setrecharge] = useState("");
   axios.defaults.headers.get["Authorization"] = `Bearer ${localStorage.getItem(
     "tokenauth"
@@ -24,56 +25,68 @@ const Recordrecharge = ({ searchdata}) => {
   useEffect(() => {
     getrecharge();
   }, []);
- 
-  console.log(setrecharge.length)
+
+  console.log(setrecharge.length);
   return (
     <>
-      {!searchdata && (
+      {searchloader && (
         <>
-          {recharge &&
-            recharge.map((item) => {
-              return (
-                <Record
-                  type={item.type}
-                  amount={item.amount}
-                  status={item.status}
-                  date={item.created_at}
-                />
-              );
-            })}
-
-        
-        </>
-      )}
-        
-        {recharge && (
-        <>
-          {recharge.length === 0 && (
+          {!searchdata && (
             <>
-              <div className="not-found-div">
-                <h2>Record Not Found</h2>
-              </div>
+              {recharge &&
+                recharge.map((item) => {
+                  return (
+                    <Record
+                      type={item.type}
+                      amount={item.amount}
+                      status={item.status}
+                      date={item.created_at}
+                    />
+                  );
+                })}
+            </>
+          )}
+
+          {recharge && (
+            <>
+              {recharge.length === 0 && (
+                <>
+                  <div className="not-found-div">
+                    <h2>Record Not Found</h2>
+                  </div>
+                </>
+              )}
             </>
           )}
         </>
       )}
 
-      
-      {searchdata&&<>
-       {searchdata.map((item) => {
-              return (
-                <Record
-                  type={item.type}
-                  amount={item.amount}
-                  status={item.status}
-                  date={item.created_at}
-                />
-              );
-            })}
-        </>}
+      {(!searchdata && !recharge) || !searchloader ? (
+        <>
+          <div className="loader">
+            <CircularProgress style={{ width: "10%", height: "10%" }} />
+          </div>
+        </>
+      ) : (
+        ""
+      )}
 
+      {searchdata && (
+        <>
+          {searchdata.map((item) => {
+            return (
+              <Record
+                type={item.type}
+                amount={item.amount}
+                status={item.status}
+                date={item.created_at}
+              />
+            );
+          })}
+        </>
+      )}
 
-        {searchdata && (
+      {searchdata && (
         <>
           {searchdata.length === 0 && (
             <>
@@ -82,7 +95,6 @@ const Recordrecharge = ({ searchdata}) => {
               </div>
             </>
           )}
-          
         </>
       )}
     </>

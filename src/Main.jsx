@@ -13,6 +13,7 @@ import Transaction from "./components/mine/transaction/Transaction";
 import Mineresetpassword from "./components/mine/repassword/Mineresetpassword";
 import Recharge from "./components/home/recharge/Recharge";
 import Userinfo from "./components/context/Userinfo";
+import Myplans from "./components/mine/purchasedPlans/Myplans";
 const Main = () => {
   return (
     <>
@@ -32,6 +33,7 @@ const Main = () => {
           <Route path="/transaction" element={<Transaction/>} />
           <Route path="/mine-reset-password" element={<Mineresetpassword/>} />
           <Route path="/recharge" element={<Recharge/>} />
+          <Route path="/myplans" element={<Myplans/>} />
         </Routes>
         </Userinfo>
       </BrowserRouter>

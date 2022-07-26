@@ -20,10 +20,13 @@ const Signup = () => {
     confirmpassword: "",
     withdrawpassword: "",
     invitationcode: "",
+    otp:""
   });
   const [successful, setsuccessful] = useState(false);
   const [userallready, setuserallready] = useState(false);
   const [showprocess, setshowprocess] = useState(false);
+  const [optsent, setoptsent] = useState(false)
+  
   const success = "success";
   const warning = "warning";
   const {
@@ -32,22 +35,53 @@ const Signup = () => {
     confirmpassword,
     withdrawpassword,
     invitationcode,
+    otp
   } = credentials;
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
+  axios.defaults.headers.get["Authorization"] = `Bearer ${localStorage.getItem(
+    "tokenauth"
+  )}`;
+  const getotp =async()=>
+  {
+    const response = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/api/sendOtpForRegisteration/${number}`
+    );
+
+    if (response.data.status === true) {
+      setoptsent(true);
+
+      setTimeout(() => {
+        setoptsent(false);
+      
+       
+      }, 2000);
+    }
+    if (response.data.status === false) {
+      
+
+      setTimeout(() => {
+       
+       
+      }, 2000);
+    }
+
+    console.log("otp",response)
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
     setshowprocess(true);
     const response = await axios.post(
-      "https://www.admin.mtgrooups.in/api/register",
+      `${process.env.REACT_APP_BASE_URL}/api/register`,
       {
         mobile_no: number,
         password: password,
         cnf_password: confirmpassword,
         withdrawl_password: withdrawpassword,
-        refer_code: code,
+        refer_code: invitationcode,
+        otp:otp
       }
     );
     if (response.data.status === true) {
@@ -87,7 +121,19 @@ const Signup = () => {
           ) : (
             ""
           )}
+           {optsent? (
+            <Alert variant="filled" severity={optsent ? success : warning}>
+              {optsent
+                ? "Otp send successfully"
+                : "Please enter number first "}
+            </Alert>
+          ) : (
+            ""
+          )}
+          
           <div className="form-div">
+            <div className="otp-reg">
+
             <form onSubmit={handleSubmit}>
               <div className="input-div1">
                 <input
@@ -98,7 +144,17 @@ const Signup = () => {
                   placeholder="Phone Number"
                 />
               </div>
-
+            
+              <div className="input-div1">
+                <img src={jewellery} alt="logo" />
+                <input
+                  onChange={onChange}
+                  name="otp"
+                  value={otp}
+                  type="text"
+                  placeholder="Please enter otp"
+                />
+              </div>
               <div className="input-div1">
                 <img src={jewellery} alt="logo" />
                 <input
@@ -134,7 +190,7 @@ const Signup = () => {
                 <input
                   onChange={onChange}
                   name="invitationcode"
-                  value={code}
+                  value={code?code:invitationcode}
                   type="text"
                   placeholder="Invatitation code"
                 />
@@ -151,6 +207,15 @@ const Signup = () => {
                 </button>
               </div>
             </form>
+             
+             <div className="set-otpdiv">
+             <button  disabled={!number?true:""} onClick={getotp}>Get Otp</button>
+             </div>
+                
+            </div>
+           
+            
+
             <div className="reg-div1">
               <Link className="forget-pass" to="/">
                 Already have an account, log in

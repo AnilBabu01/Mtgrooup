@@ -27,7 +27,7 @@ const Forgetpassword = () => {
     e.preventDefault();
     setshowprocess(true)
     const response = await axios.post(
-      "https://www.admin.mtgrooups.in/api/changeForgetPassword",
+      `${process.env.REACT_APP_BASE_URL}/api/changeForgetPassword`,
       {
         mobile_no: number,
         otp : otp,
@@ -39,7 +39,7 @@ const Forgetpassword = () => {
       setTimeout(() => {
         setsuccessful(false);
 
-        navigate("/login");
+        navigate("/");
         setshowprocess(false)
       }, 2000);
     }

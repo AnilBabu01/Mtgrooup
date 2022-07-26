@@ -21,7 +21,7 @@ const Getotp = () => {
     e.preventDefault();
     setshowprocess(true)
     const response = await axios.post(
-      "https://www.admin.mtgrooups.in/api/sendForgetPasswordOtp",
+      `${process.env.REACT_APP_BASE_URL}/api/sendForgetPasswordOtp`,
       {
         mobile_no: number,
       }

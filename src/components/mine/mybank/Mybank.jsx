@@ -37,7 +37,7 @@ const Mybank = () => {
   )}`;
 
   const bankid = async () => {
-    const response = await axios.get("https://www.admin.mtgrooups.in/api/bank");
+    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/bank`);
 
     setbankidd(response.data.data[0]);
 
@@ -55,7 +55,7 @@ const Mybank = () => {
     e.preventDefault();
     setshowprocess(true);
     const response = await axios.post(
-      "https://www.admin.mtgrooups.in/api/addBank",
+      `${process.env.REACT_APP_BASE_URL}/api/addBank`,
       {
         withdrawl_id: bankidd.id,
         withdrawl_password: withdrawpassword,
@@ -72,6 +72,7 @@ const Mybank = () => {
       setTimeout(() => {
         setsuccessful(false);
         setshowprocess(false);
+        navigate("/mine")
       }, 2000);
     }
     if (response.data.status === false) {
@@ -90,12 +91,12 @@ const Mybank = () => {
   };
   return (
     <>
-      <div className="close-div6">
+       <div className="close-div6">
         <CloseIcon
           style={{ color: "white" }}
           onClick={() => navigate("/mine")}
         />
-        <div className="title-div6">
+        <div className="title-div12">
           <p>My Bank</p>
         </div>
       </div>

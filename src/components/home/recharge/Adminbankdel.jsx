@@ -60,7 +60,7 @@ const Adminbankdel = ({ transactionid }) => {
   const submit = async (e) => {
     e.preventDefault();
     const response = await axios.post(
-      "https://www.admin.mtgrooups.in/api/updateUtrNo",
+      `${process.env.REACT_APP_BASE_URL}/api/updateUtrNo`,
       {
         transaction_id: transactionid,
         utr_no: utr,

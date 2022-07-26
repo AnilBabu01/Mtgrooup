@@ -41,7 +41,9 @@ const Mine = () => {
     getmineinfo();
     if (!token) {
       navigate("/");
+
     }
+   
   }, []);
 
   return (
@@ -52,10 +54,8 @@ const Mine = () => {
         </button>
       </div>
       {successful ? (
-        <Alert variant="filled" severity={successful ? success : warning}>
-          {successful
-            ? "You have login successfully"
-            : "Enter the correct credentials "}
+        <Alert variant="filled" severity={success}>
+        You have logout successfully
         </Alert>
       ) : (
         ""
@@ -113,7 +113,7 @@ const Mine = () => {
               <ArrowForwardIosIcon />
             </div>
           </div>
-          <div onClick={() => navigate("/home")} className="btn-divv">
+          <div onClick={() => navigate("/myplans")} className="btn-divv">
             <div className="icon-div">
               <NoteIcon />
               <p> My Product</p>

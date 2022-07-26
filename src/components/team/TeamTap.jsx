@@ -35,7 +35,7 @@ const TeamTap = () => {
 
       const getteaminfo=async()=>{
         const response = await axios.get(
-          `https://www.admin.mtgrooups.in/api/teams/${teamno}`
+          `${process.env.REACT_APP_BASE_URL}/api/teams/${teamno}`
         );
         setteamlevelinfo(response.data)
  }
@@ -92,19 +92,19 @@ useEffect(() => {
           className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
           onClick={() => toggleTab(1)}
         >
-          First
+          First (5%)
         </button>
         <button
           className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
           onClick={() => toggleTab(2)}
         >
-          Second
+          Second (3%)
         </button>
         <button
           className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
           onClick={() => toggleTab(3)}
         >
-          Third
+          Third (2%)
         </button>
       </div>
 

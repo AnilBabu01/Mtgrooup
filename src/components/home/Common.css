@@ -34,7 +34,15 @@ h2 {
     width: 97% !important;
   }
 }
+.plan-img-div {
+  width: 40%;
+}
 
+
+.plan-text-div {
+  width: 60%;
+  padding: 10px;
+}
 .plan-text-div-inber{
     color:#e0620d ;
 }

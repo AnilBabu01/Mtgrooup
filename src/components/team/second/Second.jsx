@@ -10,7 +10,7 @@ const Second = () => {
 
   const getlevelfirst = async () => {
     const response = await axios.get(
-      "https://www.admin.mtgrooups.in/api/teams/2"
+      `${process.env.REACT_APP_BASE_URL}/api/teams/2`
     );
 
     if (response.data.status === true) {

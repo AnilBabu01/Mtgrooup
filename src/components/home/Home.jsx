@@ -7,6 +7,8 @@ import BusinessIcon from "@material-ui/icons/Business";
 import SystemUpdateAltIcon from "@material-ui/icons/SystemUpdateAlt";
 import InputIcon from "@material-ui/icons/Input";
 import { userinfocontext } from "../context/Userinfo";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import {Link} from 'react-router-dom';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Common from "./Common";
@@ -69,10 +71,10 @@ const Home = () => {
               <InputIcon className="icons" />
               <p>Recharge</p>
             </div>
-            <div onClick={() => navigate("/invite")} className="icon-divv">
+            <a href="https://t.me/mtgroups886" target="_blank" className="icon-divv">
               <TelegramIcon className="icons" />
               <p>Group</p>
-            </div>
+            </a>
             <div onClick={() => navigate("/withdraw")} className="icon-divv">
               <AllInboxIcon className="icons" />
               <p>Withdraw</p>
@@ -95,79 +97,94 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="icon-divv1 long">
-        <p>Long Tearm Plan</p>
-      </div>
-      <div className="plan-div">
-        {longterm &&
-          longterm.map((item) => {
-            return (
-              <>
-                <div>
-                  <Common
-                    key={item.id}
-                    id={item.id}
-                    img={item.image}
-                    rupee={item.input_cost}
-                    dailyincome={item.daily_income}
-                    revenuecycle={item.revenue_cycle}
-                    totalrevenue={item.total_revenue}
-                  />
-                </div>
-              </>
-            );
-          })}
 
-        {longterm && (
-          <>
-            {longterm.length === 0 && (
+      {longterm && (
+        <>
+          <div className="icon-divv1 long">
+            <p>Long Tearm Plan</p>
+          </div>
+          <div className="plan-div">
+            {longterm &&
+              longterm.map((item) => {
+                return (
+                  <>
+                    <div>
+                      <Common
+                        key={item.id}
+                        id={item.id}
+                        img={item.image}
+                        rupee={item.input_cost}
+                        dailyincome={item.daily_income}
+                        revenuecycle={item.revenue_cycle}
+                        totalrevenue={item.total_revenue}
+                        title={item.title}
+                      />
+                    </div>
+                  </>
+                );
+              })}
+
+            {longterm && (
               <>
-                <div className="not-found-div">
-                  <h2>Record Not Found</h2>
-                </div>
+                {longterm.length === 0 && (
+                  <>
+                    <div className="not-found-div">
+                      <h2>Record Not Found</h2>
+                    </div>
+                  </>
+                )}
               </>
             )}
-          </>
-        )}
-      </div>
-      {!longterm && (
-        <div className="not-found-div">
-          <h2>Plans Not Found</h2>
-        </div>
+          </div>
+        </>
       )}
-      <div className="icon-divv long">
-        <p>Short Tearm Plan</p>
-      </div>
-      <div style={{ marginBottom: "55px" }} className="plan-div">
-        {shortteram &&
-          shortteram.map((item) => {
-            return (
+
+      {!longterm && !shortteram&&(
+         <div className="loader">
+          <CircularProgress style={{ width: "10%", height: "10%" }} />
+         </div>
+       
+      )}
+
+      {shortteram && (
+        <>
+          <div className="icon-divv long">
+            <p>Short Tearm Plan</p>
+          </div>
+          <div style={{ marginBottom: "55px" }} className="plan-div">
+            {shortteram &&
+              shortteram.map((item) => {
+                return (
+                  <>
+                    <div key={item.id}>
+                      <Common
+                        id={item.id}
+                        img={item.image}
+                        rupee={item.input_cost}
+                        dailyincome={item.daily_income}
+                        revenuecycle={item.revenue_cycle}
+                        totalrevenue={item.total_revenue}
+                      />
+                    </div>
+                  </>
+                );
+              })}
+
+            {shortteram && (
               <>
-                <div key={item.id}>
-                  <Common
-                    id={item.id}
-                    img={item.image}
-                    rupee={item.input_cost}
-                    dailyincome={item.daily_income}
-                    revenuecycle={item.revenue_cycle}
-                    totalrevenue={item.total_revenue}
-                  />
-                </div>
-              </>
-            );
-          })}
-        {shortteram && (
-          <>
-            {shortteram.length === 0 && (
-              <>
-                <div className="not-found-div">
-                  <h2>Record Not Found</h2>
-                </div>
+                {shortteram.length === 0 && (
+                  <>
+                    <div className="not-found-div">
+                      <h2>Record Not Found</h2>
+                    </div>
+                  </>
+                )}
               </>
             )}
-          </>
-        )}
-      </div>
+          </div>
+        </>
+      )}
+
       <BottomNavBar name="home" />
     </>
   );

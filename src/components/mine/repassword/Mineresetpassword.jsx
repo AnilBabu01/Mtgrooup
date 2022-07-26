@@ -50,6 +50,7 @@ const Mineresetpassword = () => {
       setshowprocess(false)
       setTimeout(() => {
         setsuccessful(false);
+        navigate("/mine")
       }, 2000);
     }
     if (

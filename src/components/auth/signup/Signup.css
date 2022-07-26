@@ -41,7 +41,23 @@
   width: 450px;
   margin-top: 10px;
 }
+.otp-reg{
+  position: relative;
+}
 
+.set-otpdiv{
+  position: absolute;
+  bottom: 90%;
+  left: 82.5%;
+}
+.set-otpdiv button{
+  background-color: #e0620d;
+  color: white;
+  width: 80px;
+  height: 42px;
+  font-weight: 700;
+  border-radius: 5px;
+}
 @media screen and (max-width: 780px) {
    
     .input-div1 img {
@@ -54,5 +70,11 @@
 .logo-div1 img{
   height: 200px;
   width: 354px;
+}
+
+.set-otpdiv{
+  position: absolute;
+  bottom: 90%;
+  left: 77.5%;
 }
 }
