@@ -50,8 +50,19 @@
   bottom: 90%;
   left: 82.5%;
 }
-.set-otpdiv button{
+
+
+.set-opt-btn{
   background-color: #e0620d;
+  color: white;
+  width: 80px;
+  height: 42px;
+  font-weight: 700;
+  border-radius: 5px;
+}
+
+.set-opt-btn1{
+  background-color: #f19a5f;
   color: white;
   width: 80px;
   height: 42px;
