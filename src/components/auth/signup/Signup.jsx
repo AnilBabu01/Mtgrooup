@@ -26,7 +26,7 @@ const Signup = () => {
   const [userallready, setuserallready] = useState(false);
   const [showprocess, setshowprocess] = useState(false);
   const [optsent, setoptsent] = useState(false)
-  
+  const [numberis, setnumberis] = useState(false)
   const success = "success";
   const warning = "warning";
   const {
@@ -50,11 +50,19 @@ const Signup = () => {
       `${process.env.REACT_APP_BASE_URL}/api/sendOtpForRegisteration/${number}`
     );
 
-    if (response.data.status === true) {
+    if (response.data.status === true&&!response.data.msg==="Mobile No Already Registered!!") {
       setoptsent(true);
 
       setTimeout(() => {
         setoptsent(false);
+      
+       
+      }, 2000);
+    }
+    if (response.data.status === true&&response.data.msg==="Mobile No Already Registered!!")
+    {   setnumberis(true)
+      setTimeout(() => {
+        setnumberis(false);
       
        
       }, 2000);
@@ -121,11 +129,11 @@ const Signup = () => {
           ) : (
             ""
           )}
-           {optsent? (
+           {optsent ||  numberis? (
             <Alert variant="filled" severity={optsent ? success : warning}>
               {optsent
                 ? "Otp send successfully"
-                : "Please enter number first "}
+                : "Email or Mobile Number already exist  "}
             </Alert>
           ) : (
             ""
