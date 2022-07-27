@@ -84,7 +84,7 @@ const Transactiontap = () => {
       <div className="search-div">
         <input type="date" value={start} name="start" onChange={onchange} /> To
         <input type="date" value={end} name="end" onChange={onchange} />
-        <button onClick={searchbtn} className="search-btn">
+        <button  disabled={!start&&!end ? true : ""} onClick={searchbtn} className="search-btn">
           Search
         </button>
       </div>

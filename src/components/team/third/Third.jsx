@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Commoncard from "../Commoncard";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import axios from "axios";
 
 const Third = () => {
@@ -50,6 +51,15 @@ const Third = () => {
             </>
           )}
         </>
+      )}
+        {!levelfirst? (
+        <>
+          <div className="loader">
+            <CircularProgress style={{ width: "10%", height: "10%" }} />
+          </div>
+        </>
+      ) : (
+        ""
       )}
     </>
   );
