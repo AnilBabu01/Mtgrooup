@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CloseIcon from "@material-ui/icons/Close";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import axios from "axios";
 import Plan from "./Plan";
 import "./Myplans.css";
@@ -72,6 +73,15 @@ const Myplans = () => {
             )}
           </>
         )}
+         {!plans? (
+        <>
+          <div className="loader">
+            <CircularProgress style={{ width: "10%", height: "10%" }} />
+          </div>
+        </>
+      ) : (
+        ""
+      )}
     </>
   );
 };
