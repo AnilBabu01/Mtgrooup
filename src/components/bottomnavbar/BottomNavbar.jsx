@@ -83,7 +83,7 @@ const BottomNavBar = (props) => {
               <>
                 <div className="centericon">
                 <SystemUpdateAltIcon 
-                  style={{color:"#e0620d"}}
+                  style={{color:"#e0620d",width:"37px",height:"37px"}}
                   onClick={() => setActiveTabs("home")}
                   className="imgsize"
                   />
