@@ -18,14 +18,14 @@
 }
 
 .tax-div {
-  border: 1px solid #e0620d;
+  border: 1px solid rgb(137,87,229);
   width: 20%;
   border-radius: 28px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 25px;
-  color: #e0620d;
+  color: rgb(137,87,229);
   height: 45px;
 }
 .tax-div p {
@@ -42,7 +42,7 @@
 .am-div input{
   margin-left: 10px;
     height: 30px;
-    border: 1px solid #e0620d;
+    border: 1px solid rgb(137,87,229);
     border-radius: 5px;
 }
 .am-div input:focus{
@@ -50,7 +50,7 @@
 }
 
 .am-div p {
-  color: #e0620d;
+  color: rgb(137,87,229);
   font-size: 45px;
   margin-top: 0px;
   margin-bottom: 0px;
@@ -75,7 +75,7 @@
 
 .with-p {
   margin-left: 150px;
-  color: #e0620d;
+  color: rgb(137,87,229);
 }
 .bank-del p {
   margin-top: 11px;
@@ -101,8 +101,8 @@
 }
 .with-div button {
   border: none;
-  background: #e0620d;
-  box-shadow: -1px 5px 15px 0 #e0620d;
+  background: rgb(137,87,229);
+  box-shadow: -1px 5px 15px 0 rgb(137,87,229);
   width: 97%;
   margin: 10px;
   display: flex;
@@ -148,7 +148,7 @@
   }
   .with-p {
     margin-left: 20px;
-    color: #e0620d;
+    color: rgb(137,87,229);
   }
 
   .bank-del input {

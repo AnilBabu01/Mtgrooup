@@ -8,7 +8,7 @@ import SystemUpdateAltIcon from "@material-ui/icons/SystemUpdateAlt";
 import InputIcon from "@material-ui/icons/Input";
 import { userinfocontext } from "../context/Userinfo";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Common from "./Common";
@@ -25,6 +25,8 @@ const Home = () => {
   axios.defaults.headers.get["Authorization"] = `Bearer ${localStorage.getItem(
     "tokenauth"
   )}`;
+
+  const  mobile = localStorage.getItem("isMobile");
   const getplans = async () => {
     const response = await axios.get(
       "https://www.admin.mtgrooups.in/api/plans"
@@ -71,7 +73,11 @@ const Home = () => {
               <InputIcon className="icons" />
               <p>Recharge</p>
             </div>
-            <a href="https://t.me/mtgroups886" target="_blank" className="icon-divv">
+            <a
+              href="https://t.me/mtgroopsofficial"
+              target="_blank"
+              className="icon-divv"
+            >
               <TelegramIcon className="icons" />
               <p>Group</p>
             </a>
@@ -80,16 +86,28 @@ const Home = () => {
               <p>Withdraw</p>
             </div>
           </div>
-
+         
           <div className="oprions-icon-div1">
             <div onClick={() => navigate("/invite")} className="icon-divv">
               <PeopleIcon className="icons" />
               <p>Invite</p>
             </div>
-            <div style={{ marginLeft: "15px" }} className="icon-divv">
-              <SystemUpdateAltIcon className="icons" />
-              <p>Download</p>
-            </div>
+            {mobile ? (
+              ""
+            ) : (
+              <>
+                <a
+                  href="https://www.mtgrooups.in/mtgrooups.apk"
+                  target="_blank"
+                  style={{ marginLeft: "15px" }}
+                  className="icon-divv"
+                >
+                  <SystemUpdateAltIcon className="icons" />
+                  <p>Download</p>
+                </a>
+              </>
+            )}
+
             <div className="icon-divv">
               <BusinessIcon className="icons" />
               <p>Compnay</p>
@@ -139,11 +157,10 @@ const Home = () => {
         </>
       )}
 
-      {!longterm && !shortteram&&(
-         <div className="loader">
+      {!longterm && !shortteram && (
+        <div className="loader">
           <CircularProgress style={{ width: "10%", height: "10%" }} />
-         </div>
-       
+        </div>
       )}
 
       {shortteram && (

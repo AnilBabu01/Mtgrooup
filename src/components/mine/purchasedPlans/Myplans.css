@@ -7,7 +7,7 @@
   }
 
   .close-div10 {
-    background: #e0620d;
+    background: rgb(137,87,229);
     height: 45px;
     display: flex;
     align-items: center;
@@ -25,7 +25,7 @@
     align-items: center;
     flex-wrap: wrap!important;
     margin-bottom: 2px;
-    padding-left: 0.5%;
+    padding-left: 1.5%;
 }
 
 .plan-img-div10 {

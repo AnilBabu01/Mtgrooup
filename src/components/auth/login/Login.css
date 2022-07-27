@@ -35,8 +35,8 @@
 
 .btn-div button{
     width: 100%;
-    background: #e0620d;
-    box-shadow: -1px 5px 15px 0 #e0620d;
+    background: rgb(137,87,229);
+    box-shadow: -1px 5px 15px 0 rgb(137,87,229);
     color: #fff;
     text-align: center;
     display: flex;
@@ -60,7 +60,7 @@
 }
 
 .forget-pass{
-    color:#e0620d ;
+    color:rgb(137,87,229) ;
 }
 
 

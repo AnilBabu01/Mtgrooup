@@ -15,7 +15,7 @@
 }
 
 .success-div {
-  background: #e0620d;
+  background: rgb(137,87,229);
   padding-left: 20px;
   padding-right: 20px;
   height: 34px;
@@ -43,7 +43,7 @@
 }
 
 .red-pp {
-  color: red;
+  color:rgb(137,87,229);
 }
 .not-found-div{
   display: flex;
@@ -59,7 +59,7 @@
     margin-left: 13px;
    }  
       .success-div {
-        background: #e0620d;
+        background: rgb(137,87,229);
        
         height: 34px;
         align-items: center;

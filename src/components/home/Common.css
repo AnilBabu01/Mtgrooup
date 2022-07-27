@@ -32,7 +32,7 @@ h2 {
 
 @media screen and (max-width: 780px) {
   .plan-com-div {
-    width: 97% !important;
+    width: 345px;
   }
 }
 .plan-img-div {
@@ -45,5 +45,5 @@ h2 {
   padding: 10px;
 }
 .plan-text-div-inber{
-    color:#e0620d ;
+    color:rgb(137,87,229) ;
 }

@@ -140,8 +140,8 @@ const Mineresetpassword = () => {
                 placeholder="Confirm New Password"
               />
             </div>
-            <div className="for-input-div">
-              <button>
+            <div className="for-input-div" >
+              <button style={{backgroundColor:'rgb(137,87,229)'}}>
               {showprocess ? (
                     <CircularProgress
                       style={{ width: "21px", height: "21px" }}

@@ -15,7 +15,7 @@ const Transaction = () => {
   
   return (
     <>
-      <div className="close-div5">
+      <div className="close-div5" >
         <CloseIcon
           style={{ color: "white" }}
           onClick={() => navigate("/mine")}

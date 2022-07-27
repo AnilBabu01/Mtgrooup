@@ -167,7 +167,7 @@ const Mybank = () => {
               />
             </div>
             <div className="for-input-div">
-              <button>
+              <button style={{backgroundColor:"rgb(137,87,229)"}}>
                 {showprocess ? (
                   <CircularProgress style={{ width: "21px", height: "21px" }} />
                 ) : (
