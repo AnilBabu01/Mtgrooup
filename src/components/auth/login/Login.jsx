@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import Logo from "../../images/logo.jpeg";
 import lock from "../../images/lock.png";
 import man from "../../images/man.png";
@@ -16,7 +16,7 @@ const Login = () => {
   const [successful, setsuccessful] = useState(false);
   const [userallready, setuserallready] = useState(false);
   const [showprocess, setshowprocess] = useState(false);
-
+ 
  
   const warning = "warning";
 
@@ -40,7 +40,7 @@ const Login = () => {
       setTimeout(() => {
         setsuccessful(false);
         setshowprocess(false);
-        navigate("/home");
+        navigate("/");
       }, 1000);
     }
     if (response.data.status === false) {

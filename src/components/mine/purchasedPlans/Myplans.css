@@ -21,11 +21,12 @@
 }
   
 .plan-div10{
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap!important;
-    margin-bottom: 2px;
-    padding-left: 1.5%;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap!important;
+  margin-bottom: 2px;
+
+  justify-content: space-evenly;
 }
 
 .plan-img-div10 {

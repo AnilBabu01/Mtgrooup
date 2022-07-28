@@ -29,10 +29,11 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "15px",
   },
   paper1: {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: "rgb(137,87,229)",
     border: "none",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+    color:"white",
     "&:focus": {
       outline: "none",
     },
@@ -148,7 +149,7 @@ const Withdraw = () => {
       <div className="close-div">
         <CloseIcon
           style={{ color: "white" }}
-          onClick={() => navigate("/home")}
+          onClick={() => navigate("/")}
         />
         <div className="title-div">
           <p>Withdraw</p>

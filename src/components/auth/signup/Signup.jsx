@@ -27,6 +27,7 @@ const Signup = () => {
   const [showprocess, setshowprocess] = useState(false);
   const [optsent, setoptsent] = useState(false);
   const [numberis, setnumberis] = useState(false);
+  const [validotp, setvalidotp] = useState(false);
   const success = "success";
   const warning = "warning";
   const {
@@ -44,6 +45,9 @@ const Signup = () => {
   axios.defaults.headers.get["Authorization"] = `Bearer ${localStorage.getItem(
     "tokenauth"
   )}`;
+
+
+  
   const getotp = async () => {
     const response = await axios.get(
       `${process.env.REACT_APP_BASE_URL}/api/sendOtpForRegisteration/${number}`
@@ -51,21 +55,19 @@ const Signup = () => {
 
     if (
       response.data.status === true &&
-      !response.data.msg === "Mobile No Already Registered!!"
+      response.data.msg === "Mobile No Already Registered!!"
     ) {
-      setoptsent(true);
-
+      
+      setnumberis(true)
       setTimeout(() => {
-        setoptsent(false);
+        setnumberis(false)
       }, 2000);
     }
     if (
-      response.data.status === true &&
-      response.data.msg === "Mobile No Already Registered!!"
-    ) {
-      setnumberis(true);
+      response.data.status === true&&response.data.msg === "OTP Send Successfully!!") {
+        setoptsent(true)
       setTimeout(() => {
-        setnumberis(false);
+        setoptsent(false);
       }, 2000);
     }
     if (response.data.status === false) {
@@ -74,6 +76,11 @@ const Signup = () => {
 
     console.log("otp", response);
   };
+
+
+
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setshowprocess(true);
@@ -94,10 +101,26 @@ const Signup = () => {
       setTimeout(() => {
         setsuccessful(false);
         setshowprocess(false);
-        navigate("/");
+        navigate("/login");
       }, 2000);
     }
-    if (response.data.status === false) {
+    if (response.data.status === false&&response.data.msg === "Enter Valid OTP") {
+    
+      setvalidotp(true)
+      setTimeout(() => {
+        setvalidotp(false)
+        setshowprocess(false);
+      }, 2000);
+    }
+    if (response.data.status === false&&response.data.msg === "First Send OTP!") {
+      setuserallready(true);
+
+      setTimeout(() => {
+        setuserallready(false);
+        setshowprocess(false);
+      }, 2000);
+    }
+    if (response.data.status === false&&response.data.msg === "Mobile No Already Registered") {
       setuserallready(true);
 
       setTimeout(() => {
@@ -118,7 +141,14 @@ const Signup = () => {
           </div>
           {successful || userallready ? (
             <Alert variant="filled" severity={successful ? success : warning}>
-              {successful ? "register successfully" : "First send otp"}
+              {successful ? "Register Successfully" : "First Send OTP"}
+            </Alert>
+          ) : (
+            ""
+          )}
+           {validotp? (
+            <Alert variant="filled" severity={warning}>
+            Enter Valid OTP
             </Alert>
           ) : (
             ""
@@ -127,7 +157,7 @@ const Signup = () => {
             <Alert variant="filled" severity={optsent ? success : warning}>
               {optsent
                 ? "Otp send successfully"
-                : "Email or Mobile Number already exist  "}
+                : "Email or Mobile Number already exist"}
             </Alert>
           ) : (
             ""

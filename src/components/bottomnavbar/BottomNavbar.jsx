@@ -14,8 +14,8 @@ const BottomNavBar = (props) => {
   const [activeTabs, setActiveTabs] = useState(props.name);
   useEffect(() => {
     switch (activeTabs) {
-      case "/home":
-        navigate("/home");
+      case "/":
+        navigate("/");
         break;
       case "team":
         navigate("/team");
@@ -34,7 +34,7 @@ const BottomNavBar = (props) => {
         break;
 
       default:
-        navigate("/home");
+        navigate("/");
         break;
     }
   }, [activeTabs, navigate]);
@@ -53,7 +53,7 @@ const BottomNavBar = (props) => {
                       width: "35px",
                       height: "35px",
                     }}
-                    onClick={() => setActiveTabs("home")}
+                    onClick={() => setActiveTabs("/")}
                     className="imgsize"
                   />
 
@@ -69,7 +69,7 @@ const BottomNavBar = (props) => {
                       width: "35px",
                       height: "35px",
                     }}
-                    onClick={() => setActiveTabs("home")}
+                    onClick={() => setActiveTabs("/")}
                     className="imgsize"
                   />
                   <p className="notactivetext">Home</p>
@@ -85,7 +85,7 @@ const BottomNavBar = (props) => {
               <div className="bn-tab">
                 <a
                   href="https://www.mtgrooups.in/mtgrooups.apk"
-                  target="_blank"
+                 
                   style={{ marginLeft: "15px", marginTop: "18px" }}
                   className="icon-divv"
                 >

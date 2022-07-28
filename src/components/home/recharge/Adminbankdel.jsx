@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   paper: {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: "rgb(137,87,229)",
     border: "none",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    color:"white",
     fontSize: "25px",
   },
 }));

@@ -76,6 +76,16 @@
     border-radius: 5px;
     margin-left: 91%;
 }
+
+.logout-btnn1{
+    width: 100px;
+    box-shadow: 0 0.053333rem 0.533333rem 0.053333rem #dfdfdf;
+    color: white;
+    height: 30px;
+    font-size: 16px;
+    border-radius: 5px;
+     background-color: gray;
+}
 @media screen and (max-width: 780px) {
 
 

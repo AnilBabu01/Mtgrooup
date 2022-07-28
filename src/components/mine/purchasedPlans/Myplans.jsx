@@ -22,7 +22,7 @@ const Myplans = () => {
   };
   useEffect(() => {
     if (!token) {
-      navigate("/");
+      navigate("/login");
     }
 
     getplans();

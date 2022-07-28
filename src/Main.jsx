@@ -22,9 +22,9 @@ const Main = () => {
         <Routes>
           <Route path="/signup/:code" element={<Signup/>} />
           <Route path="/signup" element={<Signup/>} />
-          <Route path="/" element={<Login/>} />
+          <Route path="/login" element={<Login/>} />
           <Route path="/forget-password" element={<Forgetpassword/>} />
-          <Route path="/home" element={<Home/>} />
+          <Route path="/" element={<Home/>} />
           <Route path="/team" element={<Team/>} />
           <Route path="/mine" element={<Mine/>} />
           <Route path="/invite" element={<Invite/>} />

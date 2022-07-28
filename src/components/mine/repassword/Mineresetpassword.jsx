@@ -22,7 +22,7 @@ const Mineresetpassword = () => {
   const token = localStorage.getItem("tokenauth");
   useEffect(() => {
     if (!token) {
-      navigate("/");
+      navigate("/login");
     }
   }, []);
 

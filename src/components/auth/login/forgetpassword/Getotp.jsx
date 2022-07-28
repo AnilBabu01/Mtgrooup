@@ -63,7 +63,7 @@ const Getotp = () => {
             type="text"
             placeholder="Phone number"
           />
-          <button>
+          <button disabled={!number ? true : ""}>
           {showprocess ? (
                     <CircularProgress
                       style={{ width: "18px", height: "18px" }}

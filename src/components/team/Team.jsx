@@ -9,7 +9,7 @@ const Team = () => {
   const token = localStorage.getItem("tokenauth");
   useEffect(() => {
     if (!token) {
-      navigate("/");
+      navigate("/login");
     }
   }, []);
   console.log(token);

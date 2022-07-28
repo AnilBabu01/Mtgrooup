@@ -8,13 +8,14 @@ import SystemUpdateAltIcon from "@material-ui/icons/SystemUpdateAlt";
 import InputIcon from "@material-ui/icons/Input";
 import { userinfocontext } from "../context/Userinfo";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Common from "./Common";
 import "./Home.css";
+
 const Home = () => {
   const navigate = useNavigate();
+ 
   const context = useContext(userinfocontext);
   const { user, getuserinfo } = context;
   const [longterm, setlongterm] = useState("");
@@ -25,7 +26,7 @@ const Home = () => {
   axios.defaults.headers.get["Authorization"] = `Bearer ${localStorage.getItem(
     "tokenauth"
   )}`;
-
+ 
   const  mobile = localStorage.getItem("isMobile");
   const getplans = async () => {
     const response = await axios.get(
@@ -40,7 +41,7 @@ const Home = () => {
   const token = localStorage.getItem("tokenauth");
   useEffect(() => {
     if (!token) {
-      navigate("/");
+      navigate("/login");
     }
 
     getplans();
@@ -50,6 +51,7 @@ const Home = () => {
 
   return (
     <>
+    
       <div className="recharg-div-home">
         <div className="recharg-div-home-content">
           <div className="text-div">
@@ -98,7 +100,7 @@ const Home = () => {
               <>
                 <a
                   href="https://www.mtgrooups.in/mtgrooups.apk"
-                  target="_blank"
+                 
                   style={{ marginLeft: "15px" }}
                   className="icon-divv"
                 >

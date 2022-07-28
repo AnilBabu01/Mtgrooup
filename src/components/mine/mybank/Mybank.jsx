@@ -46,7 +46,7 @@ const Mybank = () => {
 
   useEffect(() => {
     if (!token) {
-      navigate("/");
+      navigate("/login");
     }
     bankid();
   }, []);

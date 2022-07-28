@@ -15,7 +15,7 @@ const Recharge = () => {
   const token = localStorage.getItem("tokenauth");
   useEffect(() => {
     if (!token) {
-      navigate("/");
+      navigate("/login");
     }
   }, []);
 
@@ -42,7 +42,7 @@ const Recharge = () => {
       <div className="close-div7">
         <CloseIcon
           style={{ color: "white" }}
-          onClick={() => navigate("/home")}
+          onClick={() => navigate("/")}
         />
         <div className="title-div7">
           <p>Recharge</p>

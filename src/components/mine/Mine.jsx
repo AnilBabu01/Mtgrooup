@@ -23,7 +23,7 @@ const Mine = () => {
     localStorage.removeItem("tokenauth");
     setTimeout(() => {
       setsuccessful(false);
-      navigate("/");
+      navigate("/login");
     }, 1000);
   };
 
@@ -40,7 +40,7 @@ const Mine = () => {
   useEffect(() => {
     getmineinfo();
     if (!token) {
-      navigate("/");
+      navigate("/login");
 
     }
    

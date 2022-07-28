@@ -26,7 +26,7 @@ if(user)
 }
    useEffect(() => {
     if (!token) {
-      navigate("/");
+      navigate("/login");
     }
     getuserinfo();
    }, [])
@@ -80,7 +80,7 @@ if(user)
                 id="link"
                 variant="outlined"
                 label="My Promotion Link"
-                value={`http://localhost:3000/signup/${codes}`}
+                value={`https://www.mtgrooups.in/signup/${codes}`}
                
               />
             </div>
