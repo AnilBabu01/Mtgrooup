@@ -22,6 +22,7 @@ const Home = () => {
   const [shortteram, setshortteram] = useState("");
   const [pending, setpending] = useState("");
   const [recharge, setrecharge] = useState("");
+  const [getagainuserinfo, setgetagainuserinfo] = useState(false)
   const blance = pending - recharge;
   axios.defaults.headers.get["Authorization"] = `Bearer ${localStorage.getItem(
     "tokenauth"
@@ -46,7 +47,7 @@ const Home = () => {
 
     getplans();
     getuserinfo();
-  }, []);
+  }, [getagainuserinfo]);
   console.log(token);
 
   return (
@@ -130,6 +131,8 @@ const Home = () => {
                   <>
                     <div>
                       <Common
+                      setgetagainuserinf={setgetagainuserinfo}
+                      getagainuserinfo={getagainuserinfo}
                         key={item.id}
                         id={item.id}
                         img={item.image}
@@ -177,6 +180,8 @@ const Home = () => {
                   <>
                     <div key={item.id}>
                       <Common
+                       setgetagainuserinf={setgetagainuserinfo}
+                       getagainuserinfo={getagainuserinfo}
                         id={item.id}
                         img={item.image}
                         rupee={item.input_cost}

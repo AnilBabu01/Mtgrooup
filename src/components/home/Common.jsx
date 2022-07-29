@@ -49,6 +49,8 @@ const Common = ({
   totalrevenue,
   id,
   title,
+  setgetagainuserinf,
+  getagainuserinfo
 }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -91,6 +93,7 @@ const Common = ({
       response.data.status === true &&
       response.data.msg === "Plan Successfully Purchased!!"
     ) {
+      setgetagainuserinf(!getagainuserinfo)
       setsuccussbuy(true);
       handleOpen();
     }

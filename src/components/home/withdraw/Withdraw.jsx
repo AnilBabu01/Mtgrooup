@@ -60,10 +60,12 @@ const Withdraw = () => {
   const [successful, setsuccessful] = useState(false);
   const [userallready, setuserallready] = useState(false);
   const [closeupdate, setcloseupdate] = useState(false);
+  const [useramount, setuseramount] = useState("")
   const success = "success";
   const warning = "warning";
   const token = localStorage.getItem("tokenauth");
   const { user, getuserinfo } = context;
+  
   const handleOpen = () => {
     setOpen(true);
   };
@@ -92,6 +94,8 @@ const Withdraw = () => {
   const bankstatus = async () => {
     const res = await axios.get("https://www.admin.mtgrooups.in/api/user");
     setopenupdate(res.data.data.isBank);
+    setuseramount(res.data.data.amount)
+      console.log(res)
   };
   useEffect(() => {
     if (!token) {
@@ -121,8 +125,10 @@ const Withdraw = () => {
         amount: totalamout,
       }
     );
-
+      console.log(response)
     if (response.data.status === true) {
+      getuserbankinfo();
+     
       setOpen1(true);
       setsuccessful(true);
       setTimeout(() => {
@@ -209,7 +215,7 @@ const Withdraw = () => {
             <h2>Amount</h2>
           </div>
           <div className="bal-div">
-            <p>Balance: ₹ 0.25 </p>
+            <p>Balance: ₹ {useramount?useramount:"0.00"} </p>
             <p className="with-p">Withdraw All</p>
           </div>
         </div>

@@ -34,6 +34,7 @@ const Signup = () => {
   const [showpassword2, setshowpassword2] = useState(false);
   const [showpassword3, setshowpassword3] = useState(false);
   const [invalidref, setinvalidref] = useState(false);
+  const [invitation, setinvitation] = useState(code);
   const [bothsame, setbothsame] = useState(false);
   const [firstotp, setfirstotp] = useState(false);
   const success = "success";
@@ -43,13 +44,15 @@ const Signup = () => {
     password,
     confirmpassword,
     withdrawpassword,
-    invitationcode,
+
     otp,
   } = credentials;
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
-
+  const onChange1 = (e) => {
+    setinvitation(e.target.value);
+  };
   axios.defaults.headers.get["Authorization"] = `Bearer ${localStorage.getItem(
     "tokenauth"
   )}`;
@@ -78,7 +81,7 @@ const Signup = () => {
       }, 2000);
     }
     if (response.data.status === false) {
-      setTimeout(() => { }, 2000);
+      setTimeout(() => {}, 2000);
     }
 
     console.log("otp", response);
@@ -94,7 +97,7 @@ const Signup = () => {
         password: password,
         cnf_password: confirmpassword,
         withdrawl_password: withdrawpassword,
-        refer_code: invitationcode,
+        refer_code: invitation,
         otp: otp,
       }
     );
@@ -149,6 +152,9 @@ const Signup = () => {
         setbothsame(false);
         setshowprocess(false);
       }, 2000);
+    }
+    if (response.data.status === false) {
+      setshowprocess(false);
     }
     if (
       response.data.status === false &&
@@ -287,9 +293,9 @@ const Signup = () => {
                 </div>
                 <div className="input-div1">
                   <input
-                    onChange={onChange}
-                    name="invitationcode"
-                    value={code ? code : invitationcode}
+                    onChange={onChange1}
+                    name="invitation"
+                    value={code ? code : invitation}
                     type="text"
                     placeholder="Invatitation code"
                   />
@@ -297,31 +303,25 @@ const Signup = () => {
                 <div className="btn-div14">
                   <button
                     className={
-
-
-                      !invitationcode
-
-                        ? "reg-disable "
-                        : " reg-not-sable"
-                    }
-                    disabled={
-                      !number &&
-                        !password &&
-                        !confirmpassword &&
-                        !withdrawpassword &&
-                        !invitationcode &&
-                        !otp
-                        ? true
-                        : ""
-                    }
-                  >
-                    {showprocess &&
+                      invitation &&
+                      withdrawpassword &&
                       number &&
                       password &&
                       confirmpassword &&
                       withdrawpassword &&
-                      invitationcode &&
-                      otp ? (
+                      otp
+                        ? "reg-not-sable "
+                        : "reg-disable"
+                    }
+                    disabled={invitation &&
+                      withdrawpassword &&
+                      number &&
+                      password &&
+                      confirmpassword &&
+                      withdrawpassword &&
+                      otp? "" : true}
+                  >
+                    {showprocess ? (
                       <CircularProgress
                         style={{ width: "21px", height: "21px" }}
                       />
