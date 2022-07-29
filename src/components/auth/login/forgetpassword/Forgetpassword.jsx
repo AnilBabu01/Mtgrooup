@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { Link ,useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Close from "./Close";
 import "./Forgetpassword.css";
 import axios from "axios";
 import Alert from "@mui/material/Alert";
+import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
+import VisibilityIcon from "@material-ui/icons/Visibility";
 import Getotp from "./Getotp";
 const Forgetpassword = () => {
-  const navigate =useNavigate();
+  const navigate = useNavigate();
   const [credentials, setCredentials] = useState({
     number: "",
     otp: "",
@@ -16,6 +18,7 @@ const Forgetpassword = () => {
   const [successful, setsuccessful] = useState(false);
   const [invalidotp, setinvalidotp] = useState(false);
   const [showprocess, setshowprocess] = useState(false);
+  const [showpassword, setshowpassword] = useState(false);
   const success = "success";
   const warning = "warning";
   const { number, password, otp } = credentials;
@@ -25,13 +28,13 @@ const Forgetpassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setshowprocess(true)
+    setshowprocess(true);
     const response = await axios.post(
       `${process.env.REACT_APP_BASE_URL}/api/changeForgetPassword`,
       {
         mobile_no: number,
-        otp : otp,
-        password : password
+        otp: otp,
+        password: password,
       }
     );
     if (response.data.status === true) {
@@ -40,36 +43,36 @@ const Forgetpassword = () => {
         setsuccessful(false);
 
         navigate("/");
-        setshowprocess(false)
+        setshowprocess(false);
       }, 2000);
     }
     if (response.data.status === false) {
       setinvalidotp(true);
       setTimeout(() => {
         setinvalidotp(false);
-        setshowprocess(false)
+        setshowprocess(false);
       }, 2000);
     }
 
     console.log("registe data", number, response);
-  
+
     console.log("registe data", number, password, otp);
   };
   return (
     <>
-      <Close  title={"Reset Password"}/>
+      <Close title={"Reset Password"} />
       <div className="pad-div">
         <div className="forget-div">
           <div>
-          {successful || invalidotp ? (
-        <Alert variant="filled" severity={successful ? success : warning}>
-          {successful
-            ? "Password Changed Successfully"
-            : "Enter valid otp"}
-        </Alert>
-      ) : (
-        ""
-      )}
+            {successful || invalidotp ? (
+              <Alert variant="filled" severity={successful ? success : warning}>
+                {successful
+                  ? "Password Changed Successfully"
+                  : "Enter valid otp"}
+              </Alert>
+            ) : (
+              ""
+            )}
             <Getotp />
             <form onSubmit={handleSubmit}>
               <div className="for-input-div">
@@ -91,8 +94,14 @@ const Forgetpassword = () => {
                 />
               </div>
               <div className="for-input-div">
+                <li
+                  className="showpassworddsignup2"
+                  onClick={() => setshowpassword(!showpassword)}
+                >
+                  {showpassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                </li>
                 <input
-                  type="password"
+                  type={showpassword ? "text" : "password"}
                   onChange={onChange}
                   value={password}
                   name="password"
@@ -101,14 +110,14 @@ const Forgetpassword = () => {
               </div>
               <div className="for-input-div">
                 <button>
-                {showprocess ? (
+                  {showprocess ? (
                     <CircularProgress
                       style={{ width: "21px", height: "21px" }}
                     />
                   ) : (
                     "Reset"
                   )}
-                  </button>
+                </button>
               </div>
             </form>
           </div>

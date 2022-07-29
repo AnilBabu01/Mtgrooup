@@ -36,7 +36,7 @@ const Mineresetpassword = () => {
   )}`;
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setshowprocess(true)
+    setshowprocess(true);
     const response = await axios.post(
       "https://www.admin.mtgrooups.in/api/resetPassword",
       {
@@ -47,17 +47,17 @@ const Mineresetpassword = () => {
     );
     if (response.data.status === true) {
       setsuccessful(true);
-      setshowprocess(false)
+      setshowprocess(false);
       setTimeout(() => {
         setsuccessful(false);
-        navigate("/mine")
+        navigate("/mine");
       }, 2000);
     }
     if (
       response.data.status === false &&
       response.data.msg === "Enter Valid Old Password"
     ) {
-      setshowprocess(false)
+      setshowprocess(false);
       setinvalidodlpassword(true);
       setTimeout(() => {
         setinvalidodlpassword(false);
@@ -67,7 +67,7 @@ const Mineresetpassword = () => {
       response.data.status === false &&
       response.data.msg === "Enter Both Password Same"
     ) {
-      setshowprocess(false)
+      setshowprocess(false);
       setnotbothsame(true);
       setTimeout(() => {
         setnotbothsame(false);
@@ -140,16 +140,21 @@ const Mineresetpassword = () => {
                 placeholder="Confirm New Password"
               />
             </div>
-            <div className="for-input-div" >
-              <button style={{backgroundColor:'rgb(137,87,229)'}}>
-              {showprocess ? (
-                    <CircularProgress
-                      style={{ width: "21px", height: "21px" }}
-                    />
-                  ) : (
-                    "Change"
-                  )}
-                </button>
+            <div className="for-input-div">
+              <button
+                disabled={
+                  !oldpassword && !newpassword && !confirmbnewpassword
+                    ? true
+                    : ""
+                }
+                style={{ backgroundColor: "rgb(137,87,229)" }}
+              >
+                {showprocess ? (
+                  <CircularProgress style={{ width: "21px", height: "21px" }} />
+                ) : (
+                  "Change"
+                )}
+              </button>
             </div>
           </form>
         </div>

@@ -18,6 +18,10 @@
   align-items: center;
   flex-direction: column;
 }
+
+.copy-left{
+  margin-right: 33.5%;
+}
 .bonus-div {
 }
 
@@ -78,6 +82,10 @@
   margin-top: 10px;
 }
 @media screen and (max-width: 780px) {
+  
+.copy-left{
+  margin-right: 48%;
+}
   .title-div1 {
     margin-left: 20px !important;
   }

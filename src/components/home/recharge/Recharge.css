@@ -76,6 +76,10 @@
 .cen-am input:focus {
  outline: none;
 }
+.copy-msg {
+  display: flex;
+  justify-content: space-between;
+}
 @media screen and (max-width: 780px) {
   .title-div6 {
     margin: 10%;
@@ -83,7 +87,10 @@
     margin-top: 0px;
     margin-bottom: 0px;
   }
-
+.copy-msg{
+  display: flex;
+    justify-content: space-between;
+}
   .rupe-div button {
    
     margin: 3px;

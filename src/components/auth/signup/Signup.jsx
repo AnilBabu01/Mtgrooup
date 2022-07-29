@@ -4,6 +4,8 @@ import jewellery from "../../images/jewellery.png";
 import { Link, useNavigate } from "react-router-dom";
 import Close from "../login/forgetpassword/Close";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
+import VisibilityIcon from "@material-ui/icons/Visibility";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Alert from "@mui/material/Alert";
@@ -28,6 +30,9 @@ const Signup = () => {
   const [optsent, setoptsent] = useState(false);
   const [numberis, setnumberis] = useState(false);
   const [validotp, setvalidotp] = useState(false);
+  const [showpassword1, setshowpassword1] = useState(false);
+  const [showpassword2, setshowpassword2] = useState(false);
+  const [showpassword3, setshowpassword3] = useState(false);
   const success = "success";
   const warning = "warning";
   const {
@@ -46,8 +51,6 @@ const Signup = () => {
     "tokenauth"
   )}`;
 
-
-  
   const getotp = async () => {
     const response = await axios.get(
       `${process.env.REACT_APP_BASE_URL}/api/sendOtpForRegisteration/${number}`
@@ -57,15 +60,16 @@ const Signup = () => {
       response.data.status === true &&
       response.data.msg === "Mobile No Already Registered!!"
     ) {
-      
-      setnumberis(true)
+      setnumberis(true);
       setTimeout(() => {
-        setnumberis(false)
+        setnumberis(false);
       }, 2000);
     }
     if (
-      response.data.status === true&&response.data.msg === "OTP Send Successfully!!") {
-        setoptsent(true)
+      response.data.status === true &&
+      response.data.msg === "OTP Send Successfully!!"
+    ) {
+      setoptsent(true);
       setTimeout(() => {
         setoptsent(false);
       }, 2000);
@@ -76,10 +80,6 @@ const Signup = () => {
 
     console.log("otp", response);
   };
-
-
-
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -104,15 +104,20 @@ const Signup = () => {
         navigate("/login");
       }, 2000);
     }
-    if (response.data.status === false&&response.data.msg === "Enter Valid OTP") {
-    
-      setvalidotp(true)
+    if (
+      response.data.status === false &&
+      response.data.msg === "Enter Valid OTP"
+    ) {
+      setvalidotp(true);
       setTimeout(() => {
-        setvalidotp(false)
+        setvalidotp(false);
         setshowprocess(false);
       }, 2000);
     }
-    if (response.data.status === false&&response.data.msg === "First Send OTP!") {
+    if (
+      response.data.status === false &&
+      response.data.msg === "First Send OTP!"
+    ) {
       setuserallready(true);
 
       setTimeout(() => {
@@ -120,7 +125,10 @@ const Signup = () => {
         setshowprocess(false);
       }, 2000);
     }
-    if (response.data.status === false&&response.data.msg === "Mobile No Already Registered") {
+    if (
+      response.data.status === false &&
+      response.data.msg === "Mobile No Already Registered"
+    ) {
       setuserallready(true);
 
       setTimeout(() => {
@@ -146,9 +154,9 @@ const Signup = () => {
           ) : (
             ""
           )}
-           {validotp? (
+          {validotp ? (
             <Alert variant="filled" severity={warning}>
-            Enter Valid OTP
+              Enter Valid OTP
             </Alert>
           ) : (
             ""
@@ -177,7 +185,6 @@ const Signup = () => {
                 </div>
 
                 <div className="input-div1">
-                  <img src={jewellery} alt="logo" />
                   <input
                     onChange={onChange}
                     name="otp"
@@ -187,37 +194,51 @@ const Signup = () => {
                   />
                 </div>
                 <div className="input-div1">
-                  <img src={jewellery} alt="logo" />
+                  <li
+                    className="showpassworddsignup"
+                    onClick={() => setshowpassword1(!showpassword1)}
+                  >
+                    {showpassword1 ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                  </li>
                   <input
                     onChange={onChange}
                     name="password"
                     value={password}
-                    type="password"
+                    type={showpassword1 ? "text" : "password"}
                     placeholder="Please enter login password"
                   />
                 </div>
                 <div className="input-div1">
-                  <img src={jewellery} alt="logo" />
+                  <li
+                    className="showpassworddsignup"
+                    onClick={() => setshowpassword2(!showpassword2)}
+                  >
+                    {showpassword2 ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                  </li>
                   <input
                     onChange={onChange}
                     name="confirmpassword"
                     value={confirmpassword}
-                    type="password"
+                    type={showpassword2 ? "text" : "password"}
                     placeholder="Please enter confirm password"
                   />
                 </div>
                 <div className="input-div1">
-                  <img src={jewellery} alt="logo" />
+                  <li
+                    className="showpassworddsignup"
+                    onClick={() => setshowpassword3(!showpassword3)}
+                  >
+                    {showpassword3 ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                  </li>
                   <input
                     onChange={onChange}
                     name="withdrawpassword"
                     value={withdrawpassword}
-                    type="password"
+                    type={showpassword3 ? "text" : "password"}
                     placeholder="Please enter withdraw password"
                   />
                 </div>
                 <div className="input-div1">
-                  <img src={jewellery} alt="logo" />
                   <input
                     onChange={onChange}
                     name="invitationcode"
@@ -241,7 +262,7 @@ const Signup = () => {
 
               <div className="set-otpdiv">
                 <button
-                  className= {!number ? "set-opt-btn1" : "set-opt-btn"}
+                  className={!number ? "set-opt-btn" : "set-opt-btn1"}
                   disabled={!number ? true : ""}
                   onClick={getotp}
                 >

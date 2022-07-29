@@ -1,9 +1,11 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Logo from "../../images/logo.jpeg";
 import lock from "../../images/lock.png";
 import man from "../../images/man.png";
 import axios from "axios";
 import Alert from "@mui/material/Alert";
+import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
+import VisibilityIcon from "@material-ui/icons/Visibility";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
@@ -16,8 +18,8 @@ const Login = () => {
   const [successful, setsuccessful] = useState(false);
   const [userallready, setuserallready] = useState(false);
   const [showprocess, setshowprocess] = useState(false);
- 
- 
+  const [showpassword, setshowpassword] = useState(false);
+
   const warning = "warning";
 
   const onChange = (e) => {
@@ -87,9 +89,15 @@ const Login = () => {
                   onChange={onChange}
                   name="password"
                   value={password}
-                  type="password"
+                  type={showpassword ? "text" : "password"}
                   placeholder="Login Password"
                 />
+                <li
+                  className="showpassworddsignup1"
+                  onClick={() => setshowpassword(!showpassword)}
+                >
+                  {showpassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                </li>
               </div>
               <div className="btn-div">
                 <button>

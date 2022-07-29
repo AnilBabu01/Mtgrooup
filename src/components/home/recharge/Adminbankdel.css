@@ -29,11 +29,16 @@
 .icon-div-recharge-main input:focus {
   outline: none;
 }
-
+.copied-p{
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-right: 20px;
+}
 .icon-div-recharge {
   align-items: center;
   display: flex;
   justify-content: space-between;
+  
   background: rgb(137,87,229);
   color: white;
   padding: 4px;
@@ -75,5 +80,9 @@
 
   .rec-brn {
     width: 100%;
+  }
+  .icon-div-recharge-main input {
+    width: 200px;
+    
   }
 }

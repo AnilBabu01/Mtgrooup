@@ -5,6 +5,7 @@
   padding: 10px;
   border-radius: 5px;
   position: relative;
+ 
 }
 .input-div1 img {
   width: 25px;
@@ -18,6 +19,8 @@
   width: 320px;
   margin-left: 10px;
   font-size: 17px;
+  
+ 
 }
 .input-div1 input:focus {
   outline: none;
@@ -29,11 +32,33 @@
   margin-top: 20px;
   font-size: 20px;
   margin-bottom: 10px;
+  position: relative;
+}
+.showpassworddsignup{
+  position: absolute;
+  list-style: none;
+  color: rgb(137,87,229);
+  left: 90%;
+}
+.showpassworddsignup1{
+  position: absolute;
+  list-style: none;
+  color: rgb(137,87,229);
+  left: 63%;
+}
+.showpassworddsignup2{
+  position: absolute;
+  list-style: none;
+  color: rgb(137,87,229);
+  left: 92%;
+  top: px;
+  margin-top: 6px;
 }
 
 .reg-div1 a {
   text-decoration: none;
   color: rgb(137,87,229);
+ 
 }
 
 .logo-div1 img{
@@ -53,7 +78,7 @@
 
 
 .set-opt-btn{
-  background-color: rgb(137,87,229);
+  background-color: rgb(178, 143, 235);
   color: white;
   width: 80px;
   height: 42px;
@@ -87,5 +112,19 @@
   position: absolute;
   bottom: 90%;
   left: 77.5%;
+}
+.showpassworddsignup1 {
+  position: absolute;
+  list-style: none;
+  color: rgb(137,87,229);
+  left: 85%;
+}
+.showpassworddsignup2{
+  position: absolute;
+  list-style: none;
+  color: rgb(137,87,229);
+  left: 87%;
+  top: px;
+  margin-top: 6px;
 }
 }
