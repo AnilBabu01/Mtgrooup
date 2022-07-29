@@ -33,6 +33,9 @@ const Signup = () => {
   const [showpassword1, setshowpassword1] = useState(false);
   const [showpassword2, setshowpassword2] = useState(false);
   const [showpassword3, setshowpassword3] = useState(false);
+  const [invalidref, setinvalidref] = useState(false);
+  const [bothsame, setbothsame] = useState(false);
+  const [firstotp, setfirstotp] = useState(false);
   const success = "success";
   const warning = "warning";
   const {
@@ -75,7 +78,7 @@ const Signup = () => {
       }, 2000);
     }
     if (response.data.status === false) {
-      setTimeout(() => {}, 2000);
+      setTimeout(() => { }, 2000);
     }
 
     console.log("otp", response);
@@ -116,12 +119,12 @@ const Signup = () => {
     }
     if (
       response.data.status === false &&
-      response.data.msg === "First Send OTP!"
+      response.data.msg === "Enter Valid Refer Code"
     ) {
-      setuserallready(true);
+      setinvalidref(true);
 
       setTimeout(() => {
-        setuserallready(false);
+        setinvalidref(false);
         setshowprocess(false);
       }, 2000);
     }
@@ -136,6 +139,29 @@ const Signup = () => {
         setshowprocess(false);
       }, 2000);
     }
+    if (
+      response.data.status === false &&
+      response.data.msg === "Enter Both Password Same!"
+    ) {
+      setbothsame(true);
+
+      setTimeout(() => {
+        setbothsame(false);
+        setshowprocess(false);
+      }, 2000);
+    }
+    if (
+      response.data.status === false &&
+      response.data.msg === "First Send OTP!"
+    ) {
+      setfirstotp(true);
+
+      setTimeout(() => {
+        setfirstotp(false);
+        setshowprocess(false);
+      }, 2000);
+    }
+
     console.log("registe data", number, response);
   };
   return (
@@ -150,6 +176,21 @@ const Signup = () => {
           {successful || userallready ? (
             <Alert variant="filled" severity={successful ? success : warning}>
               {successful ? "Register Successfully" : "First Send OTP"}
+            </Alert>
+          ) : (
+            ""
+          )}
+          {bothsame ? (
+            <Alert variant="filled" severity={warning}>
+              Enter Both Password Same!
+            </Alert>
+          ) : (
+            ""
+          )}
+
+          {invalidref ? (
+            <Alert variant="filled" severity={warning}>
+              Enter Valid Refer Code!
             </Alert>
           ) : (
             ""
@@ -170,7 +211,13 @@ const Signup = () => {
           ) : (
             ""
           )}
-
+          {firstotp ? (
+            <Alert variant="filled" severity={warning}>
+              First Send OTP!
+            </Alert>
+          ) : (
+            ""
+          )}
           <div className="form-div">
             <div className="otp-reg">
               <form onSubmit={handleSubmit}>
@@ -247,9 +294,34 @@ const Signup = () => {
                     placeholder="Invatitation code"
                   />
                 </div>
-                <div className="btn-div">
-                  <button>
-                    {showprocess ? (
+                <div className="btn-div14">
+                  <button
+                    className={
+
+
+                      !invitationcode
+
+                        ? "reg-disable "
+                        : " reg-not-sable"
+                    }
+                    disabled={
+                      !number &&
+                        !password &&
+                        !confirmpassword &&
+                        !withdrawpassword &&
+                        !invitationcode &&
+                        !otp
+                        ? true
+                        : ""
+                    }
+                  >
+                    {showprocess &&
+                      number &&
+                      password &&
+                      confirmpassword &&
+                      withdrawpassword &&
+                      invitationcode &&
+                      otp ? (
                       <CircularProgress
                         style={{ width: "21px", height: "21px" }}
                       />

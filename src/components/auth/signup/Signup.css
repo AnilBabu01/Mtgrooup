@@ -76,9 +76,39 @@
   left: 82.5%;
 }
 
+.reg-disable{
+  width: 100%;
+  background-color: rgb(226, 217, 240);
+  box-shadow: -1px 5px 15px 0 rgb(226, 217, 240);
+  color: #fff;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+   height: 34px;
+  border-radius: 5px;
+  border: none;
+  font-weight: 600;
+  font-size: 17px;
+}
+.reg-not-sable{
+  width: 100%;
+    background: rgb(137,87,229);
+    box-shadow: -1px 5px 15px 0 rgb(137,87,229);
+    color: #fff;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+     height: 34px;
+    border-radius: 5px;
+    border: none;
+    font-weight: 600;
+    font-size: 17px;
+}
 
 .set-opt-btn{
-  background-color: rgb(178, 143, 235);
+  background-color: rgb(226, 217, 240);
   color: white;
   width: 80px;
   height: 42px;

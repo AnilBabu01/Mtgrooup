@@ -4,26 +4,35 @@ import { useNavigate } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import BottomNavbar from "../../bottomnavbar/BottomNavbar";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { userinfocontext } from "../../context/Userinfo";
+import axios from "axios";
 import "./Invite.css";
 
 const Invite = () => {
   const navigate = useNavigate();
-  const context = useContext(userinfocontext);
-  const { user, getuserinfo } = context;
-  let codes;
-  if (user) {
-    codes = user.data.refer_code;
-  }
+  const [user, setuser] = useState("");
+  const [code, setcode] = useState("")
   const token = localStorage.getItem("tokenauth");
-  const [copydata, setcopydata] = useState(
-    `https://www.mtgrooups.in/signup/${codes}`
-  );
+  const [copydata, setcopydata] = useState("");
   const [copied, setcopied] = useState(false);
+  
+  axios.defaults.headers.get["Authorization"] = `Bearer ${localStorage.getItem(
+    "tokenauth"
+  )}`;
+  const getuserinfo = async () => {
+    const response = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/api/user`
+    );
+    setcode(response.data.data.refer_code)
+    setcopydata(`https://www.mtgrooups.in/signup/${response.data.data.refer_code}`)
+    console.log("pplans", response.data.promotion);
+    setuser(response.data.promotion)
+  };
+
 setTimeout(() => {
   setcopied(false)
 }, 2000);
   useEffect(() => {
+    getuserinfo();
     if (!token) {
       navigate("/login");
     }
@@ -45,18 +54,18 @@ setTimeout(() => {
       <div className="invite-main-div">
         <div className="bonus-div">
           <p>
-            Bonus:<span>Rs.{user ? user.promotion.bonus : "0"}</span>
+            Bonus:<span>Rs.{user ? user.bonus : "0"}</span>
           </p>
         </div>
 
         <div className="total-mmain-div">
           <div className="total-mmain-div-btn">
             <p>Total Peaple</p>
-            <p>{user ? user.promotion.peopleCount : "0"}</p>
+            <p>{user ? user.peopleCount : "0"}</p>
           </div>
           <div className="total-mmain-div-btn">
             <p>Contribution</p>
-            <p>{user ? user.promotion.bonus : "0"}</p>
+            <p>{user ? user.bonus : "0"}</p>
           </div>
         </div>
         <div className="form-mui">
@@ -68,7 +77,7 @@ setTimeout(() => {
                 id="code"
                 variant="outlined"
                 label="My Propotion Code"
-                value={user ? user.data.refer_code : ""}
+                value={code}
               />
             </div>
             <div className="margin-div">

@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{useState}from "react";
 import axios from "axios";
 import "./Common.css";
 import Modal from "@material-ui/core/Modal";
@@ -53,6 +53,8 @@ const Common = ({
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [succussbuy, setsuccussbuy] = React.useState(false);
+  const [notbuy, setnotbuy] = useState(false);
+  const [insifficent, setinsifficent] = useState(false);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -75,6 +77,14 @@ const Common = ({
       response.data.status === false &&
       response.data.msg === "Insufficient Balance!!"
     ) {
+      setinsifficent(true);
+      handleOpen();
+    }
+    if (
+      response.data.status === false &&
+      response.data.msg === "You Have Already Buy This Free Plan ."
+    ) {
+      setnotbuy(true);
       handleOpen();
     }
     if (
@@ -113,15 +123,14 @@ const Common = ({
         <Fade in={open}>
           <div className={classes.paper}>
             <div className={classes.paper1}>
-              {succussbuy ? (
-                <p>Plan Successfully Purchased!!</p>
-              ) : (
-                <p>Insufficient Balance!!</p>
-              )}
+              {succussbuy && <p>Plan Successfully Purchased!!</p>}
+              {notbuy && <p>You Have Already Buy This Free Plan!!</p>}
+              {insifficent && <p>Insufficient Balance!!</p>}
             </div>
             <div className={classes.paper1}>
-          
-              <button className="logout-btnn1" onClick={() => setOpen(false)}>Ok</button>
+              <button className="logout-btnn1" onClick={() => setOpen(false)}>
+                Ok
+              </button>
             </div>
           </div>
         </Fade>
