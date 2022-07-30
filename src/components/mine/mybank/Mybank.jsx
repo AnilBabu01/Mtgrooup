@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom";
 import CloseIcon from "@material-ui/icons/Close";
 import axios from "axios";
 import Alert from "@mui/material/Alert";
+
 import CircularProgress from "@material-ui/core/CircularProgress";
 import "./Mybank.css";
 import BottomNavBar from "../../bottomnavbar/BottomNavbar";
-import { formLabelClasses } from "@mui/material";
+
 const Mybank = () => {
   const navigate = useNavigate();
   const [credentials, setCredentials] = useState({
@@ -18,12 +19,11 @@ const Mybank = () => {
     withdrawpassword: "",
   });
   const [bankidd, setbankidd] = useState("");
-  const [successful, setsuccessful] = useState(false);
-  const [userallready, setuserallready] = useState(false);
   const [showprocess, setshowprocess] = useState(false);
   const token = localStorage.getItem("tokenauth");
+  const [message, setmessage] = useState("");
   const success = "success";
-  const warning = "warning";
+
   const { number, bankno, bankname, ifsc, withdrawpassword, name } =
     credentials;
   const onChange = (e) => {
@@ -35,14 +35,23 @@ const Mybank = () => {
   axios.defaults.headers.get["Authorization"] = `Bearer ${localStorage.getItem(
     "tokenauth"
   )}`;
-
-  const bankid = async () => {
-    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/bank`);
-
-    setbankidd(response.data.data[0]);
-
-    console.log("bank", bankidd);
+  const logout = () => {
+   
+    localStorage.removeItem("tokenauth");
+    setTimeout(() => {
+    
+      navigate("/login");
+    }, 1000);
   };
+  const bankid = async () => {
+    const response = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/api/bank`
+    );
+    if(response.status===401){
+      logout();
+    }
+    setbankidd(response.data.data[0]);
+};
 
   useEffect(() => {
     if (!token) {
@@ -68,17 +77,17 @@ const Mybank = () => {
     );
 
     if (response.data.status === true) {
-      setsuccessful(true);
+      setmessage(response.data.msg);
       setTimeout(() => {
-        setsuccessful(false);
+        setmessage("");
         setshowprocess(false);
-        navigate("/mine")
+        navigate("/mine");
       }, 2000);
     }
     if (response.data.status === false) {
-      setuserallready(true);
+      setmessage(response.data.msg);
       setTimeout(() => {
-        setuserallready(false);
+        setmessage("");
         setshowprocess(false);
       }, 2000);
     }
@@ -91,7 +100,7 @@ const Mybank = () => {
   };
   return (
     <>
-       <div className="close-div6">
+      <div className="close-div6">
         <CloseIcon
           style={{ color: "white" }}
           onClick={() => navigate("/mine")}
@@ -101,14 +110,10 @@ const Mybank = () => {
         </div>
       </div>
       <div className="pad-div">
-        {successful || userallready ? (
-          <Alert variant="filled" severity={successful ? success : warning}>
-            {successful
-              ? "Bank Account Details Added Successfully"
-              : "Please enter withdrawl_type_id "}
+        {message && (
+          <Alert variant="filled" severity={success}>
+            {message}
           </Alert>
-        ) : (
-          ""
         )}
         <div className="forget-div">
           <form onSubmit={handleSubmit}>
@@ -167,7 +172,7 @@ const Mybank = () => {
               />
             </div>
             <div className="for-input-div">
-              <button style={{backgroundColor:"rgb(137,87,229)"}}>
+              <button style={{ backgroundColor: "rgb(137,87,229)" }}>
                 {showprocess ? (
                   <CircularProgress style={{ width: "21px", height: "21px" }} />
                 ) : (

@@ -27,12 +27,24 @@ const Home = () => {
   axios.defaults.headers.get["Authorization"] = `Bearer ${localStorage.getItem(
     "tokenauth"
   )}`;
- 
+  
+  const logout = () => {
+   
+    localStorage.removeItem("tokenauth");
+    setTimeout(() => {
+    
+      navigate("/login");
+    }, 1000);
+  };
   const  mobile = localStorage.getItem("isMobile");
   const getplans = async () => {
     const response = await axios.get(
       "https://www.admin.mtgrooups.in/api/plans"
     );
+    console.log("from home",response.status);
+    if(response.status===401){
+      logout();
+    }
     setlongterm(response.data.data.longTerm);
     setshortteram(response.data.data.shortTerm);
     setpending(response.data.pending);

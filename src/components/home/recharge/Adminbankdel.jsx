@@ -38,10 +38,7 @@ const useStyles = makeStyles((theme) => ({
 const Adminbankdel = ({ transactionid }) => {
   const classes = useStyles();
   const [utr, setutr] = useState("");
-  const [successful, setsuccessful] = useState(false);
-  const [failed, setfailed] = useState(false);
-  const success = "success";
-  const warning = "warning";
+  const [message, setmessage] = useState("");
   const onchange = (e) => {
     setutr(e.target.value);
   };
@@ -67,25 +64,24 @@ const Adminbankdel = ({ transactionid }) => {
         utr_no: utr,
       }
     );
+    
     if (response.data.status === true) {
       handleOpen();
-      setsuccessful(true);
+      setmessage(response.data.msg);
       setTimeout(() => {
-        setsuccessful(false);
+        setmessage("");
         setOpen(false);
       }, 2000);
     }
     if (response.data.status === false) {
+      setmessage(response.data.msg);
       handleOpen();
-      setfailed(true);
       setTimeout(() => {
-        setfailed(false);
+        setmessage("");
         setOpen(false);
       }, 2000);
     }
-
-    console.log("add amount", response.data);
-  };
+};
   return (
     <>
       <Modal
@@ -99,15 +95,7 @@ const Adminbankdel = ({ transactionid }) => {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            {successful || failed ? (
-              <>
-                {successful
-                  ? "Your Amount Credited Into Your Bank Account Within 1-2 Hours"
-                  : "This UTR Number Already "}
-              </>
-            ) : (
-              ""
-            )}
+            {message}
           </div>
         </Fade>
       </Modal>

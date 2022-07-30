@@ -18,7 +18,14 @@ const Recharge = () => {
       navigate("/login");
     }
   }, []);
-
+  const logout = () => {
+   
+    localStorage.removeItem("tokenauth");
+    setTimeout(() => {
+    
+      navigate("/login");
+    }, 1000);
+  };
   const onchnge = (e) => {
     setamout(e.target.value);
   };
@@ -29,6 +36,9 @@ const Recharge = () => {
         amount: amout,
       }
     );
+    if(response.status===401){
+      logout();
+    }
     if (response.data.status === true) {
       setshowadminbankdel(true);
       settransactionid(response.data.transaction_id);

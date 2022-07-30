@@ -2,18 +2,28 @@ import React, { useState, useEffect } from "react";
 import Commoncard from "../Commoncard";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import axios from "axios";
-
+import {useNavigate} from"react-router-dom"
 const Third = () => {
   const [levelfirst, setlevelfirst] = useState("");
+  const navigate =useNavigate();
   axios.defaults.headers.get["Authorization"] = `Bearer ${localStorage.getItem(
     "tokenauth"
   )}`;
-
+  const logout = () => {
+   
+    localStorage.removeItem("tokenauth");
+    setTimeout(() => {
+    
+      navigate("/login");
+    }, 1000);
+  };
   const getlevelfirst = async () => {
     const response = await axios.get(
       `${process.env.REACT_APP_BASE_URL}/api/teams/3`
     );
-
+    if(response.status===401){
+      logout();
+    }
     if (response.data.status === true) {
       setlevelfirst(response.data.data);
     }

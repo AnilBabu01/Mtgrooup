@@ -1,4 +1,4 @@
-import React ,{useState}from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import "./Common.css";
 import Modal from "@material-ui/core/Modal";
@@ -50,13 +50,15 @@ const Common = ({
   id,
   title,
   setgetagainuserinf,
-  getagainuserinfo
+  getagainuserinfo,
 }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [succussbuy, setsuccussbuy] = React.useState(false);
   const [notbuy, setnotbuy] = useState(false);
   const [insifficent, setinsifficent] = useState(false);
+  const [message, setmessage] = useState("");
+  const success = "success";
   const handleOpen = () => {
     setOpen(true);
   };
@@ -74,28 +76,16 @@ const Common = ({
     );
 
     console.log(response);
-
-    if (
-      response.data.status === false &&
-      response.data.msg === "Insufficient Balance!!"
-    ) {
-      setinsifficent(true);
-      handleOpen();
-    }
-    if (
-      response.data.status === false &&
-      response.data.msg === "You Have Already Buy This Free Plan ."
-    ) {
-      setnotbuy(true);
-      handleOpen();
-    }
-    if (
-      response.data.status === true &&
-      response.data.msg === "Plan Successfully Purchased!!"
-    ) {
+    if (response.data.status === true) {
       setgetagainuserinf(!getagainuserinfo)
-      setsuccussbuy(true);
+      setmessage(response.data.msg);
       handleOpen();
+      setTimeout(() => {}, 8000);
+    }
+    if (response.data.status === false) {
+      setmessage(response.data.msg);
+      handleOpen();
+      setTimeout(() => {}, 8000);
     }
   };
 
@@ -125,11 +115,7 @@ const Common = ({
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <div className={classes.paper1}>
-              {succussbuy && <p>Plan Successfully Purchased!!</p>}
-              {notbuy && <p>You Have Already Buy This Free Plan!!</p>}
-              {insifficent && <p>Insufficient Balance!!</p>}
-            </div>
+            <div className={classes.paper1}>{message}</div>
             <div className={classes.paper1}>
               <button className="logout-btnn1" onClick={() => setOpen(false)}>
                 Ok

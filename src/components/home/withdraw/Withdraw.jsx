@@ -55,14 +55,11 @@ const Withdraw = () => {
   const [open1, setOpen1] = React.useState(false);
   const [openupdate, setopenupdate] = useState(true);
   const [userbank, setuserbank] = useState("");
-  const [amount, setamount] = useState("");
-  const [totalamout, settotalamout] = useState(amount);
-  const [successful, setsuccessful] = useState(false);
-  const [userallready, setuserallready] = useState(false);
+  const [totalamout, settotalamout] = useState("");
   const [closeupdate, setcloseupdate] = useState(false);
   const [useramount, setuseramount] = useState("")
-  const success = "success";
-  const warning = "warning";
+  const [message, setmessage] = useState("");
+
   const token = localStorage.getItem("tokenauth");
   const { user, getuserinfo } = context;
   
@@ -115,7 +112,14 @@ const Withdraw = () => {
   const onchange = (e) => {
     settotalamout(e.target.value);
   };
-
+  const logout = () => {
+   
+    localStorage.removeItem("tokenauth");
+    setTimeout(() => {
+    
+      navigate("/login");
+    }, 1000);
+  };
   const withdrawfub = async () => {
     console.log("withdraw");
     const response = await axios.post(
@@ -125,31 +129,31 @@ const Withdraw = () => {
         amount: totalamout,
       }
     );
-      console.log(response)
-    if (response.data.status === true) {
-      getuserbankinfo();
-     
-      setOpen1(true);
-      setsuccessful(true);
-      setTimeout(() => {
-        setsuccessful(false);
-        setOpen1(false);
-      }, 2000);
-    }
-    if (
-      response.data.status === false &&
-      response.data.msg === "Insufficient Balance!!"
-    ) {
-      setOpen1(true);
-      setuserallready(true);
-      setTimeout(() => {
-        setuserallready(false);
-        setOpen1(false);
-      }, 2000);
-    }
-
-    console.log("withdraw", response.data);
+      
+      if(response.status===401){
+        logout();
+      }
+      if (response.data.status === true) {
+        getuserbankinfo();
+        setOpen1(true);
+        setmessage(response.data.msg);
+        setTimeout(() => {
+          setmessage("");
+          setOpen1(false);
+        }, 2000);
+      }
+      if (response.data.status === false) {
+        setOpen1(true);
+        setmessage(response.data.msg);
+        setTimeout(() => {
+          setmessage("");
+          setOpen1(false);
+        }, 2000);
+      }
+   
+    
   };
+ 
   return (
     <>
       <div className="close-div">
@@ -193,9 +197,7 @@ const Withdraw = () => {
       >
         <Fade in={open1}>
           <div className={classes.paper1}>
-            {successful
-              ? "Your Withdraw Request Send To Admin"
-              : "Insufficient Balance"}
+           {message}
           </div>
         </Fade>
       </Modal>

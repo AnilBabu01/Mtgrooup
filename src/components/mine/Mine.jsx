@@ -35,6 +35,9 @@ const Mine = () => {
     const response = await axios.get("https://www.admin.mtgrooups.in/api/mine");
     setminedata(response.data.data);
     console.log(response.data.data);
+    if(response.status===401){
+      logout();
+    }
   };
 
   useEffect(() => {

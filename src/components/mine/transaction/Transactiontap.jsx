@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import Recordrecharge from "./RechargeRecord/Recordrecharge";
 import Recordwithdraw from "./WithdraRecord/Recordwithdraw";
 import Recordall from "./AllRecord/Recordall";
+import {useNavigate}from "react-router-dom"
 import axios from "axios";
 import "./TransacTap.css";
 import { FlashAuto } from "@material-ui/icons";
 const Transactiontap = () => {
+  const navigate=useNavigate();
   const [toggleState, setToggleState] = useState(1);
   const [statusvalue, setstatusvalue] = useState(1);
   const [searchloader, setsearchloader] = useState(true);
@@ -17,7 +19,14 @@ const Transactiontap = () => {
     start: "",
     end: "",
   });
-
+  const logout = () => {
+   
+    localStorage.removeItem("tokenauth");
+    setTimeout(() => {
+    
+      navigate("/login");
+    }, 1000);
+  };
   const { start, end } = search;
   const onchange = (e) => {
     setsearch({ ...search, [e.target.name]: e.target.value });
@@ -54,7 +63,9 @@ const Transactiontap = () => {
     const response = await axios.get(
       `https://www.admin.mtgrooups.in/api/transaction-history?status=${statusvalue}&&from=${start}&to=${end}`
     );
-
+    if(response.status===401){
+      logout();
+    }
     if (response.data.status === true) {
       setsearchloader(true)
       if (statusvalue == 1) {

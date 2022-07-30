@@ -7,11 +7,11 @@ const Getotp = () => {
   const [credentials, setCredentials] = useState({
     number: "",
   });
-  const [successful, setsuccessful] = useState(false);
-  const [invalidno, setinvalidno] = useState(false)
+
   const [showprocess, setshowprocess] = useState(false);
+  const [message, setmessage] = useState("");
   const success = "success";
-  const warning = "warning";
+
   const { number } = credentials;
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -27,16 +27,17 @@ const Getotp = () => {
       }
     );
     if (response.data.status === true) {
-      setsuccessful(true);
+      setmessage(response.data.msg);
       setTimeout(() => {
-        setsuccessful(false);
         setshowprocess(false)
+        setmessage("");
       }, 2000);
     }
+
     if (response.data.status === false) {
-      setinvalidno(true);
+      setmessage(response.data.msg);
       setTimeout(() => {
-        setinvalidno(false);
+        setmessage("");
         setshowprocess(false)
       }, 2000);
     }
@@ -45,15 +46,11 @@ const Getotp = () => {
   };
   return (
     <>
-      {successful || invalidno ? (
-        <Alert variant="filled" severity={successful ? success : warning}>
-          {successful
-            ? "OTP Send Successfully!!"
-            : "Enter Registered Mobile No"}
-        </Alert>
-      ) : (
-        ""
-      )}
+        {message && (
+            <Alert variant="filled" severity={success}>
+              {message}
+            </Alert>
+          )}   
       <form onSubmit={handleSubmit}>
         <div className="for-input-div1">
           <input

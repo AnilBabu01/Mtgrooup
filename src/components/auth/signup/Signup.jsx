@@ -24,21 +24,15 @@ const Signup = () => {
     invitationcode: "",
     otp: "",
   });
-  const [successful, setsuccessful] = useState(false);
-  const [userallready, setuserallready] = useState(false);
+
   const [showprocess, setshowprocess] = useState(false);
-  const [optsent, setoptsent] = useState(false);
-  const [numberis, setnumberis] = useState(false);
-  const [validotp, setvalidotp] = useState(false);
   const [showpassword1, setshowpassword1] = useState(false);
   const [showpassword2, setshowpassword2] = useState(false);
   const [showpassword3, setshowpassword3] = useState(false);
-  const [invalidref, setinvalidref] = useState(false);
   const [invitation, setinvitation] = useState(code);
-  const [bothsame, setbothsame] = useState(false);
-  const [firstotp, setfirstotp] = useState(false);
+  const [message, setmessage] = useState("");
   const success = "success";
-  const warning = "warning";
+
   const {
     number,
     password,
@@ -62,26 +56,18 @@ const Signup = () => {
       `${process.env.REACT_APP_BASE_URL}/api/sendOtpForRegisteration/${number}`
     );
 
-    if (
-      response.data.status === true &&
-      response.data.msg === "Mobile No Already Registered!!"
-    ) {
-      setnumberis(true);
+    if (response.data.status === true) {
+      setmessage(response.data.msg);
       setTimeout(() => {
-        setnumberis(false);
+        setmessage("");
       }, 2000);
     }
-    if (
-      response.data.status === true &&
-      response.data.msg === "OTP Send Successfully!!"
-    ) {
-      setoptsent(true);
-      setTimeout(() => {
-        setoptsent(false);
-      }, 2000);
-    }
+
     if (response.data.status === false) {
-      setTimeout(() => {}, 2000);
+      setmessage(response.data.msg);
+      setTimeout(() => {
+        setmessage("");
+      }, 2000);
     }
 
     console.log("otp", response);
@@ -101,69 +87,18 @@ const Signup = () => {
         otp: otp,
       }
     );
+
     if (response.data.status === true) {
-      setsuccessful(true);
-
+      setmessage(response.data.msg);
       setTimeout(() => {
-        setsuccessful(false);
-        setshowprocess(false);
-        navigate("/login");
-      }, 2000);
-    }
-    if (
-      response.data.status === false &&
-      response.data.msg === "Enter Valid OTP"
-    ) {
-      setvalidotp(true);
-      setTimeout(() => {
-        setvalidotp(false);
-        setshowprocess(false);
-      }, 2000);
-    }
-    if (
-      response.data.status === false &&
-      response.data.msg === "Enter Valid Refer Code"
-    ) {
-      setinvalidref(true);
-
-      setTimeout(() => {
-        setinvalidref(false);
-        setshowprocess(false);
-      }, 2000);
-    }
-    if (
-      response.data.status === false &&
-      response.data.msg === "Mobile No Already Registered"
-    ) {
-      setuserallready(true);
-
-      setTimeout(() => {
-        setuserallready(false);
-        setshowprocess(false);
-      }, 2000);
-    }
-    if (
-      response.data.status === false &&
-      response.data.msg === "Enter Both Password Same!"
-    ) {
-      setbothsame(true);
-
-      setTimeout(() => {
-        setbothsame(false);
+        setmessage("");
         setshowprocess(false);
       }, 2000);
     }
     if (response.data.status === false) {
-      setshowprocess(false);
-    }
-    if (
-      response.data.status === false &&
-      response.data.msg === "First Send OTP!"
-    ) {
-      setfirstotp(true);
-
+      setmessage(response.data.msg);
       setTimeout(() => {
-        setfirstotp(false);
+        setmessage("");
         setshowprocess(false);
       }, 2000);
     }
@@ -173,57 +108,17 @@ const Signup = () => {
   return (
     <>
       <Close title={"Register"} />
-
-      <div className="main-auth">
+       <div className="main-auth">
         <div>
           <div className="logo-div1">
             <img src={Logo} alt="logo" />
           </div>
-          {successful || userallready ? (
-            <Alert variant="filled" severity={successful ? success : warning}>
-              {successful ? "Register Successfully" : "First Send OTP"}
+          {message && (
+            <Alert variant="filled" severity={success}>
+              {message}
             </Alert>
-          ) : (
-            ""
-          )}
-          {bothsame ? (
-            <Alert variant="filled" severity={warning}>
-              Enter Both Password Same!
-            </Alert>
-          ) : (
-            ""
           )}
 
-          {invalidref ? (
-            <Alert variant="filled" severity={warning}>
-              Enter Valid Refer Code!
-            </Alert>
-          ) : (
-            ""
-          )}
-          {validotp ? (
-            <Alert variant="filled" severity={warning}>
-              Enter Valid OTP
-            </Alert>
-          ) : (
-            ""
-          )}
-          {optsent || numberis ? (
-            <Alert variant="filled" severity={optsent ? success : warning}>
-              {optsent
-                ? "Otp send successfully"
-                : "Email or Mobile Number already exist"}
-            </Alert>
-          ) : (
-            ""
-          )}
-          {firstotp ? (
-            <Alert variant="filled" severity={warning}>
-              First Send OTP!
-            </Alert>
-          ) : (
-            ""
-          )}
           <div className="form-div">
             <div className="otp-reg">
               <form onSubmit={handleSubmit}>
@@ -313,13 +208,17 @@ const Signup = () => {
                         ? "reg-not-sable "
                         : "reg-disable"
                     }
-                    disabled={invitation &&
+                    disabled={
+                      invitation &&
                       withdrawpassword &&
                       number &&
                       password &&
                       confirmpassword &&
                       withdrawpassword &&
-                      otp? "" : true}
+                      otp
+                        ? ""
+                        : true
+                    }
                   >
                     {showprocess ? (
                       <CircularProgress

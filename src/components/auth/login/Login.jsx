@@ -19,8 +19,9 @@ const Login = () => {
   const [userallready, setuserallready] = useState(false);
   const [showprocess, setshowprocess] = useState(false);
   const [showpassword, setshowpassword] = useState(false);
+  const [message, setmessage] = useState("");
+  const success = "success";
 
-  const warning = "warning";
 
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -36,25 +37,22 @@ const Login = () => {
         password: password,
       }
     );
+ 
     if (response.data.status === true) {
-      setsuccessful(true);
+      localStorage.setItem("tokenauth", response.data.token);
+      navigate("/")
+  }
 
-      setTimeout(() => {
-        setsuccessful(false);
-        setshowprocess(false);
-        navigate("/");
-      }, 1000);
-    }
     if (response.data.status === false) {
-      setuserallready(true);
-
+      setmessage(response.data.msg);
       setTimeout(() => {
-        setuserallready(false);
+        setmessage("");
         setshowprocess(false);
-      }, 1000);
+      }, 2000);
     }
+   
 
-    localStorage.setItem("tokenauth", response.data.token);
+  
     console.log("registe data", number, response.data.token);
   };
   return (
@@ -64,13 +62,12 @@ const Login = () => {
           <div className="logo-div">
             <img src={Logo} alt="logo" />
           </div>
-          {userallready ? (
-            <Alert variant="filled" severity={warning}>
-              Enter the correct credentials
+          {message && (
+            <Alert variant="filled" severity={success}>
+              {message}
             </Alert>
-          ) : (
-            ""
           )}
+
           <div className="form-div">
             <form onSubmit={handleSubmit}>
               <div className="input-div">

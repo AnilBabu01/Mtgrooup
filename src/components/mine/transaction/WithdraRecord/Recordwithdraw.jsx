@@ -1,20 +1,31 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Record from "../Record";
+import {useNavigate} from"react-router-dom"
 import CircularProgress from "@material-ui/core/CircularProgress";
 import "../Record.css";
 
 const Recordwithdraw = ({ searchdata, searchloader }) => {
   const [withdraw, setwithdraw] = useState("");
+  const navigate =useNavigate();
   axios.defaults.headers.get["Authorization"] = `Bearer ${localStorage.getItem(
     "tokenauth"
   )}`;
-
+  const logout = () => {
+   
+    localStorage.removeItem("tokenauth");
+    setTimeout(() => {
+    
+      navigate("/login");
+    }, 1000);
+  };
   const getrecharge = async () => {
     const response = await axios.get(
       "https://www.admin.mtgrooups.in/api/transaction-history?status=0"
     );
-
+    if(response.status===401){
+      logout();
+    }
     if (response.data.status === true) {
       setwithdraw(response.data.data);
     }

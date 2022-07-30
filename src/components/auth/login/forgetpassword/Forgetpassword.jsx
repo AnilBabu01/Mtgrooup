@@ -19,8 +19,8 @@ const Forgetpassword = () => {
   const [invalidotp, setinvalidotp] = useState(false);
   const [showprocess, setshowprocess] = useState(false);
   const [showpassword, setshowpassword] = useState(false);
+  const [message, setmessage] = useState("");
   const success = "success";
-  const warning = "warning";
   const { number, password, otp } = credentials;
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -37,19 +37,20 @@ const Forgetpassword = () => {
         password: password,
       }
     );
+   
     if (response.data.status === true) {
-      setsuccessful(true);
+      setmessage(response.data.msg);
       setTimeout(() => {
-        setsuccessful(false);
-
-        navigate("/");
+        setmessage("");
+        navigate("/login")
         setshowprocess(false);
       }, 2000);
     }
+
     if (response.data.status === false) {
-      setinvalidotp(true);
+      setmessage(response.data.msg);
       setTimeout(() => {
-        setinvalidotp(false);
+        setmessage("");
         setshowprocess(false);
       }, 2000);
     }
@@ -64,15 +65,12 @@ const Forgetpassword = () => {
       <div className="pad-div">
         <div className="forget-div">
           <div>
-            {successful || invalidotp ? (
-              <Alert variant="filled" severity={successful ? success : warning}>
-                {successful
-                  ? "Password Changed Successfully"
-                  : "Enter valid otp"}
-              </Alert>
-            ) : (
-              ""
-            )}
+          {message && (
+            <Alert variant="filled" severity={success}>
+              {message}
+            </Alert>
+          )}
+
             <Getotp />
             <form onSubmit={handleSubmit}>
               <div className="for-input-div">

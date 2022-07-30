@@ -13,19 +13,23 @@ const Mineresetpassword = () => {
     newpassword: "",
     confirmbnewpassword: "",
   });
-  const [successful, setsuccessful] = useState(false);
-  const [invalidodlpassword, setinvalidodlpassword] = useState(false);
-  const [notbothsame, setnotbothsame] = useState(false);
   const [showprocess, setshowprocess] = useState(false);
+  const [message, setmessage] = useState("");
   const success = "success";
-  const warning = "warning";
   const token = localStorage.getItem("tokenauth");
   useEffect(() => {
     if (!token) {
       navigate("/login");
     }
   }, []);
-
+  const logout = () => {
+   
+    localStorage.removeItem("tokenauth");
+    setTimeout(() => {
+    
+      navigate("/login");
+    }, 1000);
+  };
   const { oldpassword, newpassword, confirmbnewpassword } = credentials;
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -45,42 +49,27 @@ const Mineresetpassword = () => {
         cnf_password: confirmbnewpassword,
       }
     );
+    if(response.status===401){
+      logout();
+    }
     if (response.data.status === true) {
-      setsuccessful(true);
-      setshowprocess(false);
+      setmessage(response.data.msg);
       setTimeout(() => {
-        setsuccessful(false);
-        navigate("/mine");
+        setmessage("");
+        setshowprocess(false);
       }, 2000);
     }
-    if (
-      response.data.status === false &&
-      response.data.msg === "Enter Valid Old Password"
-    ) {
-      setshowprocess(false);
-      setinvalidodlpassword(true);
+
+    if (response.data.status === false) {
+      setmessage(response.data.msg);
       setTimeout(() => {
-        setinvalidodlpassword(false);
+        setmessage("");
+        setshowprocess(false);
       }, 2000);
     }
-    if (
-      response.data.status === false &&
-      response.data.msg === "Enter Both Password Same"
-    ) {
-      setshowprocess(false);
-      setnotbothsame(true);
-      setTimeout(() => {
-        setnotbothsame(false);
-      }, 2000);
-    }
-    console.log(
-      "change password data",
-      oldpassword,
-      newpassword,
-      confirmbnewpassword,
-      response
-    );
-  };
+   
+   
+};
   return (
     <>
       <div className="close-div5">
@@ -94,22 +83,13 @@ const Mineresetpassword = () => {
       </div>
 
       <div className="pad-div">
-        {successful || invalidodlpassword ? (
-          <Alert variant="filled" severity={successful ? success : warning}>
-            {successful
-              ? "Password Changed Successfully"
-              : "Enter Valid Old Password "}
-          </Alert>
-        ) : (
-          ""
-        )}
-        {notbothsame ? (
-          <Alert variant="filled" severity={warning}>
-            Please enter Both Password Same"
-          </Alert>
-        ) : (
-          ""
-        )}
+         {message && (
+            <Alert variant="filled" severity={success}>
+              {message}
+            </Alert>
+          )}
+
+         
 
         <div className="forget-div">
           <form onSubmit={handleSubmit}>
