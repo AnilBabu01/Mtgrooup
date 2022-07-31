@@ -122,34 +122,46 @@ const Withdraw = () => {
   };
   const withdrawfub = async () => {
     console.log("withdraw");
-    const response = await axios.post(
-      "https://www.admin.mtgrooups.in/api/withdraw",
-      {
-        withdrawl_type_id: userbank ? userbank.id : "",
-        amount: totalamout,
-      }
-    );
-      
-      if(response.status===401){
-        logout();
-      }
-      if (response.data.status === true) {
-        getuserbankinfo();
-        setOpen1(true);
-        setmessage(response.data.msg);
-        setTimeout(() => {
-          setmessage("");
-          setOpen1(false);
-        }, 2000);
-      }
-      if (response.data.status === false) {
-        setOpen1(true);
-        setmessage(response.data.msg);
-        setTimeout(() => {
-          setmessage("");
-          setOpen1(false);
-        }, 2000);
-      }
+    if(totalamout<"200"){
+      setOpen1(true);
+      setmessage("The minimum withdraw amount per time is not less than Rs 200");
+      setTimeout(() => {
+        setmessage("");
+        setOpen1(false);
+      }, 2000);
+    }
+    else
+    {
+      const response = await axios.post(
+        "https://www.admin.mtgrooups.in/api/withdraw",
+        {
+          withdrawl_type_id: userbank ? userbank.id : "",
+          amount: totalamout,
+        }
+      );
+        
+        if(response.status===401){
+          logout();
+        }
+        if (response.data.status === true) {
+          getuserbankinfo();
+          setOpen1(true);
+          setmessage(response.data.msg);
+          setTimeout(() => {
+            setmessage("");
+            setOpen1(false);
+          }, 2000);
+        }
+        if (response.data.status === false) {
+          setOpen1(true);
+          setmessage(response.data.msg);
+          setTimeout(() => {
+            setmessage("");
+            setOpen1(false);
+          }, 2000);
+        }
+    }
+   
    
     
   };
