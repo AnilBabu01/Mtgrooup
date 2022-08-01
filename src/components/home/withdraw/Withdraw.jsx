@@ -230,7 +230,7 @@ const Withdraw = () => {
           </div>
           <div className="bal-div">
             <p>Balance: ₹ {useramount?useramount:"0.00"} </p>
-            <p className="with-p">Withdraw All</p>
+            <p onClick={()=>settotalamout(useramount)} className="with-p">Withdraw All</p>
           </div>
         </div>
       </div>
