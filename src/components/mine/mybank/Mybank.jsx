@@ -10,6 +10,13 @@ import BottomNavBar from "../../bottomnavbar/BottomNavbar";
 
 const Mybank = () => {
   const navigate = useNavigate();
+ 
+  const [bankidd, setbankidd] = useState("");
+  const [showprocess, setshowprocess] = useState(false);
+  const token = localStorage.getItem("tokenauth");
+  const [message, setmessage] = useState("");
+  const [runmore, setrunmore] = useState(false)
+  const success = "success";
   const [credentials, setCredentials] = useState({
     name: "",
     number: "",
@@ -18,12 +25,6 @@ const Mybank = () => {
     ifsc: "",
     withdrawpassword: "",
   });
-  const [bankidd, setbankidd] = useState("");
-  const [showprocess, setshowprocess] = useState(false);
-  const token = localStorage.getItem("tokenauth");
-  const [message, setmessage] = useState("");
-  const success = "success";
-
   const { number, bankno, bankname, ifsc, withdrawpassword, name } =
     credentials;
   const onChange = (e) => {
@@ -50,15 +51,35 @@ const Mybank = () => {
     if(response.status===401){
       logout();
     }
+    setrunmore(true)
     setbankidd(response.data.data[0]);
-};
 
+    console.log(response.data.data[0])
+     
+    
+};
+const fill =()=>{
+  
+  setCredentials({
+    name: bankidd.name,
+    number: bankidd.phone_no,
+    bankno: bankidd.account_no,
+    bankname: bankidd.bank_name,
+    ifsc: bankidd.ifsc_code,
+   
+   
+  })
+}
+
+
+console.log("bank",bankidd.account_no)
   useEffect(() => {
     if (!token) {
       navigate("/login");
     }
     bankid();
-  }, []);
+    fill();
+  }, [runmore]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
