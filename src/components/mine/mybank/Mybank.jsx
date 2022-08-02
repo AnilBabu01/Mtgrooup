@@ -10,12 +10,12 @@ import BottomNavBar from "../../bottomnavbar/BottomNavbar";
 
 const Mybank = () => {
   const navigate = useNavigate();
- 
+
   const [bankidd, setbankidd] = useState("");
   const [showprocess, setshowprocess] = useState(false);
   const token = localStorage.getItem("tokenauth");
   const [message, setmessage] = useState("");
-  const [runmore, setrunmore] = useState(false)
+  const [runmore, setrunmore] = useState(false);
   const success = "success";
   const [credentials, setCredentials] = useState({
     name: "",
@@ -37,10 +37,8 @@ const Mybank = () => {
     "tokenauth"
   )}`;
   const logout = () => {
-   
     localStorage.removeItem("tokenauth");
     setTimeout(() => {
-    
       navigate("/login");
     }, 1000);
   };
@@ -48,31 +46,25 @@ const Mybank = () => {
     const response = await axios.get(
       `${process.env.REACT_APP_BASE_URL}/api/bank`
     );
-    if(response.status===401){
+    if (response.status === 401) {
       logout();
     }
-    setrunmore(true)
+    setrunmore(true);
     setbankidd(response.data.data[0]);
 
-    console.log(response.data.data[0])
-     
-    
-};
-const fill =()=>{
-  
-  setCredentials({
-    name: bankidd.name,
-    number: bankidd.phone_no,
-    bankno: bankidd.account_no,
-    bankname: bankidd.bank_name,
-    ifsc: bankidd.ifsc_code,
-   
-   
-  })
-}
+    console.log(response.data.data[0]);
+  };
+  const fill = () => {
+    setCredentials({
+      name: bankidd.name,
+      number: bankidd.phone_no,
+      bankno: bankidd.account_no,
+      bankname: bankidd.bank_name,
+      ifsc: bankidd.ifsc_code,
+    });
+  };
 
-
-console.log("bank",bankidd.account_no)
+  console.log("bank", bankidd.account_no);
   useEffect(() => {
     if (!token) {
       navigate("/login");
@@ -80,14 +72,19 @@ console.log("bank",bankidd.account_no)
     bankid();
     fill();
   }, [runmore]);
-
+  let id;
+  if (bankidd.id) {
+    id = bankidd.id;
+  } else {
+    id = "";
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
     setshowprocess(true);
     const response = await axios.post(
       `${process.env.REACT_APP_BASE_URL}/api/addBank`,
       {
-        withdrawl_id: bankidd.id,
+        withdrawl_id: id,
         withdrawl_password: withdrawpassword,
         phone_no: number,
         ifsc_code: ifsc,
