@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Alert from "@mui/material/Alert";
 import CloseIcon from "@material-ui/icons/Close";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import "./Mineresetpassword.css";
 import BottomNavBar from "../../bottomnavbar/BottomNavbar";
 const Mineresetpassword = () => {
@@ -12,11 +13,23 @@ const Mineresetpassword = () => {
     newpassword: "",
     confirmbnewpassword: "",
   });
-  const [successful, setsuccessful] = useState(false);
-  const [invalidodlpassword, setinvalidodlpassword] = useState(false);
-  const [notbothsame, setnotbothsame] = useState(false);
+  const [showprocess, setshowprocess] = useState(false);
+  const [message, setmessage] = useState("");
   const success = "success";
-  const warning = "warning";
+  const token = localStorage.getItem("tokenauth");
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  }, []);
+  const logout = () => {
+   
+    localStorage.removeItem("tokenauth");
+    setTimeout(() => {
+    
+      navigate("/login");
+    }, 1000);
+  };
   const { oldpassword, newpassword, confirmbnewpassword } = credentials;
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -27,7 +40,7 @@ const Mineresetpassword = () => {
   )}`;
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setshowprocess(true);
     const response = await axios.post(
       "https://www.admin.mtgrooups.in/api/resetPassword",
       {
@@ -36,39 +49,27 @@ const Mineresetpassword = () => {
         cnf_password: confirmbnewpassword,
       }
     );
+    if(response.status===401){
+      logout();
+    }
     if (response.data.status === true) {
-      setsuccessful(true);
+      setmessage(response.data.msg);
+      setTimeout(() => {
+        setmessage("");
+        setshowprocess(false);
+      }, 2000);
+    }
 
+    if (response.data.status === false) {
+      setmessage(response.data.msg);
       setTimeout(() => {
-        setsuccessful(false);
+        setmessage("");
+        setshowprocess(false);
       }, 2000);
     }
-    if (
-      response.data.status === false &&
-      response.data.msg === "Enter Valid Old Password"
-    ) {
-      setinvalidodlpassword(true);
-      setTimeout(() => {
-        setinvalidodlpassword(false);
-      }, 2000);
-    }
-    if (
-      response.data.status === false &&
-      response.data.msg === "Enter Both Password Same"
-    ) {
-      setnotbothsame(true);
-      setTimeout(() => {
-        setnotbothsame(false);
-      }, 2000);
-    }
-    console.log(
-      "change password data",
-      oldpassword,
-      newpassword,
-      confirmbnewpassword,
-      response
-    );
-  };
+   
+   
+};
   return (
     <>
       <div className="close-div5">
@@ -82,22 +83,13 @@ const Mineresetpassword = () => {
       </div>
 
       <div className="pad-div">
-        {successful || invalidodlpassword ? (
-          <Alert variant="filled" severity={successful ? success : warning}>
-            {successful
-              ? "Password Changed Successfully"
-              : "Enter Valid Old Password "}
-          </Alert>
-        ) : (
-          ""
-        )}
-        {notbothsame ? (
-          <Alert variant="filled" severity={warning}>
-            Please enter Both Password Same"
-          </Alert>
-        ) : (
-          ""
-        )}
+         {message && (
+            <Alert variant="filled" severity={success}>
+              {message}
+            </Alert>
+          )}
+
+         
 
         <div className="forget-div">
           <form onSubmit={handleSubmit}>
@@ -129,7 +121,20 @@ const Mineresetpassword = () => {
               />
             </div>
             <div className="for-input-div">
-              <button>Change</button>
+              <button
+                disabled={
+                  !oldpassword && !newpassword && !confirmbnewpassword
+                    ? true
+                    : ""
+                }
+                style={{ backgroundColor: "rgb(137,87,229)" }}
+              >
+                {showprocess ? (
+                  <CircularProgress style={{ width: "21px", height: "21px" }} />
+                ) : (
+                  "Change"
+                )}
+              </button>
             </div>
           </form>
         </div>

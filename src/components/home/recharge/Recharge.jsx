@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import CloseIcon from "@material-ui/icons/Close";
 import axios from "axios";
@@ -12,17 +12,33 @@ const Recharge = () => {
   axios.defaults.headers.post["Authorization"] = `Bearer ${localStorage.getItem(
     "tokenauth"
   )}`;
-
+  const token = localStorage.getItem("tokenauth");
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  }, []);
+  const logout = () => {
+   
+    localStorage.removeItem("tokenauth");
+    setTimeout(() => {
+    
+      navigate("/login");
+    }, 1000);
+  };
   const onchnge = (e) => {
     setamout(e.target.value);
   };
   const submitamount = async () => {
     const response = await axios.post(
-      "https://www.admin.mtgrooups.in/api/addAmount",
+      `${process.env.REACT_APP_BASE_URL}/api/addAmount`,
       {
         amount: amout,
       }
     );
+    if(response.status===401){
+      logout();
+    }
     if (response.data.status === true) {
       setshowadminbankdel(true);
       settransactionid(response.data.transaction_id);
@@ -36,7 +52,7 @@ const Recharge = () => {
       <div className="close-div7">
         <CloseIcon
           style={{ color: "white" }}
-          onClick={() => navigate("/home")}
+          onClick={() => navigate("/")}
         />
         <div className="title-div7">
           <p>Recharge</p>
@@ -48,6 +64,12 @@ const Recharge = () => {
           <div className="main-rech">
             <div>
               <p>Enter amount:</p>
+               <div className="cen-am">
+              
+              <h2>
+                {" "}
+                <span className="red-p">₹</span>
+              </h2>
               <input
                 className="am-input"
                 type="text"
@@ -55,18 +77,21 @@ const Recharge = () => {
                 onChange={onchnge}
                 name="amout"
               />
+
               <h2>
-                <span className="red-p">₹</span>
                 <span className="left-amount">Amount</span>
               </h2>
+
+               </div>
+             
               <p className="red-p">
                 1: Fill in The callback UTR correctly , and the account will be
                 credited within 1 minute.
               </p>
               <p span className="red-p">
                 2: If you forget ti fill in the UTR , please contact the online
-                customer service in time yo help you solve the problem of the
-                safe arrial of funds
+                customer service in time to help you solve the problem of the
+                safe arrival of funds
               </p>
             </div>
             <div className="rupe-div">

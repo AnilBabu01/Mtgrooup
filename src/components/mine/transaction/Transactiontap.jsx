@@ -1,17 +1,32 @@
-import React, { useState} from "react";
+import React, { useState, useEffect } from "react";
 import Recordrecharge from "./RechargeRecord/Recordrecharge";
 import Recordwithdraw from "./WithdraRecord/Recordwithdraw";
 import Recordall from "./AllRecord/Recordall";
+import {useNavigate}from "react-router-dom"
 import axios from "axios";
 import "./TransacTap.css";
+import { FlashAuto } from "@material-ui/icons";
 const Transactiontap = () => {
+  const navigate=useNavigate();
   const [toggleState, setToggleState] = useState(1);
   const [statusvalue, setstatusvalue] = useState(1);
+  const [searchloader, setsearchloader] = useState(true);
+  const [allsearch, setallsearch] = useState("");
+  const [rechargesearch, setrechargesearch] = useState("");
+  const [withdrawaearch, setwithdrawaearch] = useState("");
+  const [showsearch, setshowsearch] = useState(false);
   const [search, setsearch] = useState({
     start: "",
     end: "",
   });
-
+  const logout = () => {
+   
+    localStorage.removeItem("tokenauth");
+    setTimeout(() => {
+    
+      navigate("/login");
+    }, 1000);
+  };
   const { start, end } = search;
   const onchange = (e) => {
     setsearch({ ...search, [e.target.name]: e.target.value });
@@ -20,26 +35,57 @@ const Transactiontap = () => {
   const toggleTab = (index) => {
     if (index === 1) {
       setstatusvalue(1);
+      setallsearch("");
+      setwithdrawaearch("");
+      setrechargesearch("");
     }
     if (index === 2) {
       setstatusvalue(0);
+      setallsearch("");
+      setwithdrawaearch("");
+      setrechargesearch("");
     }
     if (index === 3) {
       setstatusvalue(3);
+      setallsearch("");
+      setwithdrawaearch("");
+      setrechargesearch("");
     }
     setToggleState(index);
   };
 
-  
-  
+  useEffect(() => {}, [showsearch, statusvalue, toggleState]);
+
   const searchbtn = async () => {
-    console.log("dates", start, "to", end,"status",statusvalue);
+    setsearchloader(false)
+    console.log("dates", start, "to", end, "status", statusvalue);
 
     const response = await axios.get(
       `https://www.admin.mtgrooups.in/api/transaction-history?status=${statusvalue}&&from=${start}&to=${end}`
     );
-
+    if(response.status===401){
+      logout();
+    }
     if (response.data.status === true) {
+      setsearchloader(true)
+      if (statusvalue == 1) {
+        setrechargesearch(response.data.data);
+        setshowsearch(!showsearch);
+        setwithdrawaearch("");
+        setallsearch("");
+      }
+      if (statusvalue === 0) {
+        setwithdrawaearch(response.data.data);
+        setshowsearch(!showsearch);
+        setrechargesearch("");
+        setallsearch("");
+      }
+      if (statusvalue === 3) {
+        setallsearch(response.data.data);
+        setshowsearch(!showsearch);
+        setwithdrawaearch("");
+        setrechargesearch("");
+      }
     }
 
     console.log("recharge data", response.data.data);
@@ -49,7 +95,7 @@ const Transactiontap = () => {
       <div className="search-div">
         <input type="date" value={start} name="start" onChange={onchange} /> To
         <input type="date" value={end} name="end" onChange={onchange} />
-        <button onClick={searchbtn} className="search-btn">
+        <button  disabled={!start&&!end ? true : ""} onClick={searchbtn} className="search-btn">
           Search
         </button>
       </div>
@@ -81,7 +127,11 @@ const Transactiontap = () => {
               toggleState === 1 ? "content  active-content" : "content"
             }
           >
-            <Recordrecharge />
+            <Recordrecharge
+               searchloader={searchloader}
+              searchdata={rechargesearch}
+              showsearch={showsearch}
+            />
           </div>
 
           <div
@@ -89,14 +139,14 @@ const Transactiontap = () => {
               toggleState === 2 ? "content  active-content" : "content"
             }
           >
-            <Recordwithdraw />
+            <Recordwithdraw searchdata={withdrawaearch} searchloader={searchloader}/>
           </div>
           <div
             className={
               toggleState === 3 ? "content  active-content" : "content"
             }
           >
-            <Recordall />
+            <Recordall searchdata={allsearch} searchloader={searchloader} />
           </div>
         </div>
       </div>

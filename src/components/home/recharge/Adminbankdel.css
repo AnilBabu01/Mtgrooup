@@ -23,18 +23,23 @@
   width: 530px;
   height: 35px;
   padding-left: 10px;
-  border: 1px solid #e0620d;
+  border: 1px solid rgb(137,87,229);
   border-radius: 5px;
 }
 .icon-div-recharge-main input:focus {
   outline: none;
 }
-
+.copied-p{
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-right: 20px;
+}
 .icon-div-recharge {
   align-items: center;
   display: flex;
   justify-content: space-between;
-  background: #e0620d;
+  
+  background: rgb(137,87,229);
   color: white;
   padding: 4px;
   padding-left: 17px;
@@ -50,7 +55,7 @@
 .utr-input {
   width: 97.2%;
   height: 34px;
-  border: 1px solid #e0620d;
+  border: 1px solid rgb(137,87,229);
   font-size: 16px;
   border-radius: 5px;
   padding-left: 10px;
@@ -63,7 +68,7 @@
   height: 34px;
   margin-top: 10px;
   color: white;
-  background: #e0620d;
+  background: rgb(137,87,229);
   font-size: 20px;
   border-radius: 5px;
 }
@@ -75,5 +80,9 @@
 
   .rec-brn {
     width: 100%;
+  }
+  .icon-div-recharge-main input {
+    width: 200px;
+    
   }
 }

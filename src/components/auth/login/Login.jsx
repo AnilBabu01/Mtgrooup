@@ -1,9 +1,11 @@
-import React, { useState } from "react";
-import Logo from "../../images/logo.jpg";
+import React, { useState, useEffect } from "react";
+import Logo from "../../images/logo.jpeg";
 import lock from "../../images/lock.png";
 import man from "../../images/man.png";
 import axios from "axios";
 import Alert from "@mui/material/Alert";
+import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
+import VisibilityIcon from "@material-ui/icons/Visibility";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
@@ -16,9 +18,10 @@ const Login = () => {
   const [successful, setsuccessful] = useState(false);
   const [userallready, setuserallready] = useState(false);
   const [showprocess, setshowprocess] = useState(false);
-
+  const [showpassword, setshowpassword] = useState(false);
+  const [message, setmessage] = useState("");
   const success = "success";
-  const warning = "warning";
+
 
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -28,31 +31,28 @@ const Login = () => {
     e.preventDefault();
     setshowprocess(true);
     const response = await axios.post(
-      "https://www.admin.mtgrooups.in/api/login",
+      `${process.env.REACT_APP_BASE_URL}/api/login`,
       {
         mobile_no: number,
         password: password,
       }
     );
+ 
     if (response.data.status === true) {
-      setsuccessful(true);
+      localStorage.setItem("tokenauth", response.data.token);
+      navigate("/")
+  }
 
-      setTimeout(() => {
-        setsuccessful(false);
-        setshowprocess(false);
-        navigate("/home");
-      }, 1000);
-    }
     if (response.data.status === false) {
-      setuserallready(true);
-
+      setmessage(response.data.msg);
       setTimeout(() => {
-        setuserallready(false);
+        setmessage("");
         setshowprocess(false);
-      }, 1000);
+      }, 2000);
     }
+   
 
-    localStorage.setItem("tokenauth", response.data.token);
+  
     console.log("registe data", number, response.data.token);
   };
   return (
@@ -62,13 +62,12 @@ const Login = () => {
           <div className="logo-div">
             <img src={Logo} alt="logo" />
           </div>
-          {userallready ? (
-            <Alert variant="filled" severity={warning}>
-              Enter the correct credentials
+          {message && (
+            <Alert variant="filled" severity={success}>
+              {message}
             </Alert>
-          ) : (
-            ""
           )}
+
           <div className="form-div">
             <form onSubmit={handleSubmit}>
               <div className="input-div">
@@ -87,9 +86,15 @@ const Login = () => {
                   onChange={onChange}
                   name="password"
                   value={password}
-                  type="password"
+                  type={showpassword ? "text" : "password"}
                   placeholder="Login Password"
                 />
+                <li
+                  className="showpassworddsignup1"
+                  onClick={() => setshowpassword(!showpassword)}
+                >
+                  {showpassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                </li>
               </div>
               <div className="btn-div">
                 <button>

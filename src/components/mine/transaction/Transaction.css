@@ -11,7 +11,7 @@
   height: 34px;
   margin-top: 10px;
   color: white;
-  background: #e0620d;
+  background: rgb(137,87,229);
   font-size: 20px;
   height: 42px;
   border-radius: 18px;
@@ -21,7 +21,7 @@
 .search-div input {
   width: 20%;
   height: 34px;
-  border: 1px solid #e0620d;
+  border: 1px solid rgb(137,87,229);
   border-radius: 18px;
   padding-left: 10px;
   padding-right: 10px;

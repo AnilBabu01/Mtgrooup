@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Alert from "@mui/material/Alert";
-const Updatebankdel = ({ setOpen }) => {
+import {useNavigate} from"react-router-dom"
+const Updatebankdel = ({ setcloseupdate }) => {
+  const navigate =useNavigate();
   const [credentials, setCredentials] = useState({
     number: "",
     bankno: "",
@@ -10,13 +12,19 @@ const Updatebankdel = ({ setOpen }) => {
     withdrawpassword: "",
     name: "",
   });
-  const [successful, setsuccessful] = useState(false);
-  const [userallready, setuserallready] = useState(false);
-  const [exist, setexist] = useState(false);
+
+  const [message, setmessage] = useState("");
   const success = "success";
-  const warning = "warning";
   const { number, bankno, bankname, ifsc, withdrawpassword, name } =
     credentials;
+    const logout = () => {
+   
+      localStorage.removeItem("tokenauth");
+      setTimeout(() => {
+      
+        navigate("/login");
+      }, 1000);
+    };
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
@@ -37,61 +45,31 @@ const Updatebankdel = ({ setOpen }) => {
         bank_name: bankname,
       }
     );
+    if(response.status===401){
+      logout();
+    }
     if (response.data.status === true) {
-      setsuccessful(true);
+      setmessage(response.data.msg);
       setTimeout(() => {
-        setsuccessful(false);
-        setOpen(false);
+        setcloseupdate(true);
+        setmessage("");
       }, 2000);
     }
-    if (
-      response.data.status === false &&
-      response.data.msg === "Enter Valid Withdrawl Password!!"
-    ) {
-      setuserallready(true);
+    if (response.data.status === false) {
+      setmessage(response.data.msg);
       setTimeout(() => {
-        setuserallready(false);
+        setcloseupdate(true);
+        setmessage("");
       }, 2000);
     }
-    if (
-      response.data.status === false &&
-      response.data.msg === "You can Add Only one withdraw Account!!"
-    ) {
-      setexist(true);
-      setTimeout(() => {
-        setexist(false);
-      }, 2000);
-    }
-
-    console.log(
-      "add bank data",
-      number,
-      bankno,
-      bankname,
-      ifsc,
-      withdrawpassword,
-      name,
-      response
-    );
   };
 
   return (
     <>
-      {successful || userallready ? (
-        <Alert variant="filled" severity={successful ? success : warning}>
-          {successful
-            ? "Bank details has been Updated"
-            : "Enter valif withdraw password "}
+      {message && (
+        <Alert variant="filled" severity={success}>
+          {message}
         </Alert>
-      ) : (
-        ""
-      )}
-      {exist ? (
-        <Alert variant="filled" severity={warning}>
-          You can Add Only one withdraw Account
-        </Alert>
-      ) : (
-        ""
       )}
       <form onSubmit={handleSubmit}>
         <div className="for-input-div">

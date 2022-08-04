@@ -4,6 +4,8 @@
   box-shadow: 0 0.053333rem 0.533333rem 0.053333rem rgb(223, 200, 200);
   margin: 5px;
   width: 435px;
+  height: 200px;
+ 
 }
 .plan-com-div p,
 h2 {
@@ -31,10 +33,18 @@ h2 {
 
 @media screen and (max-width: 780px) {
   .plan-com-div {
-    width: 97% !important;
+    width: 345px;
   }
 }
+.plan-img-div {
+  width: 40%;
+}
 
+
+.plan-text-div {
+  width: 60%;
+  padding: 10px;
+}
 .plan-text-div-inber{
-    color:#e0620d ;
+    color:rgb(137,87,229) ;
 }

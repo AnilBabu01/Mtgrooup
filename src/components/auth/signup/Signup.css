@@ -5,6 +5,7 @@
   padding: 10px;
   border-radius: 5px;
   position: relative;
+ 
 }
 .input-div1 img {
   width: 25px;
@@ -18,6 +19,8 @@
   width: 320px;
   margin-left: 10px;
   font-size: 17px;
+  
+ 
 }
 .input-div1 input:focus {
   outline: none;
@@ -29,11 +32,33 @@
   margin-top: 20px;
   font-size: 20px;
   margin-bottom: 10px;
+  position: relative;
+}
+.showpassworddsignup{
+  position: absolute;
+  list-style: none;
+  color: rgb(137,87,229);
+  left: 90%;
+}
+.showpassworddsignup1{
+  position: absolute;
+  list-style: none;
+  color: rgb(137,87,229);
+  left: 63%;
+}
+.showpassworddsignup2{
+  position: absolute;
+  list-style: none;
+  color: rgb(137,87,229);
+  left: 92%;
+  top: px;
+  margin-top: 6px;
 }
 
 .reg-div1 a {
   text-decoration: none;
-  color: #e0620d;
+  color: rgb(137,87,229);
+ 
 }
 
 .logo-div1 img{
@@ -41,7 +66,64 @@
   width: 450px;
   margin-top: 10px;
 }
+.otp-reg{
+  position: relative;
+}
 
+.set-otpdiv{
+  position: absolute;
+  bottom: 90%;
+  left: 82.5%;
+}
+
+.reg-disable{
+  width: 100%;
+  background-color: rgb(226, 217, 240);
+  box-shadow: -1px 5px 15px 0 rgb(226, 217, 240);
+  color: #fff;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+   height: 34px;
+  border-radius: 5px;
+  border: none;
+  font-weight: 600;
+  font-size: 17px;
+}
+.reg-not-sable{
+  width: 100%;
+    background: rgb(137,87,229);
+    box-shadow: -1px 5px 15px 0 rgb(137,87,229);
+    color: #fff;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+     height: 34px;
+    border-radius: 5px;
+    border: none;
+    font-weight: 600;
+    font-size: 17px;
+}
+
+.set-opt-btn{
+  background-color: rgb(226, 217, 240);
+  color: white;
+  width: 80px;
+  height: 42px;
+  font-weight: 700;
+  border-radius: 5px;
+}
+
+.set-opt-btn1{
+  background-color: rgb(137,87,229);
+  color: white;
+  width: 80px;
+  height: 42px;
+  font-weight: 700;
+  border-radius: 5px;
+}
 @media screen and (max-width: 780px) {
    
     .input-div1 img {
@@ -54,5 +136,25 @@
 .logo-div1 img{
   height: 200px;
   width: 354px;
+}
+
+.set-otpdiv{
+  position: absolute;
+  bottom: 90%;
+  left: 77.5%;
+}
+.showpassworddsignup1 {
+  position: absolute;
+  list-style: none;
+  color: rgb(137,87,229);
+  left: 85%;
+}
+.showpassworddsignup2{
+  position: absolute;
+  list-style: none;
+  color: rgb(137,87,229);
+  left: 87%;
+  top: px;
+  margin-top: 6px;
 }
 }

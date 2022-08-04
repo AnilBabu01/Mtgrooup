@@ -1,5 +1,5 @@
 .close-div1 {
-  background: #e0620d;
+  background: rgb(137,87,229);
   height: 45px;
   display: flex;
   align-items: center;
@@ -17,6 +17,10 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+.copy-left{
+  margin-right: 33.5%;
 }
 .bonus-div {
 }
@@ -44,8 +48,8 @@
   margin-bottom: 0px;
 }
 .total-mmain-div-btn1 {
-  background: #e0620d;
-    box-shadow: -1px 5px 15px 0 #e0620d;
+  background: rgb(137,87,229);
+    box-shadow: -1px 5px 15px 0 rgb(137,87,229);
   width: 400px;
   margin: 10px;
   display: flex;
@@ -78,6 +82,10 @@
   margin-top: 10px;
 }
 @media screen and (max-width: 780px) {
+  
+.copy-left{
+  margin-right: 48%;
+}
   .title-div1 {
     margin-left: 20px !important;
   }

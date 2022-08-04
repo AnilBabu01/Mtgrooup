@@ -1,7 +1,24 @@
 import React from "react";
 import "./Commoncard.css";
-import logo from "../images/logo.jpg";
-const Commoncard = ({recharge,withdraw,name,phone,recommendednumbre,regtime}) => {
+import logo from "../images/logo.jpeg";
+const Commoncard = ({
+  recharge,
+  withdraw,
+  name,
+  phone,
+  recommendednumbre,
+  regtime,
+}) => {
+  const typecast = phone.toString();
+  const first = typecast.substring(0, 3);
+  const second = typecast.substring(7, 10);
+  var test = new Date(regtime);
+  const date =  test.toISOString().split('T')[0]
+  const hours =test.getUTCHours();
+  const min=test.getUTCMinutes();
+  const sec=test.getUTCSeconds()
+  console.log("convsetrd date", date,hours);
+ 
   return (
     <>
       <div className="recharg-div-home3">
@@ -9,17 +26,25 @@ const Commoncard = ({recharge,withdraw,name,phone,recommendednumbre,regtime}) =>
           <div className="com-div-img">
             <img src={logo} alt="logo" />
             <div className="name-div">
-            <h2>Name:{name}</h2>
-            <p className="blue">Recharge:{recharge}</p>
-            <p className="blue">Withdraw:{withdraw}</p>
+              <h2>Name: {name}</h2>
+              <p className="blue">Recharge: {recharge}</p>
+              <p className="blue">Withdraw: {withdraw}</p>
+            </div>
           </div>
-          </div>
-          
+
           <div className="no-div">
-            <p  className="blue" dir="rtl">Phone:{phone}</p>
-            <p className="gree" dir="rtl">Recommended number:{recommendednumbre}</p>
-            <p className="or" dir="rtl">Registration time:{regtime}</p>
-            <p  className="or" dir="rtl">23-29-17</p>
+            <p className="blue" dir="rtl">
+              Phone:{`${first}####${second}`}
+            </p>
+            <p className="gree" dir="rtl">
+              Recommended number: {recommendednumbre}
+            </p>
+            <p className="or" dir="rtl">
+              Registration time: {`${hours}:${min}:${sec}`}
+            </p>
+            <p className="or" dir="rtl">
+              {date}
+            </p>
           </div>
         </div>
       </div>

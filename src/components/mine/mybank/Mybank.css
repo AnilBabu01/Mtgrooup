@@ -1,12 +1,12 @@
 .close-div6 {
-  background: #e0620d;
+  background: rgb(137,87,229);
   height: 45px;
   display: flex;
   align-items: center;
   padding-left: 10px;
   margin-bottom: 50px;
 }
-.title-div6 {
+.title-div12 {
   margin: 44%;
   color: white;
   font-size: 20px;
@@ -45,8 +45,8 @@
 }
 
 @media screen and (max-width: 780px) {
-  .title-div6 {
-    margin: 27%;
+  .title-div12 {
+    margin: 31%;
     font-size: 16px;
     margin-top: 0px;
     margin-bottom: 0px;

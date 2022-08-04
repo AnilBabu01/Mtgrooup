@@ -5,7 +5,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Fade from "@material-ui/core/Fade";
 import Updatebankdel from "./Updatebankdel";
-import Alert from "@mui/material/Alert";
 import axios from "axios";
 import { userinfocontext } from "../../context/Userinfo";
 import "./Withdraw.css";
@@ -14,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-
     "&:focus": {
       outline: "none",
     },
@@ -30,6 +28,23 @@ const useStyles = makeStyles((theme) => ({
     width: "600px",
     borderRadius: "15px",
   },
+  paper1: {
+    backgroundColor: "rgb(137,87,229)",
+    border: "none",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    color:"white",
+    "&:focus": {
+      outline: "none",
+    },
+    width: "650px",
+    height: "150px",
+    borderRadius: "15px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: "25px",
+  },
 }));
 
 const Withdraw = () => {
@@ -37,21 +52,27 @@ const Withdraw = () => {
   const context = useContext(userinfocontext);
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
+  const [open1, setOpen1] = React.useState(false);
   const [openupdate, setopenupdate] = useState(true);
   const [userbank, setuserbank] = useState("");
-  const [amount, setamount] = useState("");
-  const [totalamout, settotalamout] = useState(amount);
-  const [successful, setsuccessful] = useState(false);
-  const [userallready, setuserallready] = useState(false);
-  const success = "success";
-  const warning = "warning";
+  const [totalamout, settotalamout] = useState("");
+  const [closeupdate, setcloseupdate] = useState(false);
+  const [useramount, setuseramount] = useState("")
+  const [message, setmessage] = useState("");
+
+  const token = localStorage.getItem("tokenauth");
   const { user, getuserinfo } = context;
+  
   const handleOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleClose1 = () => {
+    setOpen1(false);
   };
 
   axios.defaults.headers.get["Authorization"] = `Bearer ${localStorage.getItem(
@@ -70,14 +91,17 @@ const Withdraw = () => {
   const bankstatus = async () => {
     const res = await axios.get("https://www.admin.mtgrooups.in/api/user");
     setopenupdate(res.data.data.isBank);
+    setuseramount(res.data.data.amount)
+      console.log(res)
   };
   useEffect(() => {
+    if (!token) {
+      navigate("/");
+    }
     getuserinfo();
     getuserbankinfo();
     bankstatus();
-  }, []);
-
-  setTimeout(() => {}, 3000);
+  }, [closeupdate]);
 
   if (openupdate === false) {
     setTimeout(() => {
@@ -88,73 +112,109 @@ const Withdraw = () => {
   const onchange = (e) => {
     settotalamout(e.target.value);
   };
-
+  const logout = () => {
+   
+    localStorage.removeItem("tokenauth");
+    setTimeout(() => {
+    
+      navigate("/login");
+    }, 1000);
+  };
   const withdrawfub = async () => {
     console.log("withdraw");
-    const response = await axios.post(
-      "https://www.admin.mtgrooups.in/api/withdraw",
-      {
-        withdrawl_type_id: userbank ? userbank.id : "",
-        amount: totalamout,
-      }
-    );
-
-    if (response.data.status === true) {
-      setsuccessful(true);
+    if(totalamout<"200"){
+      setOpen1(true);
+      setmessage("The minimum withdraw amount per time is not less than Rs 200");
       setTimeout(() => {
-        setsuccessful(false);
+        setmessage("");
+        setOpen1(false);
       }, 2000);
     }
-    if (response.data.status === false) {
-      setuserallready(true);
-      setTimeout(() => {
-        setuserallready(false);
-      }, 2000);
+    else
+    {
+      const response = await axios.post(
+        "https://www.admin.mtgrooups.in/api/withdraw",
+        {
+          withdrawl_type_id: userbank ? userbank.id : "",
+          amount: totalamout,
+        }
+      );
+        
+        if(response.status===401){
+          logout();
+        }
+        if (response.data.status === true) {
+          getuserbankinfo();
+          setOpen1(true);
+          setmessage(response.data.msg);
+          setTimeout(() => {
+            setmessage("");
+            setOpen1(false);
+          }, 2000);
+        }
+        if (response.data.status === false) {
+          setOpen1(true);
+          setmessage(response.data.msg);
+          setTimeout(() => {
+            setmessage("");
+            setOpen1(false);
+          }, 2000);
+        }
     }
-
-    console.log("withdraw", response.data);
+   
+   
+    
   };
+ 
   return (
     <>
       <div className="close-div">
         <CloseIcon
           style={{ color: "white" }}
-          onClick={() => navigate("/home")}
+          onClick={() => navigate("/")}
         />
         <div className="title-div">
           <p>Withdraw</p>
         </div>
       </div>
-
-      <div>
-        <Modal
-          className={classes.modal}
-          open={open}
-          onClose={handleClose}
-          closeAfterTransition
-          BackdropProps={{
-            timeout: 500,
-          }}
-        >
-          <Fade in={open}>
-            <div className={classes.paper}>
-              <Updatebankdel setOpen={setOpen} />
-            </div>
-          </Fade>
-        </Modal>
-      </div>
-
+      {!closeupdate && (
+        <>
+          <div>
+            <Modal
+              className={classes.modal}
+              open={open}
+              onClose={handleClose}
+              closeAfterTransition
+              BackdropProps={{
+                timeout: 500,
+              }}
+            >
+              <Fade in={open}>
+                <div className={classes.paper}>
+                  <Updatebankdel setcloseupdate={setcloseupdate} />
+                </div>
+              </Fade>
+            </Modal>
+          </div>
+        </>
+      )}
+      <Modal
+        className={classes.modal}
+        open={open1}
+        onClose={handleClose1}
+        closeAfterTransition
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open1}>
+          <div className={classes.paper1}>
+           {message}
+          </div>
+        </Fade>
+      </Modal>
       <div className="recharg-div-home1">
         <div className="withdrawoptins1">
-          {successful || userallready ? (
-            <Alert variant="filled" severity={successful ? success : warning}>
-              {successful
-                ? "Your Withdraw Request Send To Admin"
-                : "Please enter withdrawl_type_id "}
-            </Alert>
-          ) : (
-            ""
-          )}
           <div className="tax-div">
             <p>Tax 10%</p>
           </div>
@@ -169,8 +229,8 @@ const Withdraw = () => {
             <h2>Amount</h2>
           </div>
           <div className="bal-div">
-            <p>Balance: ₹ 0.25</p>
-            <p className="with-p">Withdraw All</p>
+            <p>Balance: ₹ {useramount?useramount:"0.00"} </p>
+            <p onClick={()=>settotalamout(useramount)} className="with-p">Withdraw All</p>
           </div>
         </div>
       </div>
@@ -220,7 +280,7 @@ const Withdraw = () => {
       </div>
 
       <div className="with-div">
-        <button onClick={withdrawfub}>Please pay 20% withdraw tax first</button>
+        <button onClick={withdrawfub}>withdraw</button>
       </div>
     </>
   );
