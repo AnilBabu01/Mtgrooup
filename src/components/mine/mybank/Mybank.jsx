@@ -3,11 +3,9 @@ import { useNavigate } from "react-router-dom";
 import CloseIcon from "@material-ui/icons/Close";
 import axios from "axios";
 import Alert from "@mui/material/Alert";
-
 import CircularProgress from "@material-ui/core/CircularProgress";
 import "./Mybank.css";
 import BottomNavBar from "../../bottomnavbar/BottomNavbar";
-
 const Mybank = () => {
   const navigate = useNavigate();
 
@@ -16,6 +14,7 @@ const Mybank = () => {
   const token = localStorage.getItem("tokenauth");
   const [message, setmessage] = useState("");
   const [runmore, setrunmore] = useState(false);
+  const [nobankinfo, setnobankinfo] = useState(false);
   const success = "success";
   const [credentials, setCredentials] = useState({
     name: "",
@@ -49,10 +48,15 @@ const Mybank = () => {
     if (response.status === 401) {
       logout();
     }
-    setrunmore(true);
+
     setbankidd(response.data.data[0]);
 
-    console.log(response.data.data[0]);
+    console.log("bank info", response.data.data.length);
+    if (response.data.data.length === 0) {
+    } else {
+      setrunmore(true);
+      setnobankinfo(true);
+    }
   };
   const fill = () => {
     setCredentials({
@@ -64,7 +68,6 @@ const Mybank = () => {
     });
   };
 
-  console.log("bank", bankidd.account_no);
   useEffect(() => {
     if (!token) {
       navigate("/login");
@@ -72,12 +75,16 @@ const Mybank = () => {
     bankid();
     fill();
   }, [runmore]);
-  let id;
-  if (bankidd.id) {
-    id = bankidd.id;
+  let id = "";
+  if (nobankinfo === false) {
   } else {
-    id = "";
+    if (bankidd.id) {
+      id = bankidd.id;
+    } else {
+      id = "";
+    }
   }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setshowprocess(true);

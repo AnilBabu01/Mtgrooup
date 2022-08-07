@@ -1,62 +1,63 @@
 import React, { useState, useContext, useEffect } from "react";
 import BottomNavBar from "../bottomnavbar/BottomNavbar";
-import TelegramIcon from "@material-ui/icons/Telegram";
-import AllInboxIcon from "@material-ui/icons/AllInbox";
-import PeopleIcon from "@material-ui/icons/People";
-import BusinessIcon from "@material-ui/icons/Business";
-import SystemUpdateAltIcon from "@material-ui/icons/SystemUpdateAlt";
-import InputIcon from "@material-ui/icons/Input";
 import { userinfocontext } from "../context/Userinfo";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Common from "./Common";
 import "./Home.css";
+import Slider from "./Slider";
 
 const Home = () => {
   const navigate = useNavigate();
- 
+
   const context = useContext(userinfocontext);
   const { user, getuserinfo } = context;
   const [longterm, setlongterm] = useState("");
   const [shortteram, setshortteram] = useState("");
   const [pending, setpending] = useState("");
   const [recharge, setrecharge] = useState("");
-  const [getagainuserinfo, setgetagainuserinfo] = useState(false)
+  const [image, setimage] = useState("");
+  const [getagainuserinfo, setgetagainuserinfo] = useState(false);
   const blance = pending - recharge;
   axios.defaults.headers.get["Authorization"] = `Bearer ${localStorage.getItem(
     "tokenauth"
   )}`;
-  
+
   const logout = () => {
-   
     localStorage.removeItem("tokenauth");
     setTimeout(() => {
-    
       navigate("/login");
     }, 1000);
   };
-  const  mobile = localStorage.getItem("isMobile");
+  const mobile = localStorage.getItem("isMobile");
+  const getimages = async () => {
+    const response = await axios.get(
+      "https://www.admin.mtgrooups.in/api/slider"
+    );
+
+    setimage(response.data.data);
+  };
+  console.log(image);
   const getplans = async () => {
     const response = await axios.get(
       "https://www.admin.mtgrooups.in/api/plans"
     );
-    console.log("from home",response.status);
-    if(response.status===401){
+    console.log("from home", response.status);
+    if (response.status === 401) {
       logout();
     }
     setlongterm(response.data.data.longTerm);
     setshortteram(response.data.data.shortTerm);
     setpending(response.data.pending);
     setrecharge(response.data.recharge);
-    console.log("pplans", response);
   };
   const token = localStorage.getItem("tokenauth");
   useEffect(() => {
     if (!token) {
       navigate("/login");
     }
-
+    getimages();
     getplans();
     getuserinfo();
   }, [getagainuserinfo]);
@@ -64,7 +65,6 @@ const Home = () => {
 
   return (
     <>
-    
       <div className="recharg-div-home">
         <div className="recharg-div-home-content">
           <div className="text-div">
@@ -82,53 +82,7 @@ const Home = () => {
         </div>
       </div>
       <div className="recharg-div-home">
-        <div className="withdrawoptins">
-          <div className="oprions-icon-div">
-            <div onClick={() => navigate("/recharge")} className="icon-divv">
-              <InputIcon className="icons" />
-              <p>Recharge</p>
-            </div>
-            <a
-              href="https://t.me/mtgroopsofficial"
-              target="_blank"
-              className="icon-divv"
-            >
-              <TelegramIcon className="icons" />
-              <p>Group</p>
-            </a>
-            <div onClick={() => navigate("/withdraw")} className="icon-divv">
-              <AllInboxIcon className="icons" />
-              <p>Withdraw</p>
-            </div>
-          </div>
-         
-          <div className="oprions-icon-div1">
-            <div onClick={() => navigate("/invite")} className="icon-divv">
-              <PeopleIcon className="icons" />
-              <p>Invite</p>
-            </div>
-            {mobile ? (
-              ""
-            ) : (
-              <>
-                <a
-                  href="https://www.mtgrooups.in/mtgrooups.apk"
-                 
-                  style={{ marginLeft: "15px" }}
-                  className="icon-divv"
-                >
-                  <SystemUpdateAltIcon className="icons" />
-                  <p>Download</p>
-                </a>
-              </>
-            )}
-
-            <div className="icon-divv">
-              <BusinessIcon className="icons" />
-              <p>Compnay</p>
-            </div>
-          </div>
-        </div>
+          <Slider image={image} />
       </div>
 
       {longterm && (
@@ -143,8 +97,8 @@ const Home = () => {
                   <>
                     <div>
                       <Common
-                      setgetagainuserinf={setgetagainuserinfo}
-                      getagainuserinfo={getagainuserinfo}
+                        setgetagainuserinf={setgetagainuserinfo}
+                        getagainuserinfo={getagainuserinfo}
                         key={item.id}
                         id={item.id}
                         img={item.image}
@@ -192,8 +146,8 @@ const Home = () => {
                   <>
                     <div key={item.id}>
                       <Common
-                       setgetagainuserinf={setgetagainuserinfo}
-                       getagainuserinfo={getagainuserinfo}
+                        setgetagainuserinf={setgetagainuserinfo}
+                        getagainuserinfo={getagainuserinfo}
                         id={item.id}
                         img={item.image}
                         rupee={item.input_cost}

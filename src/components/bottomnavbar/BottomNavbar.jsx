@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import home from "../images/home.png";
 import team from "../images/team.png";
 import write from "../images/write.png";
-import SystemUpdateAltIcon from "@material-ui/icons/SystemUpdateAlt";
+import TelegramIcon from "@material-ui/icons/Telegram";
+import ShareIcon from '@material-ui/icons/Share';
 import AppsIcon from "@material-ui/icons/Apps";
 import CreateIcon from "@material-ui/icons/Create";
 import PeopleIcon from "@material-ui/icons/People";
@@ -20,6 +21,9 @@ const BottomNavBar = (props) => {
       case "team":
         navigate("/team");
         break;
+        case "invite":
+          navigate("/invite");
+          break;
       case "mybank":
         navigate("/mybank");
         break;
@@ -44,7 +48,7 @@ const BottomNavBar = (props) => {
       <div className="center-bottom-nav">
         <div className="bottom-nav">
           <div className="bn-tab">
-            {activeTabs === "fiewin" ? (
+            {activeTabs === "home" ? (
               <>
                 <div className="centericon">
                   <AppsIcon
@@ -78,32 +82,64 @@ const BottomNavBar = (props) => {
             )}
           </div>
 
-          {mobile ? (
-            ""
-          ) : (
-            <>
+        
               <div className="bn-tab">
                 <a
-                  href="https://www.mtgrooups.in/mtgrooups.apk"
+                 href="https://t.me/mtgroopsofficial"
+                 target="_blank"
                  
                   style={{ marginLeft: "15px", marginTop: "18px" }}
                   className="icon-divv"
                 >
-                  <SystemUpdateAltIcon
+                  <TelegramIcon
                     style={{
                       color: "rgb(137,87,229)",
                       width: "35px",
                       height: "35px",
                     }}
                   />
-                  <p style={{ marginTop: "0px", color: "gray" }}>Download</p>
+                  <p style={{ marginTop: "0px", color: "gray" }}>Group</p>
                 </a>
               </div>
-            </>
-          )}
 
-          <div className="bn-tab">
+
+              <div className="bn-tab">
             {activeTabs === "invite" ? (
+              <>
+                <div className="centericon">
+                  <ShareIcon 
+                    style={{
+                      color: "rgb(137,87,229)",
+                      width: "35px",
+                      height: "35px",
+                    }}
+                    onClick={() => setActiveTabs("invite")}
+                    className="imgsize"
+                  />
+                  <p className="activetext">Invite</p>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="centericon">
+                  <ShareIcon 
+                    style={{
+                      color: "rgb(137,87,229)",
+                      width: "35px",
+                      height: "35px",
+                    }}
+                    onClick={() => setActiveTabs("invite")}
+                    className="imgsize"
+                  />
+                  <p className="notactivetext">Invite</p>
+                </div>
+              </>
+            )}
+          </div>
+
+        
+          <div className="bn-tab">
+            {activeTabs === "team" ? (
               <>
                 <div className="centericon">
                   <PeopleIcon
@@ -135,8 +171,10 @@ const BottomNavBar = (props) => {
               </>
             )}
           </div>
+
+
           <div className="bn-tab">
-            {activeTabs === "recharge" ? (
+            {activeTabs === "mine" ? (
               <>
                 <div className="centericon">
                   <CreateIcon

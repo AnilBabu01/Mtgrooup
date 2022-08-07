@@ -5,6 +5,9 @@ import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import CallIcon from "@material-ui/icons/Call";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
+import SystemUpdateAltIcon from "@material-ui/icons/SystemUpdateAlt";
+import InputIcon from "@material-ui/icons/Input";
+import AllInboxIcon from "@material-ui/icons/AllInbox";
 import TransformIcon from "@material-ui/icons/Transform";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import axios from "axios";
@@ -26,6 +29,7 @@ const Mine = () => {
       navigate("/login");
     }, 1000);
   };
+
 
   axios.defaults.headers.get["Authorization"] = `Bearer ${localStorage.getItem(
     "tokenauth"
@@ -98,6 +102,7 @@ const Mine = () => {
       </div>
       <div className="main-mine">
         <div className="mine-options-go">
+
           <div onClick={() => navigate("/mybank")} className="btn-divv">
             <div className="icon-div">
               <AccountBalanceIcon />
@@ -107,6 +112,29 @@ const Mine = () => {
               <ArrowForwardIosIcon />
             </div>
           </div>
+           
+          <div onClick={() => navigate("/withdraw")} className="btn-divv">
+            <div className="icon-div">
+              <InputIcon/>
+              <p>Withdraw</p>
+            </div>
+            <div>
+              <ArrowForwardIosIcon />
+            </div>
+          </div>
+           
+          <div onClick={() => navigate("/recharge")} className="btn-divv">
+            <div className="icon-div">
+              <AllInboxIcon />
+              <p>Recharge</p>
+            </div>
+            <div>
+              <ArrowForwardIosIcon />
+            </div>
+          </div>
+
+
+
           <div onClick={() => navigate("/transaction")} className="btn-divv">
             <div className="icon-div">
               <TransformIcon />
@@ -155,6 +183,16 @@ const Mine = () => {
               <ArrowForwardIosIcon />
             </div>
           </div>
+          <a   href="https://www.mtgrooups.in/mtgrooups.apk"
+               className="btn-divv">
+            <div className="icon-div">
+              <SystemUpdateAltIcon/>
+              <p>Download</p>
+            </div>
+            <div>
+            
+            </div>
+          </a>
         </div>
       </div>
 

@@ -52,7 +52,7 @@ const Recharge = () => {
       <div className="close-div7">
         <CloseIcon
           style={{ color: "white" }}
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/mine")}
         />
         <div className="title-div7">
           <p>Recharge</p>
