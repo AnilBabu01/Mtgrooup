@@ -171,7 +171,7 @@ const Withdraw = () => {
       <div className="close-div">
         <CloseIcon
           style={{ color: "white" }}
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/mine")}
         />
         <div className="title-div">
           <p>Withdraw</p>

@@ -1,7 +1,5 @@
 .recharg-div-home{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    
     padding: 5px;
 }
 .recharg-div-home-content{
@@ -78,6 +76,10 @@
 .icon-divv .icons{
     color: rgb(137,87,229)!important;
 }
+.slider-img{
+    width: 300px;
+    height: 300px;
+}
 .loader{
     display: flex;
     align-items: center;
@@ -134,5 +136,12 @@
          margin-left: 2px;
       
        
+    }
+
+    .recharg-div-home{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px;
     }
   }

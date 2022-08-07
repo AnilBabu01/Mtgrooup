@@ -59,6 +59,7 @@ const Signup = () => {
     if (response.data.status === true) {
       setmessage(response.data.msg);
       setTimeout(() => {
+     
         setmessage("");
       }, 2000);
     }
@@ -93,6 +94,7 @@ const Signup = () => {
       setTimeout(() => {
         setmessage("");
         setshowprocess(false);
+        navigate('/login') 
       }, 2000);
     }
     if (response.data.status === false) {

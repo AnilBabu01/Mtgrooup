@@ -47,15 +47,18 @@
     margin-bottom: 0px;
 }
 .btn-divv{
-    background:rgb(137,87,229);
+    background: rgb(137,87,229);
     width: 720px;
-    height: 40px;
+    height: 25px;
     margin: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-radius: 5px;
     padding: 10px;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
 }
 
 .icon-div{
@@ -117,8 +120,8 @@
     .btn-divv{
     
         width: 300px;
-        height: 40px;
-        margin: 20px;
+        height: 25px;
+        margin: 10px;
         display: flex;
         justify-content: space-between;
         align-items: center;
