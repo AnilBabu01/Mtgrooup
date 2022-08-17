@@ -57,7 +57,7 @@ const Mine = () => {
     <>
       <div className="close-div">
         <button onClick={logout} className="logout-btnn">
-          Logoout
+          Logout
         </button>
       </div>
       {successful ? (

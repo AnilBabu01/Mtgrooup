@@ -106,7 +106,7 @@ const Adminbankdel = ({ transactionid }) => {
           <form onSubmit={submit}>
             <div>
               <h2>Transaction Details</h2>
-              <p>Enter UTR Number</p>
+              <p>Enter UTR/REF Number</p>
               <input
                 className="utr-input"
                 type="text"

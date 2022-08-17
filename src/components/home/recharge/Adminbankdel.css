@@ -72,7 +72,10 @@
   font-size: 20px;
   border-radius: 5px;
 }
-
+.or-p{
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
 @media screen and (max-width: 780px) {
   .step1-div {
     width: 100%;

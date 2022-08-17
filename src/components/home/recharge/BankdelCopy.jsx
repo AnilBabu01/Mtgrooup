@@ -11,12 +11,14 @@ const BankdelCopy = () => {
   const [copied4, setcopied4] = useState(false);
   const [copied5, setcopied5] = useState(false);
   const [copied6, setcopied6] = useState(false);
+  const [copied7, setcopied7] = useState(false);
   let bankname;
   let holdername;
   let accountno;
   let ifsc;
   let branch;
   let accounttype;
+  let upiid;
   if (user) {
     bankname = user.admin.bank_name;
     holdername = user.admin.account_holder_name;
@@ -24,6 +26,9 @@ const BankdelCopy = () => {
     ifsc = user.admin.branch;
     branch = user.admin.branch;
     accounttype = user.admin.account_type;
+    upiid= user.admin.upi_id;
+    console.log("user info",user)
+
   }
   useEffect(() => {
     getuserinfo();
@@ -36,6 +41,7 @@ const BankdelCopy = () => {
     setcopied4(false);
     setcopied5(false);
     setcopied6(false);
+    setcopied7(false);
   }, 2000);
  
   return (
@@ -43,8 +49,28 @@ const BankdelCopy = () => {
       <p> 1 Copy And Send The Money</p>
       <p>Please transfer 5000 Exactly To The Below Bank Details</p>
       <div>
+      <div className="copy-msg">
+          <h2 className="title-p">UPI Id</h2>{" "}
+          {copied7 ? <p className="copied-p">Copied</p> : null}
+        </div>
+        <div className="icon-div-recharge-main">
+          <input id="bank1" type="text" value={upiid} />{" "}
+          <div>
+            <CopyToClipboard text={upiid} onCopy={() => setcopied7(true)}>
+              <div className="icon-div-recharge">
+                {" "}
+                <span>
+                  {" "}
+                  <FileCopyIcon />
+                  Copy
+                </span>
+              </div>
+            </CopyToClipboard>
+          </div>
+        </div>
+        <p style={{marginTop:"2px",marginBottom:"2px"}}>------------------------OR---------------------</p>
         <div className="copy-msg">
-          <p className="title-p">Bank Name</p>{" "}
+          <h2 className="title-p">Bank Name</h2>{" "}
           {copied1 ? <p className="copied-p">Copied</p> : null}
         </div>
 
